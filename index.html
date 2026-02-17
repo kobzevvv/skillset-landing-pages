@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skillset Landing Pages</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Satoshi', 'Inter', -apple-system, sans-serif;
+      background: #D8DCE5;
+      color: #000;
+      min-height: 100vh;
+      padding: 60px 40px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .header {
+      max-width: 900px; margin: 0 auto 48px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: #000;
+    }
+    .logo span { font-size: 22px; font-weight: 700; }
+    .header-title { font-size: 14px; color: #70758C; margin-left: 8px; padding-left: 16px; border-left: 1px solid #BDC1D6; }
+    .grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    }
+    .card {
+      background: #fff; border-radius: 16px; padding: 28px 32px;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; gap: 8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      border: 1px solid transparent;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      border-color: #0055FF22;
+    }
+    .card-id { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #ADB2CC; }
+    .card-name { font-size: 18px; font-weight: 700; }
+    .card-url { font-size: 13px; color: #0055FF; font-weight: 500; }
+    .card-target { font-size: 13px; color: #858AA6; }
+    .card-priority { font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; width: fit-content; margin-top: 4px; }
+    .priority-high { background: rgba(0,85,255,0.1); color: #0055FF; }
+    .priority-medium { background: rgba(133,138,166,0.15); color: #70758C; }
+    footer {
+      max-width: 900px; margin: 40px auto 0;
+      font-size: 13px; color: #ADB2CC;
+      padding-top: 20px; border-top: 1px solid #BDC1D6;
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      body { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="https://skillset.ae" class="logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="6" fill="#151A24"/>
+        <path d="M7 12.5L10.5 16L17 8" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Skillset</span>
+    </a>
+    <span class="header-title">Landing Pages</span>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="landings/ai-recruiting/">
+      <div class="card-id">LP-01</div>
+      <div class="card-name">AI Recruiting Software</div>
+      <div class="card-url">/ai-recruiting</div>
+      <div class="card-target">Corp HR, TA Teams</div>
+      <div class="card-priority priority-high">High Priority</div>
+    </a>
+    <a class="card" href="landings/resume-screening/">
+      <div class="card-id">LP-02</div>
+      <div class="card-name">AI Resume Screening</div>
+      <div class="card-url">/resume-screening</div>
+      <div class="card-target">Corp HR, Agencies, TA Teams</div>
+      <div class="card-priority priority-high">High Priority</div>
+    </a>
+    <a class="card" href="landings/ai-sourcing/">
+      <div class="card-id">LP-03</div>
+      <div class="card-name">AI Candidate Sourcing</div>
+      <div class="card-url">/ai-sourcing</div>
+      <div class="card-target">Agencies, TA Teams</div>
+      <div class="card-priority priority-high">High Priority</div>
+    </a>
+    <a class="card" href="landings/automation/">
+      <div class="card-id">LP-04</div>
+      <div class="card-name">Recruitment Automation</div>
+      <div class="card-url">/automation</div>
+      <div class="card-target">Corp HR, TA Teams</div>
+      <div class="card-priority priority-medium">Medium Priority</div>
+    </a>
+    <a class="card" href="landings/small-business/">
+      <div class="card-id">LP-05</div>
+      <div class="card-name">AI Recruiting for Small Business</div>
+      <div class="card-url">/small-business</div>
+      <div class="card-target">SMB Founders</div>
+      <div class="card-priority priority-medium">Medium Priority</div>
+    </a>
+    <a class="card" href="landings/agencies/">
+      <div class="card-id">LP-06</div>
+      <div class="card-name">AI Recruiting for Agencies</div>
+      <div class="card-url">/agencies</div>
+      <div class="card-target">Recruitment Agencies</div>
+      <div class="card-priority priority-medium">Medium Priority</div>
+    </a>
+    <a class="card" href="landings/compare/">
+      <div class="card-id">LP-07</div>
+      <div class="card-name">Compare vs Competitors</div>
+      <div class="card-url">/compare</div>
+      <div class="card-target">All (bottom-funnel)</div>
+      <div class="card-priority priority-high">High Priority</div>
+    </a>
+    <a class="card" href="landings/dubai/">
+      <div class="card-id">LP-08</div>
+      <div class="card-name">AI Recruiting Dubai &amp; UAE</div>
+      <div class="card-url">/dubai</div>
+      <div class="card-target">All UAE segments</div>
+      <div class="card-priority priority-high">High Priority</div>
+    </a>
+    <a class="card" href="landings/demo/">
+      <div class="card-id">LP-09</div>
+      <div class="card-name">Book a Demo</div>
+      <div class="card-url">/demo</div>
+      <div class="card-target">All segments</div>
+      <div class="card-priority priority-high">High Priority</div>
+    </a>
+    <a class="card" href="landings/ai-recruiter/">
+      <div class="card-id">LP-00</div>
+      <div class="card-name">AI Recruiter (original)</div>
+      <div class="card-url">/ai-recruiter</div>
+      <div class="card-target">Google Ads — AI recruiting keywords</div>
+      <div class="card-priority priority-medium">Medium Priority</div>
+    </a>
+  </div>
+
+  <footer>
+    All pages use Calendly (calendly.com/olga-skillset/skillset-demo) for demo booking.
+  </footer>
+</body>
+</html>
