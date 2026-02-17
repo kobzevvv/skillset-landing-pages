@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Demo — See Skillset AI in Action | Skillset</title>
+  <meta name="description" content="Pick a time that works. No commitment, no sales pitch — just a quick 15-minute walkthrough of how AI hiring works for your team.">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); background: var(--bg); line-height: 1.25; -webkit-font-smoothing: antialiased; }
+
+    .sklst-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 40px; background: rgba(216, 220, 229, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: box-shadow 0.3s; }
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .sklst-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .sklst-nav-logo span { font-size: 20px; font-weight: 700; }
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a { text-decoration: none; color: var(--text-muted-dark); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .sklst-nav-links a:hover { color: var(--accent); }
+
+    .sklst-btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer; border: none; font-family: 'Satoshi', 'Inter', sans-serif; transition: all 0.2s ease; }
+    .sklst-btn-primary { background: var(--accent); color: var(--text-white); border-radius: var(--radius-pill); padding: 14px 36px; font-size: 17px; font-weight: 700; }
+    .sklst-btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3); }
+    .sklst-btn-sm { padding: 10px 24px; font-size: 14px; font-weight: 700; border-radius: var(--radius-pill); }
+
+    /* DEMO HERO — split layout */
+    .sklst-demo-layout {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+
+    /* LEFT PANEL */
+    .sklst-demo-left {
+      background: var(--bg-dark);
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: var(--text-white);
+    }
+    .sklst-demo-left .sklst-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0, 85, 255, 0.2); border: 1px solid rgba(0, 85, 255, 0.4);
+      border-radius: var(--radius-pill);
+      padding: 6px 16px;
+      font-size: 13px; font-weight: 700; color: #6699FF;
+      text-transform: uppercase;
+      width: fit-content;
+      margin-bottom: 32px;
+    }
+    .sklst-demo-left h1 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: var(--text-white);
+    }
+    .sklst-demo-left p.sklst-sub {
+      font-size: 17px;
+      color: var(--text-muted-light);
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .sklst-what-youll-see { margin-bottom: 40px; }
+    .sklst-what-youll-see h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--peach); margin-bottom: 20px; }
+    .sklst-demo-point {
+      display: flex; align-items: flex-start; gap: 14px;
+      margin-bottom: 16px;
+    }
+    .sklst-demo-point-icon {
+      width: 28px; height: 28px; min-width: 28px;
+      border-radius: 50%; background: rgba(0, 85, 255, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: #6699FF;
+    }
+    .sklst-demo-point-text { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+
+    .sklst-demo-meta {
+      display: flex; gap: 24px; flex-wrap: wrap;
+      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .sklst-demo-meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted-light); }
+
+    /* RIGHT PANEL — Calendly */
+    .sklst-demo-right {
+      background: var(--bg-card);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .sklst-calendly-wrap {
+      flex: 1;
+      min-height: 700px;
+    }
+    .sklst-calendly-wrap .calendly-inline-widget {
+      min-width: 100%;
+      height: 100%;
+      min-height: 700px;
+    }
+
+    /* SOCIAL PROOF BELOW */
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-header { text-align: center; max-width: 600px; margin: 0 auto 56px; }
+    .sklst-section-label { font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+    .sklst-section-title { font-size: clamp(26px, 3.5vw, 30px); font-weight: 700; line-height: 1.17; margin-bottom: 12px; }
+    .sklst-section-desc { font-size: 18px; color: var(--text-muted); line-height: 1.4; }
+
+    .sklst-stats-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-stat-card {
+      background: var(--bg-card); border-radius: var(--radius-card);
+      padding: 40px 32px; text-align: center;
+    }
+    .sklst-stat-card .sklst-big-num { font-size: 48px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .sklst-stat-card p { font-size: 15px; color: var(--text-muted-dark); line-height: 1.5; }
+
+    .sklst-footer { padding: 40px; border-top: 1px solid var(--border); }
+    .sklst-footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+    .sklst-footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .sklst-demo-layout { grid-template-columns: 1fr; }
+      .sklst-demo-left { padding: 48px 28px; }
+      .sklst-calendly-wrap { min-height: 650px; }
+      .sklst-stats-grid { grid-template-columns: 1fr; }
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    }
+
+    .sklst-fade { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="6" fill="#151A24"/>
+        <path d="M7 12.5L10.5 16L17 8" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Skillset</span>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="https://skillset.ae">Back to main site</a>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm" style="color: white;">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- SPLIT DEMO LAYOUT -->
+<div class="sklst-demo-layout">
+  <!-- LEFT: Info -->
+  <div class="sklst-demo-left">
+    <div class="sklst-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Free 15-Minute Demo
+    </div>
+    <h1>See Skillset AI<br>in Action</h1>
+    <p class="sklst-sub">No commitment, no sales pitch. Pick a time and we'll show you exactly how AI hiring works for your team — start to finish.</p>
+
+    <div class="sklst-what-youll-see">
+      <h3>What you'll see in 15 minutes</h3>
+      <div class="sklst-demo-point">
+        <div class="sklst-demo-point-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="sklst-demo-point-text">AI screening a real CV shortlist in under 10 seconds</div>
+      </div>
+      <div class="sklst-demo-point">
+        <div class="sklst-demo-point-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="sklst-demo-point-text">Sourcing across LinkedIn, GitHub, and 45+ platforms simultaneously</div>
+      </div>
+      <div class="sklst-demo-point">
+        <div class="sklst-demo-point-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="sklst-demo-point-text">Auto-generated technical assessment for your specific role</div>
+      </div>
+      <div class="sklst-demo-point">
+        <div class="sklst-demo-point-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="sklst-demo-point-text">Full pipeline view: from application to ranked shortlist</div>
+      </div>
+    </div>
+
+    <div class="sklst-demo-meta">
+      <div class="sklst-demo-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        15 minutes
+      </div>
+      <div class="sklst-demo-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        1-on-1 walkthrough
+      </div>
+      <div class="sklst-demo-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        No commitment
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Calendly inline widget -->
+  <div class="sklst-demo-right">
+    <div class="sklst-calendly-wrap" id="sklst-calendly-container">
+      <div class="calendly-inline-widget"
+        data-url="https://calendly.com/olga-skillset/skillset-demo?hide_landing_page_details=1&hide_gdpr_banner=1"
+        style="min-width:320px;height:700px;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS SECTION -->
+<section class="sklst-section">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Why Skillset</div>
+    <h2 class="sklst-section-title">Companies hire faster with Skillset</h2>
+    <p class="sklst-section-desc">Numbers from teams that switched from manual hiring to AI-powered recruiting.</p>
+  </div>
+  <div class="sklst-stats-grid">
+    <div class="sklst-stat-card sklst-fade">
+      <div class="sklst-big-num">10x</div>
+      <p>Faster candidate screening than manual CV review</p>
+    </div>
+    <div class="sklst-stat-card sklst-fade">
+      <div class="sklst-big-num">44</div>
+      <p>Days saved per role compared to traditional hiring</p>
+    </div>
+    <div class="sklst-stat-card sklst-fade">
+      <div class="sklst-big-num">$15K</div>
+      <p>Average cost saved per hire vs. using a recruitment agency</p>
+    </div>
+  </div>
+</section>
+
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2025 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+</script>
+</body>
+</html>

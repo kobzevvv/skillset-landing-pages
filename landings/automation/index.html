@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recruitment Automation — Automate Your Entire Hiring Pipeline | Skillset</title>
+  <meta name="description" content="End-to-end recruitment automation from job post to offer. Screen, source, rank, and interview prep — all on autopilot with Skillset AI.">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); background: var(--bg); line-height: 1.25; -webkit-font-smoothing: antialiased; }
+
+    .sklst-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 40px; background: rgba(216, 220, 229, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: box-shadow 0.3s; }
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .sklst-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .sklst-nav-logo span { font-size: 20px; font-weight: 700; }
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a { text-decoration: none; color: var(--text-muted-dark); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .sklst-nav-links a:hover { color: var(--accent); }
+    .sklst-nav-links .sklst-btn-primary { color: var(--text-white); }
+    .sklst-nav-links .sklst-btn-primary:hover { color: var(--text-white); }
+
+    .sklst-btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer; border: none; font-family: 'Satoshi', 'Inter', sans-serif; transition: all 0.2s ease; }
+    .sklst-btn-primary { background: var(--accent); color: var(--text-white); border-radius: var(--radius-pill); padding: 14px 36px; font-size: 17px; font-weight: 700; }
+    .sklst-btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3); }
+    .sklst-btn-secondary { background: var(--bg-card); color: var(--text); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px 32px; font-size: 16px; font-weight: 700; }
+    .sklst-btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .sklst-btn-sm { padding: 10px 24px; font-size: 14px; font-weight: 700; border-radius: var(--radius-pill); }
+
+    .sklst-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 80px; }
+    .sklst-hero-content { max-width: 800px; }
+    .sklst-hero-tag { display: inline-block; background: var(--danger); color: var(--text-white); font-size: 13px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; margin-bottom: 24px; }
+    .sklst-hero h1 { font-size: clamp(36px, 5vw, 50px); font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+    .sklst-hero p { font-size: 20px; color: var(--text-muted-dark); line-height: 1.5; max-width: 620px; margin: 0 auto 40px; }
+    .sklst-hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .sklst-hero-stats { display: flex; gap: 48px; justify-content: center; margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--border); }
+    .sklst-hero-stat { text-align: center; }
+    .sklst-hero-stat .sklst-number { font-size: 36px; font-weight: 900; color: var(--accent); }
+    .sklst-hero-stat .sklst-label { font-size: 14px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-dark { background: var(--bg-dark); color: var(--text-white); }
+    .sklst-section-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+    .sklst-section-label { font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--peach); margin-bottom: 16px; }
+    .sklst-section-title { font-size: clamp(26px, 3.5vw, 30px); font-weight: 700; line-height: 1.17; margin-bottom: 12px; }
+    .sklst-section-desc { font-size: 18px; color: var(--text-muted); line-height: 1.4; }
+    .sklst-section-dark .sklst-section-desc { color: var(--text-muted-light); }
+
+    /* PIPELINE FLOW */
+    .sklst-pipeline { max-width: 1000px; margin: 0 auto; }
+    .sklst-pipeline-steps { display: flex; gap: 0; align-items: stretch; }
+    .sklst-pipeline-step {
+      flex: 1; background: var(--bg-card); border-radius: var(--radius-card); padding: 28px 20px;
+      text-align: center; position: relative;
+    }
+    .sklst-pipeline-step::after {
+      content: '→';
+      position: absolute; right: -16px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px; color: var(--accent); font-weight: 700;
+      z-index: 1;
+    }
+    .sklst-pipeline-step:last-child::after { display: none; }
+    .sklst-pipeline-icon {
+      width: 48px; height: 48px; border-radius: 50%; background: rgba(0,85,255,0.1);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;
+      color: var(--accent);
+    }
+    .sklst-pipeline-step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .sklst-pipeline-step p { font-size: 12px; color: var(--text-muted-dark); line-height: 1.4; }
+    .sklst-pipeline-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+
+    .sklst-features-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .sklst-feature-card { background: var(--bg-card); border-radius: var(--radius-card); padding: 36px 32px; transition: transform 0.2s ease; }
+    .sklst-feature-card:hover { transform: translateY(-3px); }
+    .sklst-feature-icon { width: 48px; height: 48px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .sklst-feature-icon.blue { background: rgba(0, 85, 255, 0.1); color: var(--accent); }
+    .sklst-feature-icon.peach { background: rgba(255, 179, 138, 0.15); color: #E8824A; }
+    .sklst-feature-icon.green { background: rgba(34, 102, 0, 0.1); color: var(--success); }
+    .sklst-feature-icon.teal { background: rgba(35, 136, 142, 0.1); color: #23888E; }
+    .sklst-feature-icon.indigo { background: rgba(65, 68, 135, 0.1); color: #414487; }
+    .sklst-feature-icon.dark { background: rgba(21, 26, 36, 0.1); color: var(--bg-dark); }
+    .sklst-feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .sklst-feature-card p { font-size: 15px; color: var(--text-muted-dark); line-height: 1.5; }
+
+    .sklst-steps { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; position: relative; }
+    .sklst-steps::before { content: ''; position: absolute; left: 28px; top: 40px; bottom: 40px; width: 2px; background: linear-gradient(180deg, var(--accent), var(--text-muted-light), transparent); }
+    .sklst-step { display: flex; gap: 32px; align-items: flex-start; padding: 28px 0; position: relative; }
+    .sklst-step-num { width: 56px; height: 56px; min-width: 56px; border-radius: 50%; background: var(--accent); color: var(--text-white); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; position: relative; z-index: 1; }
+    .sklst-step-content h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-white); }
+    .sklst-step-content p { font-size: 16px; color: var(--text-muted-light); line-height: 1.6; }
+
+    .sklst-comparison-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .sklst-comparison-card { padding: 36px; border-radius: var(--radius-card); }
+    .sklst-comparison-card.old { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    .sklst-comparison-card.new { background: rgba(0, 85, 255, 0.12); border: 1px solid rgba(0, 85, 255, 0.25); }
+    .sklst-comparison-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    .sklst-comparison-card ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .sklst-comparison-card li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5; }
+    .sklst-comparison-card.old li { color: rgba(255,255,255,0.5); }
+    .sklst-comparison-card.new li { color: rgba(255,255,255,0.85); }
+    .sklst-comparison-card li .ic { flex-shrink: 0; margin-top: 2px; }
+
+    .sklst-cta { text-align: center; padding: 100px 40px; }
+    .sklst-cta h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; margin-bottom: 16px; }
+    .sklst-cta p { font-size: 18px; color: var(--text-muted-dark); margin-bottom: 40px; line-height: 1.5; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    .sklst-footer { padding: 40px; border-top: 1px solid var(--border); }
+    .sklst-footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+    .sklst-footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-hero { padding: 100px 20px 60px; }
+      .sklst-features-grid { grid-template-columns: 1fr; }
+      .sklst-comparison-grid { grid-template-columns: 1fr; }
+      .sklst-hero-stats { flex-direction: column; gap: 20px; }
+      .sklst-hero-buttons { flex-direction: column; align-items: center; }
+      .sklst-step { gap: 20px; }
+      .sklst-step-num { width: 40px; height: 40px; min-width: 40px; font-size: 16px; }
+      .sklst-steps::before { left: 20px; }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .sklst-cta { padding: 60px 20px; }
+      .sklst-pipeline-steps { flex-direction: column; gap: 12px; }
+      .sklst-pipeline-step::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -20px; transform: translateX(-50%); }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sklst-features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .sklst-fade { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="6" fill="#151A24"/>
+        <path d="M7 12.5L10.5 16L17 8" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Skillset</span>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="#sklst-pipeline">Pipeline</a>
+      <a href="#sklst-features">Features</a>
+      <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary sklst-btn-sm">Book a Demo</a>
+    </div>
+  </div>
+</nav>
+
+<section class="sklst-hero">
+  <div class="sklst-hero-content">
+    <div class="sklst-hero-tag">Problem</div>
+    <h1>Your hiring pipeline still<br>runs on spreadsheets?</h1>
+    <p>End-to-end automation from job post to offer. Screen, source, rank, and prep interviews — all on autopilot. Skillset is your AI hiring infrastructure.</p>
+    <div class="sklst-hero-buttons">
+      <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">Book a Demo</a>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-secondary">Try Free for 3 Days</a>
+    </div>
+    <div class="sklst-hero-stats">
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">90%</div>
+        <div class="sklst-label">Less manual work per hire</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">44</div>
+        <div class="sklst-label">Days saved per role on avg.</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">$15K</div>
+        <div class="sklst-label">Saved per hire vs. agencies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE VISUALIZATION -->
+<section class="sklst-section" id="sklst-pipeline">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Full Pipeline</div>
+    <h2 class="sklst-section-title">Every step automated</h2>
+    <p class="sklst-section-desc">From creating the job description to sending an offer — Skillset handles every step with AI precision.</p>
+  </div>
+  <div class="sklst-pipeline sklst-fade">
+    <div class="sklst-pipeline-steps">
+      <div class="sklst-pipeline-step">
+        <div class="sklst-pipeline-tag">Step 1</div>
+        <div class="sklst-pipeline-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h4>JD Generation</h4>
+        <p>AI writes the job description</p>
+      </div>
+      <div class="sklst-pipeline-step">
+        <div class="sklst-pipeline-tag">Step 2</div>
+        <div class="sklst-pipeline-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h4>AI Sourcing</h4>
+        <p>45+ platforms searched</p>
+      </div>
+      <div class="sklst-pipeline-step">
+        <div class="sklst-pipeline-tag">Step 3</div>
+        <div class="sklst-pipeline-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h4>CV Screening</h4>
+        <p>Ranked shortlist in seconds</p>
+      </div>
+      <div class="sklst-pipeline-step">
+        <div class="sklst-pipeline-tag">Step 4</div>
+        <div class="sklst-pipeline-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h4>Assessments</h4>
+        <p>Auto-generated skill tests</p>
+      </div>
+      <div class="sklst-pipeline-step">
+        <div class="sklst-pipeline-tag">Step 5</div>
+        <div class="sklst-pipeline-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h4>Interview Scheduling</h4>
+        <p>Auto-booked via calendar</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="sklst-section" id="sklst-features" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Automation Features</div>
+    <h2 class="sklst-section-title">Your hiring on autopilot</h2>
+    <p class="sklst-section-desc">Every manual step in your hiring process can be automated. Here's what Skillset handles for you.</p>
+  </div>
+  <div class="sklst-features-grid">
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>AI Job Description Writer</h3>
+      <p>Turn a role title into a complete, compelling job description in seconds. AI matches your company tone and includes relevant skills and requirements.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon teal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <h3>Automated CV Screening</h3>
+      <p>Every incoming application is screened automatically. AI delivers a ranked shortlist within seconds of receiving a CV — 24/7, no delays.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon peach">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Auto-Generated Assessments</h3>
+      <p>Skillset creates role-specific technical assessments automatically when you post a job. Candidates are evaluated without you writing a single test question.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon indigo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <h3>Interview Scheduling</h3>
+      <p>Top candidates get automatically scheduled into your team's calendar. No email back-and-forth — interviews are booked and confirmed instantly.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8 9"/></svg>
+      </div>
+      <h3>Automated Candidate Comms</h3>
+      <p>AI sends personalized status updates, assessment invites, and rejection notices — keeping every candidate informed without any manual effort.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon dark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <h3>Hiring Analytics</h3>
+      <p>Real-time pipeline metrics: time-to-hire, funnel conversion, source quality, and team performance. Data-driven decisions at every stage.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sklst-section sklst-section-dark" id="sklst-how">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">How It Works</div>
+    <h2 class="sklst-section-title" style="color: white;">Set up once. Run forever.</h2>
+    <p class="sklst-section-desc">Connect Skillset to your existing tools and let AI take over the repetitive work.</p>
+  </div>
+  <div class="sklst-steps">
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">1</div>
+      <div class="sklst-step-content">
+        <h3>Connect Your Tools</h3>
+        <p>Integrate Skillset with your existing ATS, job boards, and calendar in minutes. No complex setup — Skillset plugs into your current workflow.</p>
+      </div>
+    </div>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">2</div>
+      <div class="sklst-step-content">
+        <h3>Define Your Hiring Criteria</h3>
+        <p>Tell Skillset what a great candidate looks like for each role. Set your screening rules, assessment types, and qualification thresholds once.</p>
+      </div>
+    </div>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">3</div>
+      <div class="sklst-step-content">
+        <h3>AI Runs Your Pipeline</h3>
+        <p>From that point on, Skillset handles every step automatically. You only step in to make the final hire decision — everything else is automated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="sklst-section sklst-section-dark" id="sklst-compare" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Why Skillset</div>
+    <h2 class="sklst-section-title" style="color: white;">Manual hiring is holding you back</h2>
+    <p class="sklst-section-desc">Every hour your team spends on admin is an hour not spent finding the right people.</p>
+  </div>
+  <div class="sklst-comparison-grid">
+    <div class="sklst-comparison-card old sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Manual Pipeline
+      </h3>
+      <ul>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Hours per day on CV screening</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Email scheduling back-and-forth</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Writing assessments from scratch</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Candidates wait weeks for updates</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Average time-to-hire: 44 days</li>
+      </ul>
+    </div>
+    <div class="sklst-comparison-card new sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Automated with Skillset
+      </h3>
+      <ul>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> AI screens every CV in seconds</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Interviews auto-booked to calendar</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Role-specific tests auto-generated</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Instant automated candidate updates</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Hire in days, not weeks</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sklst-cta" id="sklst-cta">
+  <div class="sklst-fade">
+    <h2>Ready to automate your hiring?</h2>
+    <p>See the full pipeline in action. 15-minute demo — no commitment, no sales pitch.</p>
+    <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">Book a Demo</a>
+  </div>
+</section>
+
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2025 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+</script>
+</body>
+</html>

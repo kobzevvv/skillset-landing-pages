@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Candidate Sourcing — Find Talent Across 45+ Platforms | Skillset</title>
+  <meta name="description" content="AI searches 45+ sourcing platforms and ranks candidates by actual fit. Stop posting and waiting — let Skillset find hidden talent on autopilot.">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --bg-card-dark: #1F2126;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.25;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sklst-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 40px;
+      background: rgba(216, 220, 229, 0.85);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      transition: box-shadow 0.3s;
+    }
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .sklst-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .sklst-nav-logo span { font-size: 20px; font-weight: 700; }
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a { text-decoration: none; color: var(--text-muted-dark); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .sklst-nav-links a:hover { color: var(--accent); }
+    .sklst-nav-links .sklst-btn-primary { color: var(--text-white); }
+    .sklst-nav-links .sklst-btn-primary:hover { color: var(--text-white); }
+
+    .sklst-btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer; border: none; font-family: 'Satoshi', 'Inter', sans-serif; transition: all 0.2s ease; }
+    .sklst-btn-primary { background: var(--accent); color: var(--text-white); border-radius: var(--radius-pill); padding: 14px 36px; font-size: 17px; font-weight: 700; }
+    .sklst-btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3); }
+    .sklst-btn-secondary { background: var(--bg-card); color: var(--text); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px 32px; font-size: 16px; font-weight: 700; }
+    .sklst-btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .sklst-btn-sm { padding: 10px 24px; font-size: 14px; font-weight: 700; border-radius: var(--radius-pill); }
+
+    .sklst-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 80px; }
+    .sklst-hero-content { max-width: 800px; }
+    .sklst-hero-tag { display: inline-block; background: var(--danger); color: var(--text-white); font-size: 13px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; margin-bottom: 24px; }
+    .sklst-hero h1 { font-size: clamp(36px, 5vw, 50px); font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+    .sklst-hero p { font-size: 20px; color: var(--text-muted-dark); line-height: 1.5; max-width: 620px; margin: 0 auto 40px; }
+    .sklst-hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .sklst-hero-stats { display: flex; gap: 48px; justify-content: center; margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--border); }
+    .sklst-hero-stat { text-align: center; }
+    .sklst-hero-stat .sklst-number { font-size: 36px; font-weight: 900; color: var(--accent); }
+    .sklst-hero-stat .sklst-label { font-size: 14px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-dark { background: var(--bg-dark); color: var(--text-white); }
+    .sklst-section-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+    .sklst-section-label { font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--peach); margin-bottom: 16px; }
+    .sklst-section-title { font-size: clamp(26px, 3.5vw, 30px); font-weight: 700; line-height: 1.17; margin-bottom: 12px; }
+    .sklst-section-desc { font-size: 18px; color: var(--text-muted); line-height: 1.4; }
+    .sklst-section-dark .sklst-section-desc { color: var(--text-muted-light); }
+
+    .sklst-features-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .sklst-feature-card { background: var(--bg-card); border-radius: var(--radius-card); padding: 36px 32px; transition: transform 0.2s ease; }
+    .sklst-feature-card:hover { transform: translateY(-3px); }
+    .sklst-feature-icon { width: 48px; height: 48px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .sklst-feature-icon.blue { background: rgba(0, 85, 255, 0.1); color: var(--accent); }
+    .sklst-feature-icon.peach { background: rgba(255, 179, 138, 0.15); color: #E8824A; }
+    .sklst-feature-icon.green { background: rgba(34, 102, 0, 0.1); color: var(--success); }
+    .sklst-feature-icon.teal { background: rgba(35, 136, 142, 0.1); color: #23888E; }
+    .sklst-feature-icon.indigo { background: rgba(65, 68, 135, 0.1); color: #414487; }
+    .sklst-feature-icon.dark { background: rgba(21, 26, 36, 0.1); color: var(--bg-dark); }
+    .sklst-feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .sklst-feature-card p { font-size: 15px; color: var(--text-muted-dark); line-height: 1.5; }
+
+    /* PLATFORMS GRID */
+    .sklst-platforms { max-width: 900px; margin: 0 auto; }
+    .sklst-platforms-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 40px; }
+    .sklst-platform-tag {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 12px 16px;
+      text-align: center; font-size: 14px; font-weight: 500; color: var(--text-muted-light);
+    }
+
+    .sklst-steps { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; position: relative; }
+    .sklst-steps::before { content: ''; position: absolute; left: 28px; top: 40px; bottom: 40px; width: 2px; background: linear-gradient(180deg, var(--accent), var(--text-muted-light), transparent); }
+    .sklst-step { display: flex; gap: 32px; align-items: flex-start; padding: 28px 0; position: relative; }
+    .sklst-step-num { width: 56px; height: 56px; min-width: 56px; border-radius: 50%; background: var(--accent); color: var(--text-white); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; position: relative; z-index: 1; }
+    .sklst-step-content h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-white); }
+    .sklst-step-content p { font-size: 16px; color: var(--text-muted-light); line-height: 1.6; }
+
+    .sklst-comparison-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .sklst-comparison-card { padding: 36px; border-radius: var(--radius-card); }
+    .sklst-comparison-card.old { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    .sklst-comparison-card.new { background: rgba(0, 85, 255, 0.12); border: 1px solid rgba(0, 85, 255, 0.25); }
+    .sklst-comparison-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    .sklst-comparison-card ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .sklst-comparison-card li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5; }
+    .sklst-comparison-card.old li { color: rgba(255,255,255,0.5); }
+    .sklst-comparison-card.new li { color: rgba(255,255,255,0.85); }
+    .sklst-comparison-card li .ic { flex-shrink: 0; margin-top: 2px; }
+
+    .sklst-cta { text-align: center; padding: 100px 40px; }
+    .sklst-cta h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; margin-bottom: 16px; }
+    .sklst-cta p { font-size: 18px; color: var(--text-muted-dark); margin-bottom: 40px; line-height: 1.5; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    .sklst-footer { padding: 40px; border-top: 1px solid var(--border); }
+    .sklst-footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+    .sklst-footer-links a:hover { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-hero { padding: 100px 20px 60px; }
+      .sklst-features-grid { grid-template-columns: 1fr; }
+      .sklst-comparison-grid { grid-template-columns: 1fr; }
+      .sklst-hero-stats { flex-direction: column; gap: 20px; }
+      .sklst-hero-buttons { flex-direction: column; align-items: center; }
+      .sklst-step { gap: 20px; }
+      .sklst-step-num { width: 40px; height: 40px; min-width: 40px; font-size: 16px; }
+      .sklst-steps::before { left: 20px; }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .sklst-cta { padding: 60px 20px; }
+      .sklst-platforms-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sklst-features-grid { grid-template-columns: repeat(2, 1fr); }
+      .sklst-platforms-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .sklst-fade { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="6" fill="#151A24"/>
+        <path d="M7 12.5L10.5 16L17 8" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Skillset</span>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="#sklst-features">Features</a>
+      <a href="#sklst-how">How It Works</a>
+      <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary sklst-btn-sm">See Sourcing Demo</a>
+    </div>
+  </div>
+</nav>
+
+<section class="sklst-hero">
+  <div class="sklst-hero-content">
+    <div class="sklst-hero-tag">Problem</div>
+    <h1>You're waiting for candidates<br>to come to you?</h1>
+    <p>Skillset AI actively searches 45+ sourcing platforms and ranks candidates by actual fit — not keywords. Proactive talent sourcing on autopilot.</p>
+    <div class="sklst-hero-buttons">
+      <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">See Sourcing Demo</a>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-secondary">Start Free Trial</a>
+    </div>
+    <div class="sklst-hero-stats">
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">45+</div>
+        <div class="sklst-label">Sourcing platforms</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">67%</div>
+        <div class="sklst-label">Faster time-to-shortlist</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">4x</div>
+        <div class="sklst-label">More qualified candidates found</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sklst-section" id="sklst-features">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">AI Sourcing Features</div>
+    <h2 class="sklst-section-title">Stop waiting. Start finding.</h2>
+    <p class="sklst-section-desc">Skillset turns passive job posting into active talent discovery — across every major sourcing channel simultaneously.</p>
+  </div>
+  <div class="sklst-features-grid">
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <h3>Multi-Platform AI Search</h3>
+      <p>One search covers LinkedIn, GitHub, Dribbble, Behance, Stack Overflow, Upwork, and 40+ more — simultaneously, in seconds.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon teal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Fit-Based Ranking</h3>
+      <p>AI analyzes actual experience, project quality, and skills — not just keyword matches. The top result is the best candidate, not the best SEO.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon peach">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      </div>
+      <h3>Autopilot Sourcing</h3>
+      <p>Set your requirements once. AI continuously searches for new candidates matching your criteria and alerts you when strong profiles appear.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon indigo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8 9"/></svg>
+      </div>
+      <h3>Outreach Automation</h3>
+      <p>AI drafts personalized outreach messages for each candidate based on their profile. Higher response rates with zero manual effort.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Passive Candidate Discovery</h3>
+      <p>Find candidates who aren't actively looking but are open to opportunities. Access the 70% of talent that never responds to job ads.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon dark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      </div>
+      <h3>Unified Candidate Pipeline</h3>
+      <p>All sourced candidates flow into one ranked pipeline regardless of which platform they came from. No more juggling multiple sourcing tools.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="sklst-section sklst-section-dark">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">45+ Platforms</div>
+    <h2 class="sklst-section-title" style="color: white;">One search. Every talent source.</h2>
+    <p class="sklst-section-desc">Skillset covers every major sourcing platform so you never miss a great candidate, no matter where they are.</p>
+  </div>
+  <div class="sklst-platforms">
+    <div class="sklst-platforms-grid sklst-fade">
+      <div class="sklst-platform-tag">LinkedIn</div>
+      <div class="sklst-platform-tag">GitHub</div>
+      <div class="sklst-platform-tag">Dribbble</div>
+      <div class="sklst-platform-tag">Behance</div>
+      <div class="sklst-platform-tag">Stack Overflow</div>
+      <div class="sklst-platform-tag">Upwork</div>
+      <div class="sklst-platform-tag">AngelList</div>
+      <div class="sklst-platform-tag">Indeed</div>
+      <div class="sklst-platform-tag">Bayt.com</div>
+      <div class="sklst-platform-tag">Naukri</div>
+      <div class="sklst-platform-tag">GulfTalent</div>
+      <div class="sklst-platform-tag">Glassdoor</div>
+      <div class="sklst-platform-tag">Toptal</div>
+      <div class="sklst-platform-tag">Wellfound</div>
+      <div class="sklst-platform-tag">Kaggle</div>
+      <div class="sklst-platform-tag">+30 more</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sklst-section sklst-section-dark" id="sklst-how" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">How It Works</div>
+    <h2 class="sklst-section-title" style="color: white;">Sourcing on autopilot in 3 steps</h2>
+    <p class="sklst-section-desc">Set it once — Skillset AI runs continuously in the background finding your best candidates.</p>
+  </div>
+  <div class="sklst-steps">
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">1</div>
+      <div class="sklst-step-content">
+        <h3>Describe Your Ideal Candidate</h3>
+        <p>Tell Skillset what you're looking for: skills, experience level, location, and any other requirements. The AI refines the search criteria automatically.</p>
+      </div>
+    </div>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">2</div>
+      <div class="sklst-step-content">
+        <h3>AI Searches 45+ Platforms</h3>
+        <p>Skillset simultaneously searches LinkedIn, GitHub, local job boards, and 40+ more sources. Candidates are ranked by actual fit — not keyword matching.</p>
+      </div>
+    </div>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">3</div>
+      <div class="sklst-step-content">
+        <h3>Review Your Ranked Shortlist</h3>
+        <p>Get a curated list of top candidates with AI-generated summaries. Approve outreach with one click — AI sends personalized messages on your behalf.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="sklst-section sklst-section-dark" id="sklst-compare" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Why Skillset</div>
+    <h2 class="sklst-section-title" style="color: white;">Reactive vs. proactive sourcing</h2>
+    <p class="sklst-section-desc">Most teams only see candidates who apply. Skillset finds the ones who don't know you're hiring yet.</p>
+  </div>
+  <div class="sklst-comparison-grid">
+    <div class="sklst-comparison-card old sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Reactive Hiring
+      </h3>
+      <ul>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Post and wait for applicants</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Miss 70% of passive talent market</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Manual sourcing across multiple tools</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Keyword-based matching misses great candidates</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Weeks to build a quality longlist</li>
+      </ul>
+    </div>
+    <div class="sklst-comparison-card new sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        With Skillset AI Sourcing
+      </h3>
+      <ul>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Proactive AI search across 45+ platforms</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Access active and passive candidate pools</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> One unified search — all sources combined</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Fit-based ranking — actual skills and experience</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Ranked shortlist delivered in hours</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sklst-cta" id="sklst-cta">
+  <div class="sklst-fade">
+    <h2>Ready to find hidden talent?</h2>
+    <p>See how Skillset searches 45+ platforms and delivers your best candidates in hours, not weeks.</p>
+    <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">See Sourcing Demo</a>
+  </div>
+</section>
+
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2025 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+</script>
+</body>
+</html>
