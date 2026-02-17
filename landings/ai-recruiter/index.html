@@ -3,700 +3,537 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkillSet — End-to-End AI-First Recruiter</title>
-  <meta name="description" content="SkillSet is an AI-powered recruiting platform that screens, assesses, and ranks candidates automatically. Hire top tech talent 10x faster.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>AI Recruiter — Hire Top Talent 10x Faster | Skillset</title>
+  <meta name="description" content="Stop wasting weeks on manual CV screening. Skillset AI screens, assesses, and ranks hundreds of candidates automatically. Start hiring smarter today.">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --purple: #8e4ec6;
-      --purple-dark: #7c3aed;
-      --purple-light: #a78bfa;
-      --purple-glow: rgba(142, 78, 198, 0.15);
-      --bg: #faf8ff;
-      --bg-card: #ffffff;
-      --text: #1a1a2e;
-      --text-secondary: #64648b;
-      --border: #e8e5f0;
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --bg-card-dark: #1F2126;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text);
       background: var(--bg);
-      line-height: 1.6;
+      line-height: 1.25;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ---- NAV ---- */
-    nav {
+    /* NAV */
+    .sklst-nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 16px 24px;
+      padding: 16px 40px;
+      background: rgba(216, 220, 229, 0.85);
       backdrop-filter: blur(20px);
-      background: rgba(250, 248, 255, 0.8);
-      border-bottom: 1px solid var(--border);
+      -webkit-backdrop-filter: blur(20px);
       transition: box-shadow 0.3s;
     }
-    nav.scrolled { box-shadow: 0 4px 30px rgba(142, 78, 198, 0.08); }
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text);
+    .sklst-nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
     }
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .sklst-nav-logo img { height: 32px; }
+    .sklst-nav-logo span {
+      font-size: 20px; font-weight: 700;
     }
-    .logo-icon svg { width: 20px; height: 20px; }
-    .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a {
+      text-decoration: none; color: var(--text-muted-dark);
+      font-size: 15px; font-weight: 500; transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--purple); }
+    .sklst-nav-links a:hover { color: var(--accent); }
 
-    /* ---- BUTTONS ---- */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 28px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      border: none;
+    /* BUTTONS */
+    .sklst-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; cursor: pointer; border: none;
+      font-family: 'Satoshi', 'Inter', sans-serif;
+      transition: all 0.2s ease;
     }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
-      color: white;
-      box-shadow: 0 4px 20px rgba(142, 78, 198, 0.35);
+    .sklst-btn-primary {
+      background: var(--accent);
+      color: var(--text-white);
+      border-radius: var(--radius-pill);
+      padding: 14px 36px;
+      font-size: 17px; font-weight: 700;
     }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(142, 78, 198, 0.45);
+    .sklst-btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3);
     }
-    .btn-secondary {
+    .sklst-btn-secondary {
       background: var(--bg-card);
       color: var(--text);
       border: 2px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 12px 32px;
+      font-size: 16px; font-weight: 700;
     }
-    .btn-secondary:hover {
-      border-color: var(--purple-light);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(142, 78, 198, 0.1);
+    .sklst-btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
-    .btn-lg { padding: 16px 36px; font-size: 17px; border-radius: 14px; }
+    .sklst-btn-sm {
+      padding: 10px 24px;
+      font-size: 14px; font-weight: 700;
+      border-radius: var(--radius-pill);
+    }
 
-    /* ---- HERO ---- */
-    .hero {
+    /* HERO */
+    .sklst-hero {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       text-align: center;
-      padding: 120px 24px 80px;
-      position: relative;
-      overflow: hidden;
+      padding: 120px 40px 80px;
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 800px;
-      height: 800px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(142, 78, 198, 0.12) 0%, transparent 70%);
-      top: -200px;
-      right: -200px;
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(96, 165, 250, 0.08) 0%, transparent 70%);
-      bottom: -100px;
-      left: -100px;
-      pointer-events: none;
-    }
-    .hero-content { position: relative; z-index: 1; max-width: 800px; }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(142, 78, 198, 0.08);
-      border: 1px solid rgba(142, 78, 198, 0.15);
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--purple);
-      margin-bottom: 32px;
-    }
-    .hero-badge .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--purple);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    .hero h1 {
-      font-size: clamp(40px, 6vw, 72px);
-      font-weight: 800;
-      line-height: 1.08;
-      letter-spacing: -2px;
+    .sklst-hero-content { max-width: 800px; }
+    .sklst-hero-tag {
+      display: inline-block;
+      background: var(--danger);
+      color: var(--text-white);
+      font-size: 13px; font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
       margin-bottom: 24px;
-      background: linear-gradient(135deg, var(--text) 0%, var(--purple-dark) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
-    .hero p {
-      font-size: 19px;
-      color: var(--text-secondary);
-      max-width: 560px;
+    .sklst-hero h1 {
+      font-size: clamp(36px, 5vw, 50px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .sklst-hero p {
+      font-size: 20px;
+      color: var(--text-muted-dark);
+      line-height: 1.4;
+      max-width: 600px;
       margin: 0 auto 40px;
-      line-height: 1.7;
     }
-    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .hero-stats {
-      display: flex;
-      gap: 48px;
-      justify-content: center;
-      margin-top: 64px;
-      padding-top: 48px;
+    .sklst-hero-buttons {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .sklst-hero-stats {
+      display: flex; gap: 48px; justify-content: center;
+      margin-top: 64px; padding-top: 48px;
       border-top: 1px solid var(--border);
     }
-    .hero-stat { text-align: center; }
-    .hero-stat .number {
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--purple);
-      letter-spacing: -1px;
+    .sklst-hero-stat { text-align: center; }
+    .sklst-hero-stat .sklst-number {
+      font-size: 36px; font-weight: 900; color: var(--accent);
     }
-    .hero-stat .label {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-top: 4px;
-      font-weight: 500;
+    .sklst-hero-stat .sklst-label {
+      font-size: 14px; color: var(--text-muted); margin-top: 4px; font-weight: 500;
     }
 
-    /* ---- SECTION COMMON ---- */
-    section { padding: 100px 24px; }
-    .section-header {
+    /* SECTIONS */
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-dark {
+      background: var(--bg-dark);
+      color: var(--text-white);
+    }
+    .sklst-section-header {
       text-align: center;
-      max-width: 600px;
-      margin: 0 auto 64px;
+      max-width: 600px; margin: 0 auto 64px;
     }
-    .section-label {
-      font-size: 13px;
+    .sklst-section-label {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      color: var(--peach); margin-bottom: 16px;
+    }
+    .sklst-section-title {
+      font-size: clamp(26px, 3.5vw, 30px);
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--purple);
-      margin-bottom: 16px;
+      line-height: 1.17;
+      margin-bottom: 12px;
     }
-    .section-title {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.15;
-      margin-bottom: 16px;
+    .sklst-section-desc {
+      font-size: 18px; color: var(--text-muted); line-height: 1.4;
     }
-    .section-desc {
-      font-size: 17px;
-      color: var(--text-secondary);
-      line-height: 1.7;
+    .sklst-section-dark .sklst-section-desc {
+      color: var(--text-muted-light);
     }
 
-    /* ---- FEATURES ---- */
-    .features-bg {
-      background: linear-gradient(180deg, var(--bg) 0%, #f3f0ff 100%);
+    /* FEATURES GRID */
+    .sklst-features-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
     }
-    .features-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .feature-card {
+    .sklst-feature-card {
       background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: var(--radius-card);
       padding: 36px 32px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.2s ease;
     }
-    .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(142, 78, 198, 0.1);
-      border-color: var(--purple-light);
+    .sklst-feature-card:hover {
+      transform: translateY(-3px);
     }
-    .feature-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .sklst-feature-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
       margin-bottom: 20px;
-      font-size: 24px;
-    }
-    .feature-icon.purple { background: rgba(142, 78, 198, 0.1); }
-    .feature-icon.blue { background: rgba(96, 165, 250, 0.1); }
-    .feature-icon.green { background: rgba(52, 211, 153, 0.1); }
-    .feature-icon.orange { background: rgba(251, 146, 60, 0.1); }
-    .feature-icon.pink { background: rgba(244, 114, 182, 0.1); }
-    .feature-icon.indigo { background: rgba(99, 102, 241, 0.1); }
-    .feature-card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      letter-spacing: -0.3px;
-    }
-    .feature-card p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* ---- HOW IT WORKS ---- */
-    .steps {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      position: relative;
-    }
-    .steps::before {
-      content: '';
-      position: absolute;
-      left: 32px;
-      top: 40px;
-      bottom: 40px;
-      width: 2px;
-      background: linear-gradient(180deg, var(--purple), var(--purple-light), transparent);
-    }
-    .step {
-      display: flex;
-      gap: 32px;
-      align-items: flex-start;
-      padding: 32px 0;
-      position: relative;
-    }
-    .step-number {
-      width: 64px;
-      height: 64px;
-      min-width: 64px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      font-weight: 800;
-      box-shadow: 0 4px 20px rgba(142, 78, 198, 0.3);
-      position: relative;
-      z-index: 1;
-    }
-    .step-content h3 {
       font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.3px;
     }
-    .step-content p {
-      font-size: 16px;
-      color: var(--text-secondary);
-      line-height: 1.7;
+    .sklst-feature-icon.blue { background: rgba(0, 85, 255, 0.1); color: var(--accent); }
+    .sklst-feature-icon.peach { background: rgba(255, 179, 138, 0.15); color: #E8824A; }
+    .sklst-feature-icon.green { background: rgba(34, 102, 0, 0.1); color: var(--success); }
+    .sklst-feature-icon.teal { background: rgba(35, 136, 142, 0.1); color: #23888E; }
+    .sklst-feature-icon.indigo { background: rgba(65, 68, 135, 0.1); color: #414487; }
+    .sklst-feature-icon.dark { background: rgba(21, 26, 36, 0.1); color: var(--bg-dark); }
+    .sklst-feature-card h3 {
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+    }
+    .sklst-feature-card p {
+      font-size: 15px; color: var(--text-muted-dark); line-height: 1.5;
     }
 
-    /* ---- COMPARISON ---- */
-    .comparison-bg { background: var(--text); color: white; }
-    .comparison-bg .section-label { color: var(--purple-light); }
-    .comparison-bg .section-desc { color: rgba(255,255,255,0.6); }
-    .comparison-grid {
-      max-width: 900px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
+    /* HOW IT WORKS */
+    .sklst-steps {
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0;
+      position: relative;
     }
-    .comparison-card {
-      padding: 36px;
-      border-radius: 20px;
+    .sklst-steps::before {
+      content: ''; position: absolute;
+      left: 28px; top: 40px; bottom: 40px; width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--text-muted-light), transparent);
     }
-    .comparison-card.old {
+    .sklst-step {
+      display: flex; gap: 32px; align-items: flex-start;
+      padding: 28px 0; position: relative;
+    }
+    .sklst-step-num {
+      width: 56px; height: 56px; min-width: 56px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--text-white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 900;
+      position: relative; z-index: 1;
+    }
+    .sklst-step-content h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 8px;
+      color: var(--text-white);
+    }
+    .sklst-step-content p {
+      font-size: 16px; color: var(--text-muted-light); line-height: 1.6;
+    }
+
+    /* COMPARISON */
+    .sklst-comparison-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .sklst-comparison-card {
+      padding: 36px; border-radius: var(--radius-card);
+    }
+    .sklst-comparison-card.old {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
     }
-    .comparison-card.new {
-      background: linear-gradient(135deg, rgba(142, 78, 198, 0.2), rgba(124, 58, 237, 0.15));
-      border: 1px solid rgba(142, 78, 198, 0.3);
+    .sklst-comparison-card.new {
+      background: rgba(0, 85, 255, 0.12);
+      border: 1px solid rgba(0, 85, 255, 0.25);
     }
-    .comparison-card h3 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .sklst-comparison-card h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .comparison-card ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-    .comparison-card li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 15px;
-      line-height: 1.5;
+    .sklst-comparison-card ul {
+      list-style: none; display: flex; flex-direction: column; gap: 14px;
     }
-    .comparison-card.old li { color: rgba(255,255,255,0.5); }
-    .comparison-card.new li { color: rgba(255,255,255,0.85); }
-    .comparison-card li .icon { flex-shrink: 0; margin-top: 2px; }
+    .sklst-comparison-card li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 15px; line-height: 1.5;
+    }
+    .sklst-comparison-card.old li { color: rgba(255,255,255,0.5); }
+    .sklst-comparison-card.new li { color: rgba(255,255,255,0.85); }
+    .sklst-comparison-card li .ic { flex-shrink: 0; margin-top: 2px; }
 
-    /* ---- CTA ---- */
-    .cta-section {
-      text-align: center;
-      padding: 120px 24px;
-      position: relative;
-      overflow: hidden;
+    /* CTA */
+    .sklst-cta {
+      text-align: center; padding: 100px 40px;
     }
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: radial-gradient(ellipse at center, rgba(142, 78, 198, 0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .cta-content {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .cta-content h2 {
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 800;
-      letter-spacing: -1.5px;
+    .sklst-cta h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
       margin-bottom: 16px;
     }
-    .cta-content p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      margin-bottom: 40px;
-      line-height: 1.7;
+    .sklst-cta p {
+      font-size: 18px; color: var(--text-muted-dark);
+      margin-bottom: 40px; line-height: 1.5;
+      max-width: 500px; margin-left: auto; margin-right: auto;
     }
 
-    /* ---- FOOTER ---- */
-    footer {
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
-      text-align: center;
+    /* FOOTER */
+    .sklst-footer {
+      padding: 40px; border-top: 1px solid var(--border);
     }
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .sklst-footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .footer-copy {
-      font-size: 13px;
-      color: var(--text-secondary);
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
     }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a {
-      font-size: 13px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--purple); }
+    .sklst-footer-links a:hover { color: var(--accent); }
 
-    /* ---- RESPONSIVE ---- */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .features-grid { grid-template-columns: 1fr; }
-      .comparison-grid { grid-template-columns: 1fr; }
-      .hero-stats { flex-direction: column; gap: 24px; }
-      .hero-buttons { flex-direction: column; align-items: center; }
-      .steps::before { left: 20px; }
-      .step-number { width: 40px; height: 40px; min-width: 40px; font-size: 16px; }
-      .footer-inner { flex-direction: column; gap: 16px; }
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-hero { padding: 100px 20px 60px; }
+      .sklst-features-grid { grid-template-columns: 1fr; }
+      .sklst-comparison-grid { grid-template-columns: 1fr; }
+      .sklst-hero-stats { flex-direction: column; gap: 20px; }
+      .sklst-hero-buttons { flex-direction: column; align-items: center; }
+      .sklst-step { gap: 20px; }
+      .sklst-step-num { width: 40px; height: 40px; min-width: 40px; font-size: 16px; }
+      .sklst-steps::before { left: 20px; }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .sklst-cta { padding: 60px 20px; }
     }
     @media (min-width: 769px) and (max-width: 1024px) {
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .sklst-features-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
-    /* ---- ANIMATIONS ---- */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    /* ANIMATIONS */
+    .sklst-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav id="nav">
-    <div class="nav-inner">
-      <a href="#" class="logo">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L2 8.5L12 15L22 8.5L12 2Z" fill="white" fill-opacity="0.3"/>
-            <path d="M2 15.5L12 22L22 15.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 12L12 18.5L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="logo-text">SkillSet</span>
-      </a>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#compare">Why SkillSet</a>
-        <a href="https://app.skillset.ae/signup" class="btn btn-primary" style="padding: 10px 24px; font-size: 14px;">Get Started</a>
-      </div>
+<!-- NAV -->
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="6" fill="#151A24"/>
+        <path d="M7 12.5L10.5 16L17 8" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Skillset</span>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="#sklst-features">Features</a>
+      <a href="#sklst-how">How It Works</a>
+      <a href="#sklst-compare">Why Skillset</a>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm">Get Started</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        AI-Powered Recruiting Platform
+<!-- HERO -->
+<section class="sklst-hero">
+  <div class="sklst-hero-content">
+    <div class="sklst-hero-tag">Problem</div>
+    <h1>You're still screening<br>candidates manually?</h1>
+    <p>Skillset AI screens, assesses, and ranks hundreds of candidates automatically. Replace weeks of manual review with an AI that understands technical talent.</p>
+    <div class="sklst-hero-buttons">
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Solve your problem</a>
+      <a href="#sklst-how" class="sklst-btn sklst-btn-secondary">See how it works</a>
+    </div>
+    <div class="sklst-hero-stats">
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">10x</div>
+        <div class="sklst-label">Faster screening</div>
       </div>
-      <h1>End-to-End<br>AI-First Recruiter</h1>
-      <p>Screen, assess, and rank hundreds of candidates automatically. SkillSet replaces weeks of manual review with AI that understands technical talent.</p>
-      <div class="hero-buttons">
-        <a href="https://app.skillset.ae/signup" class="btn btn-primary btn-lg">Start Hiring Free</a>
-        <a href="#how-it-works" class="btn btn-secondary btn-lg">See How It Works</a>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">85%</div>
+        <div class="sklst-label">Time saved</div>
       </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="number">10x</div>
-          <div class="label">Faster screening</div>
-        </div>
-        <div class="hero-stat">
-          <div class="number">85%</div>
-          <div class="label">Time saved</div>
-        </div>
-        <div class="hero-stat">
-          <div class="number">500+</div>
-          <div class="label">Assessments run</div>
-        </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">500+</div>
+        <div class="sklst-label">Assessments run</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FEATURES -->
-  <section class="features-bg" id="features">
-    <div class="section-header fade-up">
-      <div class="section-label">Features</div>
-      <h2 class="section-title">Everything you need to hire smarter</h2>
-      <p class="section-desc">From sourcing to final decision — SkillSet handles every step with AI precision.</p>
+<!-- FEATURES -->
+<section class="sklst-section" id="sklst-features">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Features</div>
+    <h2 class="sklst-section-title">Everything you need to hire smarter</h2>
+    <p class="sklst-section-desc">From sourcing to final decision — Skillset handles every step with AI precision.</p>
+  </div>
+  <div class="sklst-features-grid">
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>AI-Generated Assessments</h3>
+      <p>Automatically create role-specific technical challenges tailored to your job requirements.</p>
     </div>
-    <div class="features-grid">
-      <div class="feature-card fade-up">
-        <div class="feature-icon purple">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8e4ec6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        </div>
-        <h3>AI-Generated Assessments</h3>
-        <p>Automatically create role-specific technical challenges tailored to your job requirements.</p>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon teal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon blue">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <h3>Smart Screening</h3>
-        <p>AI reviews CVs and applications instantly, shortlisting candidates that match your criteria.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon green">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <h3>Candidate Ranking</h3>
-        <p>Get an objective, data-driven ranking of all candidates based on their assessment performance.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon orange">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
-        <h3>Live Coding Challenges</h3>
-        <p>Evaluate real coding skills with browser-based challenges that test actual problem-solving ability.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon pink">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3>Team Collaboration</h3>
-        <p>Share candidate profiles and assessments with your hiring team for collaborative decision-making.</p>
-      </div>
-      <div class="feature-card fade-up">
-        <div class="feature-icon indigo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Anti-Cheat Protection</h3>
-        <p>Built-in proctoring and plagiarism detection ensures assessment integrity.</p>
-      </div>
+      <h3>Smart Screening</h3>
+      <p>AI reviews CVs and applications instantly, shortlisting candidates that match your criteria.</p>
     </div>
-  </section>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon peach">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Candidate Ranking</h3>
+      <p>Get an objective, data-driven ranking of all candidates based on their assessment performance.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon indigo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Live Coding Challenges</h3>
+      <p>Evaluate real coding skills with browser-based challenges that test actual problem-solving ability.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon dark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Team Collaboration</h3>
+      <p>Share candidate profiles and assessments with your hiring team for collaborative decision-making.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Anti-Cheat Protection</h3>
+      <p>Built-in proctoring and plagiarism detection ensures assessment integrity.</p>
+    </div>
+  </div>
+</section>
 
-  <!-- HOW IT WORKS -->
-  <section id="how-it-works">
-    <div class="section-header fade-up">
-      <div class="section-label">How It Works</div>
-      <h2 class="section-title">From job posting to hire in 3 steps</h2>
-      <p class="section-desc">Set up once, let AI do the heavy lifting.</p>
-    </div>
-    <div class="steps">
-      <div class="step fade-up">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <h3>Define Your Role</h3>
-          <p>Describe the position and required skills. SkillSet AI generates a tailored assessment with technical challenges, coding tasks, and evaluation criteria — ready in seconds.</p>
-        </div>
-      </div>
-      <div class="step fade-up">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <h3>Invite Candidates</h3>
-          <p>Share the assessment link with candidates. They complete challenges at their own pace in a secure, proctored browser environment with real-time code execution.</p>
-        </div>
-      </div>
-      <div class="step fade-up">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <h3>Review AI-Ranked Results</h3>
-          <p>Get a clear leaderboard of all candidates, ranked by performance. Dive into individual results with AI-generated summaries, code reviews, and hiring recommendations.</p>
-        </div>
+<!-- HOW IT WORKS -->
+<section class="sklst-section sklst-section-dark" id="sklst-how">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">How It Works</div>
+    <h2 class="sklst-section-title" style="color: white;">From job posting to hire in 3 steps</h2>
+    <p class="sklst-section-desc">Set up once, let AI do the heavy lifting.</p>
+  </div>
+  <div class="sklst-steps">
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">1</div>
+      <div class="sklst-step-content">
+        <h3>Define Your Role</h3>
+        <p>Describe the position and required skills. Skillset AI generates a tailored assessment with technical challenges, coding tasks, and evaluation criteria — ready in seconds.</p>
       </div>
     </div>
-  </section>
-
-  <!-- COMPARISON -->
-  <section class="comparison-bg" id="compare">
-    <div class="section-header fade-up">
-      <div class="section-label">Why SkillSet</div>
-      <h2 class="section-title" style="color: white;">Traditional hiring is broken</h2>
-      <p class="section-desc">Stop wasting time on manual screening. Let AI find your best candidates.</p>
-    </div>
-    <div class="comparison-grid">
-      <div class="comparison-card old fade-up">
-        <h3>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          Traditional Hiring
-        </h3>
-        <ul>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Weeks of manual CV screening</li>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Subjective evaluation criteria</li>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Multiple interview rounds needed</li>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Great candidates slip through</li>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> No standardized technical tests</li>
-        </ul>
-      </div>
-      <div class="comparison-card new fade-up">
-        <h3>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          With SkillSet
-        </h3>
-        <ul>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Instant AI-powered screening</li>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Data-driven, objective ranking</li>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> One assessment replaces 3 rounds</li>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Every candidate gets evaluated</li>
-          <li><span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Tailored technical challenges</li>
-        </ul>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">2</div>
+      <div class="sklst-step-content">
+        <h3>Invite Candidates</h3>
+        <p>Share the assessment link with candidates. They complete challenges at their own pace in a secure, proctored browser environment with real-time code execution.</p>
       </div>
     </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="cta-content fade-up">
-      <h2>Ready to hire smarter?</h2>
-      <p>Join companies that have already transformed their hiring process with AI-powered assessments.</p>
-      <div class="hero-buttons">
-        <a href="https://app.skillset.ae/signup" class="btn btn-primary btn-lg">Get Started — It's Free</a>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">3</div>
+      <div class="sklst-step-content">
+        <h3>Review AI-Ranked Results</h3>
+        <p>Get a clear leaderboard of all candidates, ranked by performance. Dive into individual results with AI-generated summaries, code reviews, and hiring recommendations.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-copy">&copy; 2025 SkillSet. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="https://skillset.ae">Main Site</a>
-        <a href="mailto:hello@skillset.ae">Contact</a>
-      </div>
+<!-- COMPARISON -->
+<section class="sklst-section sklst-section-dark" id="sklst-compare" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Why Skillset</div>
+    <h2 class="sklst-section-title" style="color: white;">Traditional hiring is broken</h2>
+    <p class="sklst-section-desc">Stop wasting time on manual screening. Let AI find your best candidates.</p>
+  </div>
+  <div class="sklst-comparison-grid">
+    <div class="sklst-comparison-card old sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Traditional Hiring
+      </h3>
+      <ul>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Weeks of manual CV screening</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Subjective evaluation criteria</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Multiple interview rounds needed</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Great candidates slip through</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> No standardized technical tests</li>
+      </ul>
     </div>
-  </footer>
+    <div class="sklst-comparison-card new sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        With Skillset
+      </h3>
+      <ul>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Instant AI-powered screening</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Data-driven, objective ranking</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> One assessment replaces 3 rounds</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Every candidate gets evaluated</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Tailored technical challenges</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // Nav scroll effect
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
-    });
+<!-- CTA -->
+<section class="sklst-cta">
+  <div class="sklst-fade">
+    <h2>Ready to hire smarter?</h2>
+    <p>Join companies that have already transformed their hiring process with AI-powered assessments.</p>
+    <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Solve your problem</a>
+  </div>
+</section>
 
-    // Scroll animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
+<!-- FOOTER -->
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2025 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
 
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  </script>
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+</script>
 </body>
 </html>
