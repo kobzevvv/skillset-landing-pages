@@ -10,110 +10,161 @@
 
 - **Webflow Designer** → Pages → New Page → Settings → Custom Code
 - **Head**: весь блок `<style>` + подключение шрифта
-- **Body**: весь HTML (`<div class="sklst-root">...</div>`) + `<script>`
+- **Body**: весь HTML от `<body>` до `</body>` + `<script>`
 
 ---
 
-## Пошаговый процесс (через Playwright MCP)
+## Быстрый деплой (через скрипт)
 
-### 1. Подготовка кода
-
-Из файла `index.html` нужно извлечь два блока:
-
-**Head code** (вставляется в Head):
-```
-<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
-<style>
-  /* весь CSS из <style> тега */
-</style>
-```
-
-**Body code** (вставляется в Body):
-```
-<div class="sklst-root">
-  <!-- весь HTML контент -->
-</div>
-<script>
-  /* весь JS */
-</script>
-```
-
-### 2. Открыть Webflow Designer
-
-```
-browser_navigate → https://webflow.com/dashboard
-```
-
-Перейти на сайт "Skillset Landing Page" (ID: `684002a63d872da986e15d46`).
-
-### 3. Создать страницу
-
-1. Открыть Pages panel (левая панель)
-2. Нажать "+" → New Page
-3. Задать slug (например `ai-recruiter`)
-4. Открыть Page Settings → Custom Code
-
-### 4. Инъекция Head-кода
-
-Head-код обычно небольшой (~2-3 KB) и вставляется напрямую:
-
-```js
-// Находим первый CodeMirror (Head)
-var cm = document.querySelectorAll('.CodeMirror')[0].CodeMirror;
-cm.setValue(`<link href="..." rel="stylesheet">\n<style>...</style>`);
-```
-
-### 5. Инъекция Body-кода (Base64 chunking)
-
-Body-код обычно 10-15 KB — это слишком много для одного вызова `browser_evaluate`. Решение: **Base64 + chunking**.
-
-#### Почему нужен Base64?
-
-Playwright MCP передаёт JS-код как строковый параметр. Если HTML содержит кавычки, переносы строк, спецсимволы — они ломают синтаксис JS-строки. **Base64** кодирует любые данные в безопасный набор символов `A-Za-z0-9+/=`.
-
-#### Почему нужен chunking?
-
-Base64 добавляет ~33% к размеру. Для 12 KB HTML получается ~16 KB base64. `browser_evaluate` имеет практический лимит ~5-6 KB на вызов. Поэтому данные разбиваются на чанки.
-
-#### Алгоритм:
+### Шаг 1: Подготовка
 
 ```bash
-# 1. Сохранить body-код в файл
-# /tmp/wf_page_body.txt
+cd skillset-landing-pages
+./scripts/prepare-chunks.sh landings/ai-recruiter/index.html
+```
 
-# 2. Разбить на чанки по 4000 байт RAW (до кодирования!)
-split -b 4000 /tmp/wf_page_body.txt /tmp/wf_bchunk_
+Скрипт:
+1. Извлекает Head (CSS + шрифт) и Body (HTML + JS) из index.html
+2. Минифицирует код (если установлен `html-minifier-terser`)
+3. Разбивает на base64-чанки по 4 KB
+4. Генерирует готовые JS-файлы для каждого `browser_evaluate`
+5. Выводит пошаговую инструкцию
 
-# 3. Закодировать каждый чанк в base64
-for f in /tmp/wf_bchunk_*; do base64 -i "$f" > "${f}.b64"; done
+Пример вывода:
+```
+Head JS #1: /tmp/wf_inject_head_1.js (5336 b64 chars)
+Head JS #2: /tmp/wf_inject_head_2.js (5336 b64 chars)
+Head JS #3: /tmp/wf_inject_head_3.js (4008 b64 chars)
+Head FINAL: /tmp/wf_inject_head_final.js
+Body JS #1: /tmp/wf_inject_body_1.js (5336 b64 chars)
+Body JS #2: /tmp/wf_inject_body_2.js (5336 b64 chars)
+Body JS #3: /tmp/wf_inject_body_3.js (5100 b64 chars)
+Body FINAL: /tmp/wf_inject_body_final.js
+
+Всего browser_evaluate вызовов: 8
+```
+
+### Шаг 2: Webflow Designer
+
+1. Открыть Webflow Designer: `browser_navigate → https://webflow.com/dashboard`
+2. Перейти на сайт "Skillset Landing Page" (ID: `684002a63d872da986e15d46`)
+3. Pages → "+" → New Page → задать slug → Page Settings → Custom Code
+
+### Шаг 3: Инъекция (Claude читает готовые JS-файлы)
+
+Claude должен **прочитать каждый файл** из `/tmp/wf_inject_*.js` и выполнить его содержимое через `browser_evaluate`:
+
+```
+1. Прочитать и выполнить /tmp/wf_inject_head_1.js
+2. Прочитать и выполнить /tmp/wf_inject_head_2.js
+3. Прочитать и выполнить /tmp/wf_inject_head_3.js
+4. Прочитать и выполнить /tmp/wf_inject_head_final.js
+5. Прочитать и выполнить /tmp/wf_inject_body_1.js
+6. Прочитать и выполнить /tmp/wf_inject_body_2.js
+7. Прочитать и выполнить /tmp/wf_inject_body_3.js
+8. Прочитать и выполнить /tmp/wf_inject_body_final.js
+```
+
+### Шаг 4: Публикация
+
+1. Нажать Create/Save в page settings
+2. Publish → выбрать все домены → Publish
+3. **ПРОВЕРИТЬ**, что homepage (/) не затронут!
+
+---
+
+## Зачем нужен Base64 и чанкинг?
+
+### Проблема
+
+Playwright MCP (browser_evaluate) передаёт JavaScript-код как строковый параметр. Если HTML содержит кавычки (`"`, `'`), переносы строк, обратные слеши — они ломают синтаксис JS.
+
+### Решение: Base64
+
+**Base64** — это кодировка, которая превращает любые данные в безопасный набор из 64 символов: `A-Z`, `a-z`, `0-9`, `+`, `/`, `=`. Никаких кавычек или спецсимволов!
+
+```
+Исходный HTML: <div class="hello">It's "great"</div>
+Base64:        PGRpdiBjbGFzcz0iaGVsbG8iPkl0J3MgImdyZWF0IjwvZGl2Pg==
+```
+
+В браузере `atob()` декодирует обратно.
+
+### Проблема: размер
+
+Base64 увеличивает данные на ~33%. Наш body (12 KB) → 16 KB base64. А `browser_evaluate` имеет практический лимит ~5-6 KB на вызов.
+
+### Решение: Chunking
+
+1. **Разбиваем сырой текст** (до кодирования!) на куски по 4 KB
+2. Кодируем каждый кусок в base64 отдельно (~5.3 KB каждый — влезает в лимит)
+3. Передаём каждый чанк отдельным `browser_evaluate` вызовом
+4. В финальном вызове собираем куски обратно
+
+**Важно**: нельзя сначала закодировать всё, потом разрезать base64 строку. Padding-символы `=` в середине строки ломают `atob()`.
+
+### Почему это медленно?
+
+| Причина | Влияние |
+|---------|---------|
+| Каждый чанк = отдельный API round-trip (LLM → MCP → браузер → MCP → LLM) | ~3-5 сек на чанк |
+| LLM генерирует и читает base64 текст (~5 KB) как часть своего ответа | Много output-токенов |
+| 8 вызовов × ~5 KB = ~40 KB текста проходит через LLM | Основная стоимость |
+
+---
+
+## Оптимизация: как ускорить/удешевить
+
+### 1. Скрипт prepare-chunks.sh (уже сделано)
+
+Экономит: **~50% токенов**, потому что Claude не генерирует base64 вручную, а просто читает готовые файлы.
+
+### 2. Минификация HTML/CSS
+
+```bash
+npm install -g html-minifier-terser
+```
+
+Скрипт автоматически минифицирует, если инструмент установлен. Обычно -30-50% размера → меньше чанков.
+
+### 3. Fetch с GitHub Raw (перспективно)
+
+Вместо base64 инъекции, загружать код прямо из GitHub:
+
+```js
+// Один вызов browser_evaluate:
+var resp = await fetch('https://raw.githubusercontent.com/kobzevvv/skillset-landing-pages/master/landings/ai-recruiter/index.html');
+var html = await resp.text();
+// Извлечь head/body и установить в CodeMirror
+var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/);
+document.querySelectorAll('.CodeMirror')[1].CodeMirror.setValue(bodyMatch[1]);
+```
+
+Плюсы: нет base64, нет чанков, **1-2 вызова вместо 8**.
+Минусы: репо должен быть публичным (наш — публичный).
+
+### 4. gzip + DecompressionStream
+
+```bash
+# На стороне подготовки
+gzip -c body.txt | base64 > body.gz.b64
 ```
 
 ```js
-// 4. Инъекция чанков (каждый отдельным browser_evaluate)
-window._c1 = atob("PGRpdiBjbGFzcz0i...");  // chunk 1
-window._c2 = atob("bGluZWNhcD0icm91...");  // chunk 2
-window._c3 = atob("ICAgPGxpPjxzcGFu...");  // chunk 3
-
-// 5. Сборка и установка в CodeMirror
-var body = window._c1 + window._c2 + window._c3;
-var cm = document.querySelectorAll('.CodeMirror')[1].CodeMirror;
-cm.setValue(body);
-delete window._c1; delete window._c2; delete window._c3;
+// В браузере
+var compressed = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+var ds = new DecompressionStream('gzip');
+// ... async decode
 ```
 
-### 6. Сохранить и опубликовать
-
-```js
-// Нажать кнопку Create / Save в page settings
-// Затем Publish → выбрать домены → Publish
-```
+Экономия ~70% на размере, но async-код сложнее.
 
 ---
 
 ## Что работает
 
 - **Page-specific Custom Code** — надёжный способ размещения лендинга
-- **Base64 chunking** — единственный рабочий метод для передачи больших HTML через Playwright MCP
+- **Base64 chunking** через `prepare-chunks.sh` — автоматизированный процесс
 - **CSS namespace `sklst-`** — полностью изолирует стили от Webflow
 - **IntersectionObserver** в `<script>` — fade-in анимации работают корректно
 
@@ -124,67 +175,20 @@ delete window._c1; delete window._c2; delete window._c3;
 | `require('fs')` в browser_evaluate | Sandbox Playwright MCP не поддерживает Node.js модули |
 | `import('fs')` (dynamic) | `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING` — заблокировано в sandbox |
 | Одна большая base64 строка (~16 KB) | Превышает лимит browser_evaluate |
-| Конкатенация двух base64 строк | `InvalidCharacterError` — padding-символы `=` ломают `atob()`. Нужно разбивать **сырой текст**, а не base64 |
+| Конкатенация двух base64 строк | `InvalidCharacterError` — padding `=` ломают `atob()`. Разбивать **сырой текст** |
 | Site-wide Custom Code | Заменяет контент **всех** страниц, включая homepage. **ЗАПРЕЩЕНО!** |
 | Webflow REST API v2 (pages) | API не поддерживает создание страниц. Только скрипты и публикация |
-
----
-
-## Узкие места и оптимизация
-
-### Почему деплой медленный?
-
-1. **Лимит browser_evaluate**: ~5 KB на вызов → для 12 KB body нужно 3+ вызова
-2. **Base64 overhead**: +33% к размеру данных
-3. **Сериальность**: каждый чанк — отдельный API round-trip через MCP
-4. **CodeMirror**: Webflow использует CodeMirror, нужно через его API
-
-### Возможные ускорения
-
-| Подход | Экономия | Сложность |
-|--------|----------|-----------|
-| **Минификация HTML/CSS** перед base64 | 30-50% меньше байт → меньше чанков | Низкая |
-| **gzip → base64** с декодированием через `DecompressionStream` | ~70% меньше, но нужен async decode в браузере | Средняя |
-| **Clipboard API** через Playwright | Без лимитов на размер, но нужна поддержка paste в CodeMirror | Средняя |
-| **Прямой URL fetch** в браузере | Загрузить файл с GitHub raw → без base64 вообще | Низкая |
-| **Page.evaluate с file** (если MCP обновится) | Нативная передача больших данных | Зависит от MCP |
-
-#### Рекомендуемый подход: Fetch с GitHub Raw
-
-Самый перспективный вариант — загрузка кода напрямую из GitHub:
-
-```js
-// В browser_evaluate:
-var resp = await fetch('https://raw.githubusercontent.com/kobzevvv/skillset-landing-pages/master/landings/ai-recruiter/index.html');
-var html = await resp.text();
-// Извлечь body-часть и вставить в CodeMirror
-```
-
-Плюсы: нет лимита на размер, нет base64 overhead, один вызов вместо трёх.
-Минус: нужен публичный репозиторий (у нас он публичный).
-
-#### Минификация (быстрый выигрыш)
-
-```bash
-# Установить
-npm install -g html-minifier-terser
-
-# Минифицировать
-html-minifier-terser --collapse-whitespace --remove-comments \
-  --minify-css true --minify-js true \
-  landings/ai-recruiter/index.html -o /tmp/min.html
-```
-
-Обычно уменьшает HTML на 30-50%, что может уложить body в 2 чанка вместо 3.
 
 ---
 
 ## Чеклист перед публикацией
 
 - [ ] Лендинг работает локально (открыть index.html в браузере)
+- [ ] Проверен на GitHub Pages (ссылка ниже)
 - [ ] Все классы с префиксом `sklst-`
 - [ ] Ссылки ведут на `app.skillset.ae/signup`
 - [ ] Slug задан правильно (соответствует рекламной кампании)
+- [ ] `prepare-chunks.sh` отработал без ошибок
 - [ ] **Homepage (/) НЕ затронут** — проверить после публикации!
 - [ ] Оба домена работают (sklst.ai и skillset.ae)
 
@@ -192,10 +196,10 @@ html-minifier-terser --collapse-whitespace --remove-comments \
 
 ## GitHub Pages Preview
 
-Все лендинги доступны для просмотра через GitHub Pages:
+Все лендинги доступны для превью через GitHub Pages **до** публикации на Webflow:
 
 ```
 https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiter/index.html
 ```
 
-Используй для проверки и полировки **до** публикации на Webflow.
+Workflow: правки в GitHub → проверка на Pages → `prepare-chunks.sh` → деплой на Webflow.
