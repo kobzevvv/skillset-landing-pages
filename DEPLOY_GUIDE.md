@@ -14,181 +14,154 @@
 
 ---
 
-## Быстрый деплой (через скрипт)
+## Два метода деплоя
 
-### Шаг 1: Подготовка
+| | Метод 1: GitHub Fetch | Метод 2: Base64 Chunking |
+|---|---|---|
+| **Скрипт** | `scripts/deploy-via-fetch.js` | `scripts/prepare-chunks.sh` |
+| **Скорость** | ~3 секунды, 1-2 вызова | ~30 секунд, 8+ вызовов |
+| **Стоимость** | Минимальная | Высокая (base64 через LLM) |
+| **Требования** | Публичный GitHub-репо | Только локальные файлы |
+| **Когда использовать** | Всегда (основной метод) | Если GitHub недоступен |
+
+---
+
+## Метод 1: GitHub Fetch (основной)
+
+Самый быстрый и дешёвый способ. Браузер сам загружает HTML из GitHub Raw, парсит его и вставляет в CodeMirror.
+
+### Подготовка
+
+1. Код должен быть запушен в GitHub
+2. Репозиторий должен быть публичным
+3. Webflow Designer открыт на нужной странице → Page Settings → Custom Code
+
+### Деплой за 1 вызов
+
+Claude выполняет **один** `browser_evaluate`:
+
+```js
+(async()=>{
+  var r = await fetch('https://raw.githubusercontent.com/kobzevvv/skillset-landing-pages/master/landings/PAGE_NAME/index.html');
+  var h = await r.text();
+  var hm = h.match(/(<link[^>]*fontshare[\s\S]*?<\/style>)/);
+  var bm = h.match(/<body[^>]*>([\s\S]*)<\/body>/);
+  var c = document.querySelectorAll('.CodeMirror');
+  c[0].CodeMirror.setValue(hm[1]);
+  c[1].CodeMirror.setValue(bm[1].trim());
+  return 'OK: head=' + hm[1].length + ' body=' + bm[1].trim().length;
+})()
+```
+
+Замени `PAGE_NAME` на slug лендинга (`ai-recruiter`, `resume-screening`, `compare`, и т.д.)
+
+### Полный процесс
+
+1. Запушить код в GitHub
+2. Открыть Webflow Designer → создать новую страницу → задать slug
+3. Page Settings → Custom Code
+4. Выполнить `browser_evaluate` с JS выше (подставив PAGE_NAME)
+5. Нажать Create/Save → Publish
+6. **Проверить**, что homepage (/) не затронут!
+
+### Подробный скрипт
+
+Полная версия с обработкой ошибок: `scripts/deploy-via-fetch.js`
+
+---
+
+## Метод 2: Base64 Chunking (запасной)
+
+Используй если GitHub недоступен из Webflow (блокировка, приватный репо, сетевые проблемы).
+
+### Подготовка
 
 ```bash
-cd skillset-landing-pages
 ./scripts/prepare-chunks.sh landings/ai-recruiter/index.html
 ```
 
 Скрипт:
-1. Извлекает Head (CSS + шрифт) и Body (HTML + JS) из index.html
+1. Извлекает Head (CSS + шрифт) и Body (HTML + JS)
 2. Минифицирует код (если установлен `html-minifier-terser`)
 3. Разбивает на base64-чанки по 4 KB
-4. Генерирует готовые JS-файлы для каждого `browser_evaluate`
-5. Выводит пошаговую инструкцию
+4. Генерирует готовые JS-файлы для `browser_evaluate`
 
-Пример вывода:
-```
-Head JS #1: /tmp/wf_inject_head_1.js (5336 b64 chars)
-Head JS #2: /tmp/wf_inject_head_2.js (5336 b64 chars)
-Head JS #3: /tmp/wf_inject_head_3.js (4008 b64 chars)
-Head FINAL: /tmp/wf_inject_head_final.js
-Body JS #1: /tmp/wf_inject_body_1.js (5336 b64 chars)
-Body JS #2: /tmp/wf_inject_body_2.js (5336 b64 chars)
-Body JS #3: /tmp/wf_inject_body_3.js (5100 b64 chars)
-Body FINAL: /tmp/wf_inject_body_final.js
-
-Всего browser_evaluate вызовов: 8
-```
-
-### Шаг 2: Webflow Designer
-
-1. Открыть Webflow Designer: `browser_navigate → https://webflow.com/dashboard`
-2. Перейти на сайт "Skillset Landing Page" (ID: `684002a63d872da986e15d46`)
-3. Pages → "+" → New Page → задать slug → Page Settings → Custom Code
-
-### Шаг 3: Инъекция (Claude читает готовые JS-файлы)
-
-Claude должен **прочитать каждый файл** из `/tmp/wf_inject_*.js` и выполнить его содержимое через `browser_evaluate`:
+### Деплой
 
 ```
-1. Прочитать и выполнить /tmp/wf_inject_head_1.js
-2. Прочитать и выполнить /tmp/wf_inject_head_2.js
-3. Прочитать и выполнить /tmp/wf_inject_head_3.js
-4. Прочитать и выполнить /tmp/wf_inject_head_final.js
-5. Прочитать и выполнить /tmp/wf_inject_body_1.js
-6. Прочитать и выполнить /tmp/wf_inject_body_2.js
-7. Прочитать и выполнить /tmp/wf_inject_body_3.js
-8. Прочитать и выполнить /tmp/wf_inject_body_final.js
+1. browser_evaluate: /tmp/wf_inject_head_1.js
+2. browser_evaluate: /tmp/wf_inject_head_2.js
+3. browser_evaluate: /tmp/wf_inject_head_3.js
+4. browser_evaluate: /tmp/wf_inject_head_final.js
+5. browser_evaluate: /tmp/wf_inject_body_1.js
+6. browser_evaluate: /tmp/wf_inject_body_2.js
+7. browser_evaluate: /tmp/wf_inject_body_3.js
+8. browser_evaluate: /tmp/wf_inject_body_final.js
+9. Click Create/Save → Publish
 ```
 
-### Шаг 4: Публикация
-
-1. Нажать Create/Save в page settings
-2. Publish → выбрать все домены → Publish
-3. **ПРОВЕРИТЬ**, что homepage (/) не затронут!
+Claude читает каждый файл и вставляет его содержимое в `browser_evaluate`.
 
 ---
 
-## Зачем нужен Base64 и чанкинг?
+## Зачем нужен Base64?
 
 ### Проблема
 
-Playwright MCP (browser_evaluate) передаёт JavaScript-код как строковый параметр. Если HTML содержит кавычки (`"`, `'`), переносы строк, обратные слеши — они ломают синтаксис JS.
+Playwright MCP (`browser_evaluate`) передаёт JavaScript как строку. HTML с кавычками, переносами строк и спецсимволами ломает JS-синтаксис.
 
-### Решение: Base64
+### Решение
 
-**Base64** — это кодировка, которая превращает любые данные в безопасный набор из 64 символов: `A-Z`, `a-z`, `0-9`, `+`, `/`, `=`. Никаких кавычек или спецсимволов!
+**Base64** кодирует данные в безопасные символы `A-Za-z0-9+/=`. В браузере `atob()` декодирует обратно.
 
 ```
-Исходный HTML: <div class="hello">It's "great"</div>
-Base64:        PGRpdiBjbGFzcz0iaGVsbG8iPkl0J3MgImdyZWF0IjwvZGl2Pg==
+HTML:   <div class="hello">It's "great"</div>
+Base64: PGRpdiBjbGFzcz0iaGVsbG8iPkl0J3MgImdyZWF0IjwvZGl2Pg==
 ```
 
-В браузере `atob()` декодирует обратно.
+### Почему chunking?
 
-### Проблема: размер
+Base64 увеличивает данные на ~33%. `browser_evaluate` лимит ~5-6 KB. Поэтому:
+1. Разбиваем **сырой текст** на куски по 4 KB
+2. Кодируем каждый кусок отдельно (~5.3 KB base64)
+3. Передаём каждый чанк отдельным вызовом
+4. Собираем обратно в финальном вызове
 
-Base64 увеличивает данные на ~33%. Наш body (12 KB) → 16 KB base64. А `browser_evaluate` имеет практический лимит ~5-6 KB на вызов.
+**Важно**: нельзя разрезать уже закодированную base64 строку — padding `=` в середине ломает `atob()`.
 
-### Решение: Chunking
+### Почему метод 1 лучше?
 
-1. **Разбиваем сырой текст** (до кодирования!) на куски по 4 KB
-2. Кодируем каждый кусок в base64 отдельно (~5.3 KB каждый — влезает в лимит)
-3. Передаём каждый чанк отдельным `browser_evaluate` вызовом
-4. В финальном вызове собираем куски обратно
-
-**Важно**: нельзя сначала закодировать всё, потом разрезать base64 строку. Padding-символы `=` в середине строки ломают `atob()`.
-
-### Почему это медленно?
-
-| Причина | Влияние |
-|---------|---------|
-| Каждый чанк = отдельный API round-trip (LLM → MCP → браузер → MCP → LLM) | ~3-5 сек на чанк |
-| LLM генерирует и читает base64 текст (~5 KB) как часть своего ответа | Много output-токенов |
-| 8 вызовов × ~5 KB = ~40 KB текста проходит через LLM | Основная стоимость |
-
----
-
-## Оптимизация: как ускорить/удешевить
-
-### 1. Скрипт prepare-chunks.sh (уже сделано)
-
-Экономит: **~50% токенов**, потому что Claude не генерирует base64 вручную, а просто читает готовые файлы.
-
-### 2. Минификация HTML/CSS
-
-```bash
-npm install -g html-minifier-terser
-```
-
-Скрипт автоматически минифицирует, если инструмент установлен. Обычно -30-50% размера → меньше чанков.
-
-### 3. Fetch с GitHub Raw (перспективно)
-
-Вместо base64 инъекции, загружать код прямо из GitHub:
-
-```js
-// Один вызов browser_evaluate:
-var resp = await fetch('https://raw.githubusercontent.com/kobzevvv/skillset-landing-pages/master/landings/ai-recruiter/index.html');
-var html = await resp.text();
-// Извлечь head/body и установить в CodeMirror
-var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/);
-document.querySelectorAll('.CodeMirror')[1].CodeMirror.setValue(bodyMatch[1]);
-```
-
-Плюсы: нет base64, нет чанков, **1-2 вызова вместо 8**.
-Минусы: репо должен быть публичным (наш — публичный).
-
-### 4. gzip + DecompressionStream
-
-```bash
-# На стороне подготовки
-gzip -c body.txt | base64 > body.gz.b64
-```
-
-```js
-// В браузере
-var compressed = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-var ds = new DecompressionStream('gzip');
-// ... async decode
-```
-
-Экономия ~70% на размере, но async-код сложнее.
+GitHub fetch обходит все эти проблемы — данные загружает сам браузер через HTTP, без base64, без чанков, без LLM-токенов.
 
 ---
 
 ## Что работает
 
 - **Page-specific Custom Code** — надёжный способ размещения лендинга
-- **Base64 chunking** через `prepare-chunks.sh` — автоматизированный процесс
+- **GitHub Raw fetch** — быстрый деплой за 1 вызов (основной метод)
+- **Base64 chunking** через `prepare-chunks.sh` — надёжный запасной метод
 - **CSS namespace `sklst-`** — полностью изолирует стили от Webflow
 - **IntersectionObserver** в `<script>` — fade-in анимации работают корректно
 
 ## Что НЕ работает
 
-| Метод | Почему не работает |
-|-------|--------------------|
-| `require('fs')` в browser_evaluate | Sandbox Playwright MCP не поддерживает Node.js модули |
-| `import('fs')` (dynamic) | `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING` — заблокировано в sandbox |
-| Одна большая base64 строка (~16 KB) | Превышает лимит browser_evaluate |
-| Конкатенация двух base64 строк | `InvalidCharacterError` — padding `=` ломают `atob()`. Разбивать **сырой текст** |
-| Site-wide Custom Code | Заменяет контент **всех** страниц, включая homepage. **ЗАПРЕЩЕНО!** |
-| Webflow REST API v2 (pages) | API не поддерживает создание страниц. Только скрипты и публикация |
+| Метод | Почему |
+|-------|--------|
+| `require('fs')` в browser_evaluate | Sandbox не поддерживает Node.js |
+| `import('fs')` dynamic | Заблокировано в sandbox |
+| Одна base64 строка >6 KB | Превышает лимит browser_evaluate |
+| Конкатенация base64 строк | Padding `=` ломает `atob()` |
+| Site-wide Custom Code | Затрагивает homepage. **ЗАПРЕЩЕНО!** |
 
 ---
 
 ## Чеклист перед публикацией
 
-- [ ] Лендинг работает локально (открыть index.html в браузере)
-- [ ] Проверен на GitHub Pages (ссылка ниже)
+- [ ] Лендинг работает на GitHub Pages
 - [ ] Все классы с префиксом `sklst-`
 - [ ] Ссылки ведут на `app.skillset.ae/signup`
-- [ ] Slug задан правильно (соответствует рекламной кампании)
-- [ ] `prepare-chunks.sh` отработал без ошибок
+- [ ] Slug соответствует рекламной кампании
+- [ ] `git push` выполнен (для метода 1)
 - [ ] **Homepage (/) НЕ затронут** — проверить после публикации!
 - [ ] Оба домена работают (sklst.ai и skillset.ae)
 
@@ -196,10 +169,27 @@ var ds = new DecompressionStream('gzip');
 
 ## GitHub Pages Preview
 
-Все лендинги доступны для превью через GitHub Pages **до** публикации на Webflow:
+Все лендинги доступны для превью:
 
 ```
-https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiter/index.html
+https://kobzevvv.github.io/skillset-landing-pages/landings/{slug}/index.html
 ```
 
-Workflow: правки в GitHub → проверка на Pages → `prepare-chunks.sh` → деплой на Webflow.
+Workflow: правки → push → проверка на Pages → деплой на Webflow (метод 1 или 2).
+
+---
+
+## Список лендингов
+
+| Slug | Кампания | URL на Pages |
+|------|----------|--------------|
+| `ai-recruiter` | AI Recruiter (general) | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiter/index.html) |
+| `ai-recruiting` | US AI Recruiting Core | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiting/index.html) |
+| `resume-screening` | US AI Resume Screening | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/resume-screening/index.html) |
+| `ai-sourcing` | US AI Candidate Sourcing | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-sourcing/index.html) |
+| `compare` | Competitor Conquest | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/compare/index.html) |
+| `dubai` | Dubai / UAE | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/dubai/index.html) |
+| `automation` | Recruitment Automation | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/automation/index.html) |
+| `small-business` | SMB High Intent | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/small-business/index.html) |
+| `agencies` | Agency Recruiting | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/agencies/index.html) |
+| `demo` | Demo Booking | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/demo/index.html) |
