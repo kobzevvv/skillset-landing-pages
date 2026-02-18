@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skillset vs Competitors — See How We Compare | Skillset</title>
-  <meta name="description" content="Compare Skillset to HireEZ, SeekOut, Greenhouse, Workable, and other recruiting tools. See why companies switch to AI-powered hiring.">
+  <title>Skillset vs Greenhouse, Workable, Lever & More — AI Recruiting Comparison | Skillset</title>
+  <meta name="description" content="Compare Skillset to Greenhouse, Workable, Lever, HireEZ, SeekOut & Manatal. See why teams switch to AI-native recruiting. Feature-by-feature breakdown.">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -331,6 +331,44 @@
       .sklst-features-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+    /* COMPARISON TABLE */
+    .sklst-table-wrap { max-width: 1100px; margin: 0 auto; overflow-x: auto; }
+    .sklst-comp-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--bg-card); border-radius: var(--radius-card); overflow: hidden;
+    }
+    .sklst-comp-table th, .sklst-comp-table td {
+      padding: 16px 20px; text-align: center; font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sklst-comp-table th { font-weight: 700; font-size: 13px; text-transform: uppercase; color: var(--text-muted); background: #f0f1f5; }
+    .sklst-comp-table th:first-child, .sklst-comp-table td:first-child { text-align: left; font-weight: 600; min-width: 180px; }
+    .sklst-comp-table th.highlight { background: var(--accent); color: white; }
+    .sklst-comp-table td.highlight { background: rgba(0, 85, 255, 0.04); font-weight: 700; }
+    .sklst-comp-table tr:last-child td { border-bottom: none; }
+    .sklst-check { color: var(--success); font-weight: 700; }
+    .sklst-cross { color: var(--danger); }
+    .sklst-partial { color: var(--peach); }
+
+    /* COMPETITOR CARDS */
+    .sklst-competitors { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .sklst-competitor-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-card); padding: 32px 28px;
+    }
+    .sklst-competitor-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .sklst-competitor-card .sklst-comp-type { font-size: 13px; color: var(--text-muted-light); margin-bottom: 16px; }
+    .sklst-competitor-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .sklst-competitor-card li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; color: var(--text-muted-light); }
+    @media (max-width: 768px) {
+      .sklst-competitors { grid-template-columns: 1fr; }
+      .sklst-comp-table { font-size: 12px; }
+      .sklst-comp-table th, .sklst-comp-table td { padding: 10px 8px; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sklst-competitors { grid-template-columns: repeat(2, 1fr); }
+    }
+
     /* ANIMATIONS */
     .sklst-fade {
       opacity: 0; transform: translateY(20px);
@@ -364,9 +402,9 @@
 <!-- HERO -->
 <section class="sklst-hero">
   <div class="sklst-hero-content">
-    <div class="sklst-hero-tag">Compare</div>
-    <h1>See how Skillset compares</h1>
-    <p>Thinking about switching? See exactly how Skillset stacks up against traditional ATS and recruiting tools on features, speed, and results.</p>
+    <div class="sklst-hero-tag" style="background: var(--accent);">Skillset vs Competitors</div>
+    <h1>The AI-native alternative<br>to your ATS</h1>
+    <p>Thinking about switching from Greenhouse, Workable, or Lever? See exactly how Skillset stacks up on features, speed, and cost.</p>
     <div class="sklst-hero-buttons">
       <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">Book a Migration Demo</a>
       <a href="#sklst-features" class="sklst-btn sklst-btn-secondary">See features</a>
@@ -441,8 +479,168 @@
   </div>
 </section>
 
+<!-- COMPETITOR TABLE -->
+<section class="sklst-section sklst-section-dark" id="sklst-table">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Feature Comparison</div>
+    <h2 class="sklst-section-title" style="color: white;">Skillset vs popular recruiting tools</h2>
+    <p class="sklst-section-desc">Feature-by-feature breakdown across the tools you're likely evaluating.</p>
+  </div>
+  <div class="sklst-table-wrap sklst-fade">
+    <table class="sklst-comp-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="highlight">Skillset</th>
+          <th>Greenhouse</th>
+          <th>Workable</th>
+          <th>Lever</th>
+          <th>HireEZ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AI Resume Screening</td>
+          <td class="highlight"><span class="sklst-check">Built-in</span></td>
+          <td><span class="sklst-cross">No</span></td>
+          <td><span class="sklst-partial">Basic</span></td>
+          <td><span class="sklst-cross">No</span></td>
+          <td><span class="sklst-partial">Limited</span></td>
+        </tr>
+        <tr>
+          <td>Technical Assessments</td>
+          <td class="highlight"><span class="sklst-check">Built-in</span></td>
+          <td><span class="sklst-cross">3rd party</span></td>
+          <td><span class="sklst-cross">3rd party</span></td>
+          <td><span class="sklst-cross">3rd party</span></td>
+          <td><span class="sklst-cross">No</span></td>
+        </tr>
+        <tr>
+          <td>AI Candidate Sourcing</td>
+          <td class="highlight"><span class="sklst-check">45+ platforms</span></td>
+          <td><span class="sklst-cross">No</span></td>
+          <td><span class="sklst-partial">AI assist</span></td>
+          <td><span class="sklst-cross">No</span></td>
+          <td><span class="sklst-check">Yes</span></td>
+        </tr>
+        <tr>
+          <td>AI Job Descriptions</td>
+          <td class="highlight"><span class="sklst-check">Built-in</span></td>
+          <td><span class="sklst-cross">No</span></td>
+          <td><span class="sklst-check">Yes</span></td>
+          <td><span class="sklst-cross">No</span></td>
+          <td><span class="sklst-cross">No</span></td>
+        </tr>
+        <tr>
+          <td>Candidate Ranking</td>
+          <td class="highlight"><span class="sklst-check">AI-powered</span></td>
+          <td><span class="sklst-partial">Manual</span></td>
+          <td><span class="sklst-partial">Basic</span></td>
+          <td><span class="sklst-partial">Manual</span></td>
+          <td><span class="sklst-partial">Basic</span></td>
+        </tr>
+        <tr>
+          <td>Setup Time</td>
+          <td class="highlight"><span class="sklst-check">Minutes</span></td>
+          <td>Weeks</td>
+          <td>Days</td>
+          <td>Weeks</td>
+          <td>Days</td>
+        </tr>
+        <tr>
+          <td>Per-Seat Pricing</td>
+          <td class="highlight"><span class="sklst-check">No</span></td>
+          <td><span class="sklst-cross">Yes</span></td>
+          <td><span class="sklst-cross">Yes</span></td>
+          <td><span class="sklst-cross">Yes</span></td>
+          <td><span class="sklst-cross">Yes</span></td>
+        </tr>
+        <tr>
+          <td>Free Trial</td>
+          <td class="highlight"><span class="sklst-check">3 days</span></td>
+          <td><span class="sklst-cross">Demo only</span></td>
+          <td><span class="sklst-check">15 days</span></td>
+          <td><span class="sklst-cross">Demo only</span></td>
+          <td><span class="sklst-check">Yes</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- COMPETITOR CARDS -->
+<section class="sklst-section sklst-section-dark" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Why Teams Switch</div>
+    <h2 class="sklst-section-title" style="color: white;">What Skillset replaces</h2>
+    <p class="sklst-section-desc">Common tools teams drop when they switch to Skillset — and what they gain.</p>
+  </div>
+  <div class="sklst-competitors">
+    <div class="sklst-competitor-card sklst-fade">
+      <h3>Greenhouse</h3>
+      <div class="sklst-comp-type">Traditional ATS</div>
+      <ul>
+        <li><span class="sklst-cross">x</span> No AI screening — manual resume review</li>
+        <li><span class="sklst-cross">x</span> Needs HackerRank/Codility for assessments</li>
+        <li><span class="sklst-cross">x</span> Per-seat pricing scales with headcount</li>
+        <li><span class="sklst-check">+</span> Skillset: AI screens + assesses in one tool</li>
+      </ul>
+    </div>
+    <div class="sklst-competitor-card sklst-fade">
+      <h3>Workable</h3>
+      <div class="sklst-comp-type">ATS + Basic AI</div>
+      <ul>
+        <li><span class="sklst-cross">x</span> AI features are add-ons, not core</li>
+        <li><span class="sklst-cross">x</span> No built-in technical assessments</li>
+        <li><span class="sklst-cross">x</span> Limited candidate ranking intelligence</li>
+        <li><span class="sklst-check">+</span> Skillset: AI-native from day one</li>
+      </ul>
+    </div>
+    <div class="sklst-competitor-card sklst-fade">
+      <h3>Lever</h3>
+      <div class="sklst-comp-type">ATS + CRM</div>
+      <ul>
+        <li><span class="sklst-cross">x</span> No AI resume screening</li>
+        <li><span class="sklst-cross">x</span> No technical assessment capability</li>
+        <li><span class="sklst-cross">x</span> Complex setup takes weeks</li>
+        <li><span class="sklst-check">+</span> Skillset: live in minutes, not weeks</li>
+      </ul>
+    </div>
+    <div class="sklst-competitor-card sklst-fade">
+      <h3>HireEZ</h3>
+      <div class="sklst-comp-type">AI Sourcing</div>
+      <ul>
+        <li><span class="sklst-cross">x</span> Sourcing only — no screening or assessments</li>
+        <li><span class="sklst-cross">x</span> Still need ATS for the rest of your pipeline</li>
+        <li><span class="sklst-cross">x</span> No candidate skill verification</li>
+        <li><span class="sklst-check">+</span> Skillset: source + screen + assess in one</li>
+      </ul>
+    </div>
+    <div class="sklst-competitor-card sklst-fade">
+      <h3>SeekOut</h3>
+      <div class="sklst-comp-type">AI Sourcing + Diversity</div>
+      <ul>
+        <li><span class="sklst-cross">x</span> Sourcing focused — no end-to-end hiring</li>
+        <li><span class="sklst-cross">x</span> No technical assessment capability</li>
+        <li><span class="sklst-cross">x</span> Enterprise pricing, long contracts</li>
+        <li><span class="sklst-check">+</span> Skillset: full pipeline, fair pricing</li>
+      </ul>
+    </div>
+    <div class="sklst-competitor-card sklst-fade">
+      <h3>Manatal</h3>
+      <div class="sklst-comp-type">ATS + AI</div>
+      <ul>
+        <li><span class="sklst-cross">x</span> Basic AI — keyword matching, not deep analysis</li>
+        <li><span class="sklst-cross">x</span> No live coding or technical assessments</li>
+        <li><span class="sklst-cross">x</span> Limited sourcing capabilities</li>
+        <li><span class="sklst-check">+</span> Skillset: true AI understanding of skills</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS -->
-<section class="sklst-section sklst-section-dark" id="sklst-how">
+<section class="sklst-section sklst-section-dark" id="sklst-how" style="padding-top: 0;">
   <div class="sklst-section-header sklst-fade">
     <div class="sklst-section-label">How It Works</div>
     <h2 class="sklst-section-title" style="color: white;">From signup to first hire in days</h2>
