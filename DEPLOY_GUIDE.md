@@ -27,11 +27,32 @@
 
 > **Ошибка**: ранее предполагалось 2 редактора. Если код попал в неправильные поля — перезалить через скрипт ниже.
 
+### Статус проекта: эксперимент / исследование
+
+Все рекламные лендинги — это **эксперимент**. Мы тестируем, какие value propositions, сегменты и детали работают. Поэтому:
+
+- Лендинги НЕ являются частью основного сайта
+- Они доступны ТОЛЬКО по прямым ссылкам из рекламных кампаний
+- На них нельзя случайно попасть через навигацию или поиск
+
+### SEO-изоляция (КРИТИЧЕСКИ ВАЖНО!)
+
+Все рекламные лендинги **ОБЯЗАНЫ** быть скрыты от поисковых систем:
+
+1. **`noindex, nofollow`** — каждый лендинг содержит `<meta name="robots" content="noindex, nofollow">` в `<head>`. **Не удалять!**
+2. **Sitemap** — НЕ добавлять лендинги в sitemap.xml. Ни в Webflow sitemap, ни в robots.txt
+3. **Главная страница** — НЕ ставить ссылки на лендинги с главной страницы или из навигации сайта
+4. **Внутренние ссылки** — лендинги НЕ ссылаются друг на друга (только на skillset.ae, app.skillset.ae, Calendly)
+5. **Единственный вход** — через прямой URL из рекламного объявления (Google Ads, Cold Email)
+
+> **Почему**: мы экспериментируем с позиционированием. Пока не знаем, какие VP работают. Индексация экспериментальных страниц вредит SEO основного сайта.
+
 ### Правила публикации
 
-- **Публикуем ТОЛЬКО на `sklst.ai`** — не выбирать skillset.ae, www.sklst.ai, www.skillset.ae, staging
+- **Публикуем на `sklst.ai`** (и другие подключённые домены, если нужно)
 - **Site-wide Custom Code** используется только для GTM/аналитики — **НЕ** для контента лендингов
 - **Page-specific Custom Code** — для контента каждого лендинга
+- **Webflow Page Settings → SEO**: отключить "Index this page" если такая опция есть
 
 ---
 
@@ -215,7 +236,10 @@ GitHub fetch обходит все эти проблемы — данные за
 - [ ] Slug соответствует рекламной кампании
 - [ ] `git push` выполнен (для метода 1)
 - [ ] CodeMirror маппинг: c[0]=пустой, c[1]=head, c[2]=body
-- [ ] Публикация **только на sklst.ai** (не выбирать другие домены!)
+- [ ] `<meta name="robots" content="noindex, nofollow">` присутствует в `<head>`
+- [ ] Страница НЕ добавлена в sitemap
+- [ ] Нет ссылок на эту страницу с главной или навигации
+- [ ] Публикация на sklst.ai
 - [ ] **Homepage (/) НЕ затронут** — проверить после публикации!
 - [ ] GTM загружается на странице (проверить network requests)
 - [ ] Обновить статус в [Google Sheet — Landing Pages](https://docs.google.com/spreadsheets/d/1bpbZhL1wh0huFHeEP9XjcPjZy4KGfrWAABveAVmrL5s/edit#gid=0&range=Landing%20Pages)
@@ -248,5 +272,9 @@ Workflow: правки → push → проверка на Pages → деплой
 | `small-business` | SMB High Intent | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/small-business/index.html) | [live](https://sklst.ai/small-business) |
 | `agencies` | Agency Recruiting | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/agencies/index.html) | [live](https://sklst.ai/agencies) |
 | `demo` | Demo Booking | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/demo/index.html) | [live](https://sklst.ai/demo) |
+| `ats` | AI-Powered ATS | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ats/index.html) | [live](https://sklst.ai/ats) |
+| `job-description` | AI JD Generator | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/job-description/index.html) | [live](https://sklst.ai/job-description) |
+| `diversity` | Bias-Free Hiring (DEI) | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/diversity/index.html) | [live](https://sklst.ai/diversity) |
 
 > **Полный список с маркетинговыми данными**: [Google Sheet — Landing Pages](https://docs.google.com/spreadsheets/d/1bpbZhL1wh0huFHeEP9XjcPjZy4KGfrWAABveAVmrL5s/edit#gid=0)
+> **Master List**: [Google Sheet — Master List](https://docs.google.com/spreadsheets/d/1fqmGeGKRG93RNxnXINrhHix8dtOf0z64EIR4I7m03z0/edit)
