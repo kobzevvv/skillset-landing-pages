@@ -9,7 +9,7 @@
 Каждый лендинг — **автономный HTML-файл** (CSS + JS внутри). Лендинг публикуется на Webflow как **отдельная страница** с кастомным кодом (page-specific Head + Body).
 
 - **Webflow site**: "Skillset Landing Page" в Olga's Workspace
-- **Домен**: `sklst.ai` (единственный домен для публикации)
+- **Домены**: `sklst.ai`, `www.sklst.ai`, `skillset.ae`, `www.skillset.ae` (публикуем на все)
 - **GitHub**: `kobzevvv/skillset-landing-pages` (публичный)
 - **Webflow Designer** → Pages → выбрать страницу → Settings (⚙️) → Custom Code
 - **Head** (`Inside <head> tag`): блок `<style>` + подключение шрифта
@@ -22,7 +22,7 @@
 | Индекс | Поле | Что туда идёт |
 |--------|------|---------------|
 | `c[0]` | Schema markup | **ПУСТОЙ** — ничего не вставлять! |
-| `c[1]` | Inside `<head>` tag | CSS + шрифт (`<link>` + `<style>`) |
+| `c[1]` | Inside `<head>` tag | `<meta robots noindex>` + CSS + шрифт (`<link>` + `<style>`) |
 | `c[2]` | Before `</body>` tag | HTML body + `<script>` |
 
 > **Ошибка**: ранее предполагалось 2 редактора. Если код попал в неправильные поля — перезалить через скрипт ниже.
@@ -49,7 +49,7 @@
 
 ### Правила публикации
 
-- **Публикуем на `sklst.ai`** (и другие подключённые домены, если нужно)
+- **Публикуем на все домены** (`sklst.ai`, `www.sklst.ai`, `skillset.ae`, `www.skillset.ae`)
 - **Site-wide Custom Code** используется только для GTM/аналитики — **НЕ** для контента лендингов
 - **Page-specific Custom Code** — для контента каждого лендинга
 - **Webflow Page Settings → SEO**: отключить "Index this page" если такая опция есть
@@ -86,12 +86,12 @@ Claude выполняет **один** `browser_evaluate`:
 (async () => {
   var r = await fetch('https://raw.githubusercontent.com/kobzevvv/skillset-landing-pages/master/landings/PAGE_NAME/index.html');
   var h = await r.text();
-  var hm = h.match(/<link[^>]*fonts[\s\S]*?<\/style>/);
+  var hm = h.match(/<meta name="robots"[^>]*>[\s\S]*?<\/style>/);
   var bm = h.match(/<body[^>]*>([\s\S]*)<\/body>/);
   if (!hm || !bm) return 'ERROR: regex failed';
   var c = document.querySelectorAll('.CodeMirror');
   c[0].CodeMirror.setValue('');        // Schema markup — очистить
-  c[1].CodeMirror.setValue(hm[0]);     // Inside <head> — CSS + шрифт
+  c[1].CodeMirror.setValue(hm[0]);     // Inside <head> — noindex + CSS + шрифт
   c[2].CodeMirror.setValue(bm[1].trim()); // Before </body> — HTML + JS
   return 'OK: schema=cleared head=' + hm[0].length + ' body=' + bm[1].trim().length;
 })()
@@ -105,7 +105,7 @@ Claude выполняет **один** `browser_evaluate`:
 2. Открыть Webflow Designer → создать новую страницу → задать slug
 3. Page Settings (⚙️) → Custom Code
 4. Выполнить `browser_evaluate` с JS выше (подставив PAGE_NAME)
-5. Нажать Save → Publish (**только sklst.ai!**)
+5. Нажать Save → Publish (все домены)
 6. **Проверить**, что homepage (/) не затронут!
 
 ### Подробный скрипт
@@ -141,7 +141,7 @@ Claude выполняет **один** `browser_evaluate`:
 6. browser_evaluate: /tmp/wf_inject_body_2.js
 7. browser_evaluate: /tmp/wf_inject_body_3.js
 8. browser_evaluate: /tmp/wf_inject_body_final.js
-9. Click Save → Publish (только sklst.ai!)
+9. Click Save → Publish (все домены)
 ```
 
 Claude читает каждый файл и вставляет его содержимое в `browser_evaluate`.
@@ -239,7 +239,7 @@ GitHub fetch обходит все эти проблемы — данные за
 - [ ] `<meta name="robots" content="noindex, nofollow">` присутствует в `<head>`
 - [ ] Страница НЕ добавлена в sitemap
 - [ ] Нет ссылок на эту страницу с главной или навигации
-- [ ] Публикация на sklst.ai
+- [ ] Публикация на все домены (sklst.ai, www.sklst.ai, skillset.ae, www.skillset.ae)
 - [ ] **Homepage (/) НЕ затронут** — проверить после публикации!
 - [ ] GTM загружается на странице (проверить network requests)
 - [ ] Обновить статус в [Google Sheet — Landing Pages](https://docs.google.com/spreadsheets/d/1bpbZhL1wh0huFHeEP9XjcPjZy4KGfrWAABveAVmrL5s/edit#gid=0&range=Landing%20Pages)
@@ -260,21 +260,21 @@ Workflow: правки → push → проверка на Pages → деплой
 
 ## Список лендингов
 
-| Slug | Кампания | Preview (GitHub Pages) | Production (sklst.ai) |
-|------|----------|------------------------|-----------------------|
-| `ai-recruiter` | AI Recruiter (general) | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiter/index.html) | [live](https://sklst.ai/ai-recruiter) |
-| `ai-recruiting` | US AI Recruiting Core | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiting/index.html) | [live](https://sklst.ai/ai-recruiting) |
-| `resume-screening` | US AI Resume Screening | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/resume-screening/index.html) | [live](https://sklst.ai/resume-screening) |
-| `ai-sourcing` | US AI Candidate Sourcing | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-sourcing/index.html) | [live](https://sklst.ai/ai-sourcing) |
-| `compare` | Competitor Conquest | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/compare/index.html) | [live](https://sklst.ai/compare) |
-| `dubai` | Dubai / UAE | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/dubai/index.html) | [live](https://sklst.ai/dubai) |
-| `automation` | Recruitment Automation | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/automation/index.html) | [live](https://sklst.ai/automation) |
-| `small-business` | SMB High Intent | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/small-business/index.html) | [live](https://sklst.ai/small-business) |
-| `agencies` | Agency Recruiting | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/agencies/index.html) | [live](https://sklst.ai/agencies) |
-| `demo` | Demo Booking | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/demo/index.html) | [live](https://sklst.ai/demo) |
-| `ats` | AI-Powered ATS | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ats/index.html) | [live](https://sklst.ai/ats) |
-| `job-description` | AI JD Generator | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/job-description/index.html) | [live](https://sklst.ai/job-description) |
-| `diversity` | Bias-Free Hiring (DEI) | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/diversity/index.html) | [live](https://sklst.ai/diversity) |
+| Slug | Кампания | Preview (GitHub Pages) | Production |
+|------|----------|------------------------|------------|
+| `ai-recruiter` | AI Recruiter (general) | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiter/index.html) | [sklst.ai](https://sklst.ai/ai-recruiter) / [skillset.ae](https://skillset.ae/ai-recruiter) |
+| `ai-recruiting` | US AI Recruiting Core | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiting/index.html) | [sklst.ai](https://sklst.ai/ai-recruiting) / [skillset.ae](https://skillset.ae/ai-recruiting) |
+| `resume-screening` | US AI Resume Screening | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/resume-screening/index.html) | [sklst.ai](https://sklst.ai/resume-screening) / [skillset.ae](https://skillset.ae/resume-screening) |
+| `ai-sourcing` | US AI Candidate Sourcing | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-sourcing/index.html) | [sklst.ai](https://sklst.ai/ai-sourcing) / [skillset.ae](https://skillset.ae/ai-sourcing) |
+| `compare` | Competitor Conquest | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/compare/index.html) | [sklst.ai](https://sklst.ai/compare) / [skillset.ae](https://skillset.ae/compare) |
+| `dubai` | Dubai / UAE | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/dubai/index.html) | [sklst.ai](https://sklst.ai/dubai) / [skillset.ae](https://skillset.ae/dubai) |
+| `automation` | Recruitment Automation | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/automation/index.html) | [sklst.ai](https://sklst.ai/automation) / [skillset.ae](https://skillset.ae/automation) |
+| `small-business` | SMB High Intent | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/small-business/index.html) | [sklst.ai](https://sklst.ai/small-business) / [skillset.ae](https://skillset.ae/small-business) |
+| `agencies` | Agency Recruiting | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/agencies/index.html) | [sklst.ai](https://sklst.ai/agencies) / [skillset.ae](https://skillset.ae/agencies) |
+| `demo` | Demo Booking | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/demo/index.html) | [sklst.ai](https://sklst.ai/demo) / [skillset.ae](https://skillset.ae/demo) |
+| `ats` | AI-Powered ATS | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ats/index.html) | [sklst.ai](https://sklst.ai/ats) / [skillset.ae](https://skillset.ae/ats) |
+| `job-description` | AI JD Generator | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/job-description/index.html) | [sklst.ai](https://sklst.ai/job-description) / [skillset.ae](https://skillset.ae/job-description) |
+| `diversity` | Bias-Free Hiring (DEI) | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/diversity/index.html) | [sklst.ai](https://sklst.ai/diversity) / [skillset.ae](https://skillset.ae/diversity) |
 
 > **Полный список с маркетинговыми данными**: [Google Sheet — Landing Pages](https://docs.google.com/spreadsheets/d/1bpbZhL1wh0huFHeEP9XjcPjZy4KGfrWAABveAVmrL5s/edit#gid=0)
 > **Master List**: [Google Sheet — Master List](https://docs.google.com/spreadsheets/d/1fqmGeGKRG93RNxnXINrhHix8dtOf0z64EIR4I7m03z0/edit)
