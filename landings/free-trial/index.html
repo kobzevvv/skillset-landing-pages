@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Your Free Trial — AI-Powered Hiring in Minutes | Skillset</title>
+  <meta name="description" content="Try Skillset free for 7 days. No credit card required. AI resume screening, candidate sourcing, and technical assessments — set up in 5 minutes.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --bg-card-dark: #1F2126;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.25;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    .sklst-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      background: rgba(216, 220, 229, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: box-shadow 0.3s;
+    }
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sklst-nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+    }
+    .sklst-nav-logo span {
+      font-size: 20px; font-weight: 700;
+    }
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a {
+      text-decoration: none; color: var(--text-muted-dark);
+      font-size: 15px; font-weight: 500; transition: color 0.2s;
+    }
+    .sklst-nav-links a:hover { color: var(--accent); }
+    .sklst-nav-links .sklst-btn-primary { color: var(--text-white); }
+    .sklst-nav-links .sklst-btn-primary:hover { color: var(--text-white); }
+
+    /* BUTTONS */
+    .sklst-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; cursor: pointer; border: none;
+      font-family: 'Satoshi', 'Inter', sans-serif;
+      transition: all 0.2s ease;
+    }
+    .sklst-btn-primary {
+      background: var(--accent);
+      color: var(--text-white);
+      border-radius: var(--radius-pill);
+      padding: 14px 36px;
+      font-size: 17px; font-weight: 700;
+    }
+    .sklst-btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3);
+    }
+    .sklst-btn-primary-lg {
+      padding: 18px 56px;
+      font-size: 19px;
+    }
+    .sklst-btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 12px 32px;
+      font-size: 16px; font-weight: 700;
+    }
+    .sklst-btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .sklst-btn-sm {
+      padding: 10px 24px;
+      font-size: 14px; font-weight: 700;
+      border-radius: var(--radius-pill);
+    }
+
+    /* HERO */
+    .sklst-hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+    }
+    .sklst-hero-content { max-width: 800px; }
+    .sklst-hero-tag {
+      display: inline-block;
+      background: var(--success);
+      color: var(--text-white);
+      font-size: 13px; font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 24px;
+    }
+    .sklst-hero h1 {
+      font-size: clamp(36px, 5vw, 50px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .sklst-hero p {
+      font-size: 20px;
+      color: var(--text-muted-dark);
+      line-height: 1.4;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .sklst-hero-buttons {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .sklst-hero-note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* SECTIONS */
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-dark {
+      background: var(--bg-dark);
+      color: var(--text-white);
+    }
+    .sklst-section-header {
+      text-align: center;
+      max-width: 600px; margin: 0 auto 64px;
+    }
+    .sklst-section-label {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      color: var(--peach); margin-bottom: 16px;
+    }
+    .sklst-section-title {
+      font-size: clamp(26px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.17;
+      margin-bottom: 12px;
+    }
+    .sklst-section-desc {
+      font-size: 18px; color: var(--text-muted); line-height: 1.4;
+    }
+    .sklst-section-dark .sklst-section-desc {
+      color: var(--text-muted-light);
+    }
+
+    /* BENEFITS GRID */
+    .sklst-benefits-grid {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .sklst-benefit-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 36px 24px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .sklst-benefit-card:hover {
+      transform: translateY(-3px);
+    }
+    .sklst-benefit-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .sklst-benefit-icon.blue { background: rgba(0, 85, 255, 0.1); color: var(--accent); }
+    .sklst-benefit-icon.green { background: rgba(34, 102, 0, 0.1); color: var(--success); }
+    .sklst-benefit-icon.peach { background: rgba(255, 179, 138, 0.15); color: #E8824A; }
+    .sklst-benefit-icon.teal { background: rgba(35, 136, 142, 0.1); color: #23888E; }
+    .sklst-benefit-card h3 {
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+    }
+    .sklst-benefit-card p {
+      font-size: 14px; color: var(--text-muted-dark); line-height: 1.5;
+    }
+
+    /* HOW IT WORKS (STEPS) */
+    .sklst-steps {
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0;
+      position: relative;
+    }
+    .sklst-steps::before {
+      content: ''; position: absolute;
+      left: 28px; top: 40px; bottom: 40px; width: 2px;
+      background: linear-gradient(180deg, var(--accent), var(--text-muted-light), transparent);
+    }
+    .sklst-step {
+      display: flex; gap: 32px; align-items: flex-start;
+      padding: 28px 0; position: relative;
+    }
+    .sklst-step-num {
+      width: 56px; height: 56px; min-width: 56px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--text-white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 900;
+      position: relative; z-index: 1;
+    }
+    .sklst-step-content h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 8px;
+      color: var(--text-white);
+    }
+    .sklst-step-content p {
+      font-size: 16px; color: var(--text-muted-light); line-height: 1.6;
+    }
+
+    /* STATS */
+    .sklst-stats-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-stat-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 40px 32px; text-align: center;
+    }
+    .sklst-stat-card .sklst-big-num {
+      font-size: 48px; font-weight: 900;
+      color: var(--accent); line-height: 1;
+      margin-bottom: 8px;
+    }
+    .sklst-stat-card p {
+      font-size: 15px; color: var(--text-muted-dark); line-height: 1.5;
+    }
+
+    /* TRUST */
+    .sklst-trust-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-trust-item {
+      text-align: center;
+      padding: 32px 24px;
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-card);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .sklst-trust-icon {
+      width: 48px; height: 48px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: rgba(0, 85, 255, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: #6699FF;
+    }
+    .sklst-trust-item h4 {
+      font-size: 16px; font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-white);
+    }
+    .sklst-trust-item p {
+      font-size: 13px; color: var(--text-muted-light); line-height: 1.4;
+    }
+
+    /* FEATURES GRID */
+    .sklst-features-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-feature-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+      transition: transform 0.2s ease;
+    }
+    .sklst-feature-card:hover {
+      transform: translateY(-3px);
+    }
+    .sklst-feature-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    .sklst-feature-icon.blue { background: rgba(0, 85, 255, 0.1); color: var(--accent); }
+    .sklst-feature-icon.peach { background: rgba(255, 179, 138, 0.15); color: #E8824A; }
+    .sklst-feature-icon.green { background: rgba(34, 102, 0, 0.1); color: var(--success); }
+    .sklst-feature-icon.teal { background: rgba(35, 136, 142, 0.1); color: #23888E; }
+    .sklst-feature-icon.indigo { background: rgba(65, 68, 135, 0.1); color: #414487; }
+    .sklst-feature-icon.dark { background: rgba(21, 26, 36, 0.1); color: var(--bg-dark); }
+    .sklst-feature-card h3 {
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+    }
+    .sklst-feature-card p {
+      font-size: 15px; color: var(--text-muted-dark); line-height: 1.5;
+    }
+
+    /* CTA */
+    .sklst-cta {
+      text-align: center; padding: 100px 40px;
+      background: var(--bg-dark);
+      color: var(--text-white);
+    }
+    .sklst-cta h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-white);
+    }
+    .sklst-cta p {
+      font-size: 18px; color: var(--text-muted-light);
+      margin-bottom: 40px; line-height: 1.5;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    .sklst-cta-note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-muted-light);
+    }
+
+    /* FOOTER */
+    .sklst-footer {
+      padding: 40px; border-top: 1px solid var(--border);
+    }
+    .sklst-footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+    }
+    .sklst-footer-links a:hover { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-hero { padding: 100px 20px 60px; }
+      .sklst-benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .sklst-stats-grid { grid-template-columns: 1fr; }
+      .sklst-trust-grid { grid-template-columns: 1fr; }
+      .sklst-features-grid { grid-template-columns: 1fr; }
+      .sklst-hero-buttons { flex-direction: column; align-items: center; }
+      .sklst-step { gap: 20px; }
+      .sklst-step-num { width: 40px; height: 40px; min-width: 40px; font-size: 16px; }
+      .sklst-steps::before { left: 20px; }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .sklst-cta { padding: 60px 20px; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sklst-benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .sklst-features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ANIMATIONS */
+    .sklst-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg height="24" viewBox="0 0 138 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M124.664 2.37988V10.75H128.263V14.5901H124.664V25H120.043V2.37988H124.664Z" fill="currentColor"/>
+        <path d="M110.704 25.39C106.174 25.39 102.934 22.09 102.934 17.47C102.934 12.79 106.084 9.51999 110.614 9.51999C115.324 9.51999 118.264 12.61 118.264 17.5V18.67L107.374 18.73C107.644 20.71 108.754 21.64 110.794 21.64C112.534 21.64 113.764 21.01 114.094 19.93H118.324C117.784 23.26 114.814 25.39 110.704 25.39ZM110.644 13.27C108.814 13.27 107.794 14.08 107.434 15.88H113.674C113.674 14.29 112.504 13.27 110.644 13.27Z" fill="currentColor"/>
+        <path d="M88.9998 20.26H93.3799C93.4399 21.31 94.2199 21.94 95.6299 21.94C97.0699 21.94 97.7299 21.43 97.7299 20.65C97.7299 20.2 97.4899 19.72 96.3799 19.48L93.6199 18.88C90.8598 18.28 89.5098 17.08 89.5098 14.44C89.5098 11.32 92.1798 9.51999 95.7798 9.51999C99.2598 9.51999 101.69 11.56 101.69 14.59H97.3098C97.3098 13.57 96.6798 12.88 95.5698 12.88C94.5198 12.88 93.8598 13.42 93.8598 14.23C93.8598 14.92 94.4298 15.31 95.4798 15.55L98.2698 16.15C100.73 16.69 102.08 17.83 102.08 20.23C102.08 23.44 99.3499 25.39 95.4499 25.39C91.4899 25.39 88.9998 23.29 88.9998 20.26Z" fill="currentColor"/>
+        <path d="M87.3639 25H82.7439V2.38H87.3639V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V2.38H79.87V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V6.18999H79.87V25Z" fill="currentColor"/>
+        <path d="M68.072 25V10H72.692V25H68.072Z" fill="currentColor"/>
+        <path d="M67.712 5.02C67.712 6.49 68.882 7.66 70.352 7.66C71.792 7.66 72.962 6.49 72.962 5.02C72.962 3.55 71.792 2.41 70.352 2.41C68.882 2.41 67.712 3.55 67.712 5.02Z" fill="currentColor"/>
+        <path d="M57.0241 25H52.4041V2.38H57.0241V15.4L61.8841 10H67.6741L62.0341 15.94L67.4941 25H62.1541L58.7941 19.39L57.0241 21.25V25Z" fill="currentColor"/>
+        <path d="M37.66 20.26H42.04C42.1 21.31 42.88 21.94 44.29 21.94C45.73 21.94 46.39 21.43 46.39 20.65C46.39 20.2 46.15 19.72 45.04 19.48L42.28 18.88C39.52 18.28 38.17 17.08 38.17 14.44C38.17 11.32 40.84 9.51999 44.44 9.51999C47.92 9.51999 50.35 11.56 50.35 14.59H45.97C45.97 13.57 45.34 12.88 44.23 12.88C43.18 12.88 42.52 13.42 42.52 14.23C42.52 14.92 43.09 15.31 44.14 15.55L46.93 16.15C49.39 16.69 50.74 17.83 50.74 20.23C50.74 23.44 48.01 25.39 44.11 25.39C40.15 25.39 37.66 23.29 37.66 20.26Z" fill="currentColor"/>
+        <path d="M14.5 11.5V11.8496C14.5 13.0068 14.5016 13.7398 14.5469 14.2939C14.59 14.8218 14.661 14.9872 14.6904 15.0449L14.7578 15.165C14.9259 15.4391 15.167 15.6628 15.4551 15.8096L15.5225 15.8379C15.6179 15.8723 15.8098 15.9208 16.2061 15.9531C16.7602 15.9984 17.4934 16 18.6504 16H21.25V11.5H14.5ZM28.001 20.1504C28.001 18.9932 27.9994 18.2602 27.9541 17.7061C27.911 17.1787 27.84 17.013 27.8106 16.9551L27.7432 16.835C27.5751 16.5609 27.3339 16.3373 27.0459 16.1904L26.9785 16.1621C26.8832 16.1277 26.6912 16.0793 26.2949 16.0469C25.7409 16.0016 25.0076 16 23.8506 16H21.251V20.5H28.001V20.1504ZM23.8506 11.5C24.9333 11.5 25.8814 11.4978 26.6611 11.5615C27.3664 11.6192 28.0851 11.7397 28.7881 12.041L29.0889 12.1816C30.1909 12.7434 31.1002 13.6185 31.7031 14.6943L31.8193 14.9121C32.2258 15.7099 32.3736 16.5337 32.4395 17.3398C32.5032 18.1197 32.501 19.0676 32.501 20.1504V25H21.25V20.5H18.6504C17.5677 20.5 16.6196 20.5021 15.8398 20.4385C15.1345 20.3808 14.4159 20.2603 13.7129 19.959L13.4121 19.8184C12.31 19.2567 11.4008 18.3815 10.7979 17.3057L10.6816 17.0879C10.2751 16.29 10.1274 15.4663 10.0615 14.6602C9.99783 13.8803 10 12.9325 10 11.8496V7H21.251V11.5H23.8506Z" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="https://skillset.ae">Back to main site</a>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="sklst-hero">
+  <div class="sklst-hero-content">
+    <div class="sklst-hero-tag">Free for 7 Days</div>
+    <h1>Start Your Free Trial.<br>Hire Smarter Today.</h1>
+    <p>Experience the full power of AI-powered recruiting. Screen CVs in seconds, source candidates across 45+ platforms, and make data-driven hiring decisions.</p>
+    <div class="sklst-hero-buttons">
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-primary-lg">Start Free Trial</a>
+    </div>
+    <div class="sklst-hero-note">No credit card required. Set up in 5 minutes. Cancel anytime.</div>
+  </div>
+</section>
+
+<!-- KEY BENEFITS -->
+<section class="sklst-section" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Why Try Skillset</div>
+    <h2 class="sklst-section-title">Zero risk, full access</h2>
+    <p class="sklst-section-desc">Everything you need to evaluate Skillset — with no strings attached.</p>
+  </div>
+  <div class="sklst-benefits-grid">
+    <div class="sklst-benefit-card sklst-fade">
+      <div class="sklst-benefit-icon green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      </div>
+      <h3>No Credit Card</h3>
+      <p>Start immediately. No payment info needed to begin your trial.</p>
+    </div>
+    <div class="sklst-benefit-card sklst-fade">
+      <div class="sklst-benefit-icon blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3>5-Minute Setup</h3>
+      <p>Create your account, post your first job, and start screening in minutes.</p>
+    </div>
+    <div class="sklst-benefit-card sklst-fade">
+      <div class="sklst-benefit-icon peach">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Full Access</h3>
+      <p>Every feature unlocked. AI screening, sourcing, assessments, and analytics.</p>
+    </div>
+    <div class="sklst-benefit-card sklst-fade">
+      <div class="sklst-benefit-icon teal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Cancel Anytime</h3>
+      <p>Not convinced? Cancel with one click. No contracts, no lock-ins.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sklst-section sklst-section-dark">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">How It Works</div>
+    <h2 class="sklst-section-title" style="color: white;">From signup to AI-powered hiring in 3 steps</h2>
+    <p class="sklst-section-desc">Get started faster than making a cup of coffee.</p>
+  </div>
+  <div class="sklst-steps">
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">1</div>
+      <div class="sklst-step-content">
+        <h3>Create Your Account</h3>
+        <p>Sign up with your work email. No credit card, no lengthy forms. You'll be inside the platform in under a minute.</p>
+      </div>
+    </div>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">2</div>
+      <div class="sklst-step-content">
+        <h3>Set Up Your First Job</h3>
+        <p>Describe the role you're hiring for. Skillset AI generates a tailored assessment, screening criteria, and even a job description — automatically.</p>
+      </div>
+    </div>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">3</div>
+      <div class="sklst-step-content">
+        <h3>See AI in Action</h3>
+        <p>Upload CVs or let AI source candidates for you. Watch as Skillset screens, scores, and ranks every candidate — delivering a shortlist in seconds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sklst-section">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">The Numbers</div>
+    <h2 class="sklst-section-title">AI hiring delivers real results</h2>
+    <p class="sklst-section-desc">Teams using Skillset see measurable improvements from day one.</p>
+  </div>
+  <div class="sklst-stats-grid">
+    <div class="sklst-stat-card sklst-fade">
+      <div class="sklst-big-num">85%</div>
+      <p>Faster time-to-hire compared to manual recruiting</p>
+    </div>
+    <div class="sklst-stat-card sklst-fade">
+      <div class="sklst-big-num">500+</div>
+      <p>CVs screened and ranked per hour by AI</p>
+    </div>
+    <div class="sklst-stat-card sklst-fade">
+      <div class="sklst-big-num">67%</div>
+      <p>More qualified candidates surfaced vs. manual review</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section class="sklst-section" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Full Access Trial</div>
+    <h2 class="sklst-section-title">Everything included in your trial</h2>
+    <p class="sklst-section-desc">No feature restrictions. Try the complete AI hiring toolkit for 7 days.</p>
+  </div>
+  <div class="sklst-features-grid">
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h3>AI Resume Screening</h3>
+      <p>Upload CVs and get instant, objective scoring against your requirements.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon teal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <h3>AI Sourcing</h3>
+      <p>Search across LinkedIn, GitHub, and 45+ platforms simultaneously.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon peach">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Technical Assessments</h3>
+      <p>Auto-generated coding challenges and role-specific evaluations.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon indigo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <h3>Analytics Dashboard</h3>
+      <p>Track your hiring pipeline with real-time data and performance insights.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon dark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>AI Job Descriptions</h3>
+      <p>Generate compelling, optimized job descriptions in seconds.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Pipeline Management</h3>
+      <p>Kanban-style ATS to track candidates from application to offer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST / SECURITY -->
+<section class="sklst-section sklst-section-dark">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Trusted by Teams</div>
+    <h2 class="sklst-section-title" style="color: white;">Built for security and reliability</h2>
+    <p class="sklst-section-desc">Your data is safe. Your hiring process is private.</p>
+  </div>
+  <div class="sklst-trust-grid">
+    <div class="sklst-trust-item sklst-fade">
+      <div class="sklst-trust-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h4>GDPR Compliant</h4>
+      <p>Full compliance with data protection regulations. Candidate data is encrypted and secure.</p>
+    </div>
+    <div class="sklst-trust-item sklst-fade">
+      <div class="sklst-trust-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h4>Enterprise-Grade Security</h4>
+      <p>End-to-end encryption, SOC 2 practices, and data isolation for every account.</p>
+    </div>
+    <div class="sklst-trust-item sklst-fade">
+      <div class="sklst-trust-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h4>Built for Teams</h4>
+      <p>Collaborative hiring workflows with role-based permissions for your entire organization.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="sklst-cta">
+  <div class="sklst-fade">
+    <h2>Start hiring with AI today</h2>
+    <p>Join teams that have already transformed their recruiting process. Your free trial starts now.</p>
+    <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-primary-lg">Start Your Free Trial</a>
+    <div class="sklst-cta-note">No credit card required. Full access for 7 days.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2026 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
+
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+</script>
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</body>
+</html>

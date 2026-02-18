@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise-Grade Security — Data Protection & Compliance | Skillset</title>
+  <meta name="description" content="Skillset protects your hiring data with SOC 2 compliance, AES-256 encryption, GDPR-compliant handling, and enterprise SSO. Built for security-first teams.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --bg-card-dark: #1F2126;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.25;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    .sklst-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      background: rgba(216, 220, 229, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: box-shadow 0.3s;
+    }
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sklst-nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+    }
+    .sklst-nav-logo span { font-size: 20px; font-weight: 700; }
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a {
+      text-decoration: none; color: var(--text-muted-dark);
+      font-size: 15px; font-weight: 500; transition: color 0.2s;
+    }
+    .sklst-nav-links a:hover { color: var(--accent); }
+    .sklst-nav-links .sklst-btn-primary { color: var(--text-white); }
+    .sklst-nav-links .sklst-btn-primary:hover { color: var(--text-white); }
+
+    /* BUTTONS */
+    .sklst-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; cursor: pointer; border: none;
+      font-family: 'Satoshi', 'Inter', sans-serif;
+      transition: all 0.2s ease;
+    }
+    .sklst-btn-primary {
+      background: var(--accent);
+      color: var(--text-white);
+      border-radius: var(--radius-pill);
+      padding: 14px 36px;
+      font-size: 17px; font-weight: 700;
+    }
+    .sklst-btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3);
+    }
+    .sklst-btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 12px 32px;
+      font-size: 16px; font-weight: 700;
+    }
+    .sklst-btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .sklst-btn-sm {
+      padding: 10px 24px;
+      font-size: 14px; font-weight: 700;
+      border-radius: var(--radius-pill);
+    }
+
+    /* HERO */
+    .sklst-hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+    }
+    .sklst-hero-content { max-width: 800px; }
+    .sklst-hero-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--text-white);
+      font-size: 13px; font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 24px;
+    }
+    .sklst-hero h1 {
+      font-size: clamp(36px, 5vw, 50px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .sklst-hero p {
+      font-size: 20px;
+      color: var(--text-muted-dark);
+      line-height: 1.4;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .sklst-hero-buttons {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+
+    /* SECTIONS */
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-dark {
+      background: var(--bg-dark);
+      color: var(--text-white);
+    }
+    .sklst-section-header {
+      text-align: center;
+      max-width: 600px; margin: 0 auto 64px;
+    }
+    .sklst-section-label {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      color: var(--peach); margin-bottom: 16px;
+    }
+    .sklst-section-title {
+      font-size: clamp(26px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.17;
+      margin-bottom: 12px;
+    }
+    .sklst-section-desc {
+      font-size: 18px; color: var(--text-muted); line-height: 1.4;
+    }
+    .sklst-section-dark .sklst-section-desc {
+      color: var(--text-muted-light);
+    }
+
+    /* FEATURES GRID */
+    .sklst-features-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-feature-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+      transition: transform 0.2s ease;
+    }
+    .sklst-feature-card:hover {
+      transform: translateY(-3px);
+    }
+    .sklst-feature-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    .sklst-feature-icon.blue { background: rgba(0, 85, 255, 0.1); color: var(--accent); }
+    .sklst-feature-icon.peach { background: rgba(255, 179, 138, 0.15); color: #E8824A; }
+    .sklst-feature-icon.green { background: rgba(34, 102, 0, 0.1); color: var(--success); }
+    .sklst-feature-icon.teal { background: rgba(35, 136, 142, 0.1); color: #23888E; }
+    .sklst-feature-icon.indigo { background: rgba(65, 68, 135, 0.1); color: #414487; }
+    .sklst-feature-icon.dark { background: rgba(21, 26, 36, 0.1); color: var(--bg-dark); }
+    .sklst-feature-card h3 {
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+    }
+    .sklst-feature-card p {
+      font-size: 15px; color: var(--text-muted-dark); line-height: 1.5;
+    }
+
+    /* DATA RESIDENCY GRID */
+    .sklst-residency-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .sklst-residency-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+    }
+    .sklst-residency-card h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+      color: var(--text-white);
+    }
+    .sklst-residency-card p {
+      font-size: 15px; color: var(--text-muted-light); line-height: 1.6;
+    }
+
+    /* PRIVACY SECTION */
+    .sklst-privacy-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .sklst-privacy-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+    }
+    .sklst-privacy-card h3 {
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sklst-privacy-card p {
+      font-size: 15px; color: var(--text-muted-dark); line-height: 1.5;
+    }
+
+    /* COMPLIANCE BADGES */
+    .sklst-badges-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-badge-card {
+      background: rgba(0, 85, 255, 0.08);
+      border: 1px solid rgba(0, 85, 255, 0.18);
+      border-radius: var(--radius-card);
+      padding: 40px 32px;
+      text-align: center;
+    }
+    .sklst-badge-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(0, 85, 255, 0.12);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--accent);
+    }
+    .sklst-badge-card h3 {
+      font-size: 18px; font-weight: 700; margin-bottom: 8px;
+      color: var(--text-white);
+    }
+    .sklst-badge-card p {
+      font-size: 14px; color: var(--text-muted-light); line-height: 1.5;
+    }
+
+    /* INFRASTRUCTURE */
+    .sklst-infra-grid {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-infra-item {
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .sklst-infra-num {
+      font-size: 40px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px;
+    }
+    .sklst-infra-item p {
+      font-size: 15px; color: var(--text-muted-dark); line-height: 1.5;
+    }
+
+    /* CTA */
+    .sklst-cta {
+      text-align: center; padding: 100px 40px;
+    }
+    .sklst-cta h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .sklst-cta p {
+      font-size: 18px; color: var(--text-muted-dark);
+      margin-bottom: 40px; line-height: 1.5;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+
+    /* FOOTER */
+    .sklst-footer {
+      padding: 40px; border-top: 1px solid var(--border);
+    }
+    .sklst-footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+    }
+    .sklst-footer-links a:hover { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-hero { padding: 100px 20px 60px; }
+      .sklst-features-grid { grid-template-columns: 1fr; }
+      .sklst-residency-grid { grid-template-columns: 1fr; }
+      .sklst-privacy-grid { grid-template-columns: 1fr; }
+      .sklst-badges-grid { grid-template-columns: 1fr; }
+      .sklst-infra-grid { grid-template-columns: 1fr; }
+      .sklst-hero-buttons { flex-direction: column; align-items: center; }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .sklst-cta { padding: 60px 20px; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sklst-features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ANIMATIONS */
+    .sklst-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg height="24" viewBox="0 0 138 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M124.664 2.37988V10.75H128.263V14.5901H124.664V25H120.043V2.37988H124.664Z" fill="currentColor"/>
+        <path d="M110.704 25.39C106.174 25.39 102.934 22.09 102.934 17.47C102.934 12.79 106.084 9.51999 110.614 9.51999C115.324 9.51999 118.264 12.61 118.264 17.5V18.67L107.374 18.73C107.644 20.71 108.754 21.64 110.794 21.64C112.534 21.64 113.764 21.01 114.094 19.93H118.324C117.784 23.26 114.814 25.39 110.704 25.39ZM110.644 13.27C108.814 13.27 107.794 14.08 107.434 15.88H113.674C113.674 14.29 112.504 13.27 110.644 13.27Z" fill="currentColor"/>
+        <path d="M88.9998 20.26H93.3799C93.4399 21.31 94.2199 21.94 95.6299 21.94C97.0699 21.94 97.7299 21.43 97.7299 20.65C97.7299 20.2 97.4899 19.72 96.3799 19.48L93.6199 18.88C90.8598 18.28 89.5098 17.08 89.5098 14.44C89.5098 11.32 92.1798 9.51999 95.7798 9.51999C99.2598 9.51999 101.69 11.56 101.69 14.59H97.3098C97.3098 13.57 96.6798 12.88 95.5698 12.88C94.5198 12.88 93.8598 13.42 93.8598 14.23C93.8598 14.92 94.4298 15.31 95.4798 15.55L98.2698 16.15C100.73 16.69 102.08 17.83 102.08 20.23C102.08 23.44 99.3499 25.39 95.4499 25.39C91.4899 25.39 88.9998 23.29 88.9998 20.26Z" fill="currentColor"/>
+        <path d="M87.3639 25H82.7439V2.38H87.3639V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V2.38H79.87V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V6.18999H79.87V25Z" fill="currentColor"/>
+        <path d="M68.072 25V10H72.692V25H68.072Z" fill="currentColor"/>
+        <path d="M67.712 5.02C67.712 6.49 68.882 7.66 70.352 7.66C71.792 7.66 72.962 6.49 72.962 5.02C72.962 3.55 71.792 2.41 70.352 2.41C68.882 2.41 67.712 3.55 67.712 5.02Z" fill="currentColor"/>
+        <path d="M57.0241 25H52.4041V2.38H57.0241V15.4L61.8841 10H67.6741L62.0341 15.94L67.4941 25H62.1541L58.7941 19.39L57.0241 21.25V25Z" fill="currentColor"/>
+        <path d="M37.66 20.26H42.04C42.1 21.31 42.88 21.94 44.29 21.94C45.73 21.94 46.39 21.43 46.39 20.65C46.39 20.2 46.15 19.72 45.04 19.48L42.28 18.88C39.52 18.28 38.17 17.08 38.17 14.44C38.17 11.32 40.84 9.51999 44.44 9.51999C47.92 9.51999 50.35 11.56 50.35 14.59H45.97C45.97 13.57 45.34 12.88 44.23 12.88C43.18 12.88 42.52 13.42 42.52 14.23C42.52 14.92 43.09 15.31 44.14 15.55L46.93 16.15C49.39 16.69 50.74 17.83 50.74 20.23C50.74 23.44 48.01 25.39 44.11 25.39C40.15 25.39 37.66 23.29 37.66 20.26Z" fill="currentColor"/>
+        <path d="M14.5 11.5V11.8496C14.5 13.0068 14.5016 13.7398 14.5469 14.2939C14.59 14.8218 14.661 14.9872 14.6904 15.0449L14.7578 15.165C14.9259 15.4391 15.167 15.6628 15.4551 15.8096L15.5225 15.8379C15.6179 15.8723 15.8098 15.9208 16.2061 15.9531C16.7602 15.9984 17.4934 16 18.6504 16H21.25V11.5H14.5ZM28.001 20.1504C28.001 18.9932 27.9994 18.2602 27.9541 17.7061C27.911 17.1787 27.84 17.013 27.8106 16.9551L27.7432 16.835C27.5751 16.5609 27.3339 16.3373 27.0459 16.1904L26.9785 16.1621C26.8832 16.1277 26.6912 16.0793 26.2949 16.0469C25.7409 16.0016 25.0076 16 23.8506 16H21.251V20.5H28.001V20.1504ZM23.8506 11.5C24.9333 11.5 25.8814 11.4978 26.6611 11.5615C27.3664 11.6192 28.0851 11.7397 28.7881 12.041L29.0889 12.1816C30.1909 12.7434 31.1002 13.6185 31.7031 14.6943L31.8193 14.9121C32.2258 15.7099 32.3736 16.5337 32.4395 17.3398C32.5032 18.1197 32.501 19.0676 32.501 20.1504V25H21.25V20.5H18.6504C17.5677 20.5 16.6196 20.5021 15.8398 20.4385C15.1345 20.3808 14.4159 20.2603 13.7129 19.959L13.4121 19.8184C12.31 19.2567 11.4008 18.3815 10.7979 17.3057L10.6816 17.0879C10.2751 16.29 10.1274 15.4663 10.0615 14.6602C9.99783 13.8803 10 12.9325 10 11.8496V7H21.251V11.5H23.8506Z" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="#sklst-security-features">Security</a>
+      <a href="#sklst-privacy">Privacy</a>
+      <a href="#sklst-compliance">Compliance</a>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="sklst-hero">
+  <div class="sklst-hero-content">
+    <div class="sklst-hero-tag">Security & Compliance</div>
+    <h1>Enterprise-Grade<br>Security</h1>
+    <p>Your hiring data deserves the same protection as your most sensitive business assets. Skillset is built with security at its core.</p>
+    <div class="sklst-hero-buttons">
+      <a href="https://calendly.com/olga-skillset/skillset-demo" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">Book a Security Review</a>
+      <a href="#sklst-security-features" class="sklst-btn sklst-btn-secondary">See our practices</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY FEATURES -->
+<section class="sklst-section" id="sklst-security-features">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Security Features</div>
+    <h2 class="sklst-section-title">Built for security-first teams</h2>
+    <p class="sklst-section-desc">Every layer of Skillset is designed to protect candidate and company data.</p>
+  </div>
+  <div class="sklst-features-grid">
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>SOC 2 Type II Compliance</h3>
+      <p>We are actively pursuing SOC 2 Type II certification to meet the highest standards of security, availability, and confidentiality for your data.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon teal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <h3>GDPR Compliant</h3>
+      <p>Full GDPR-compliant data handling with consent management, right to erasure, data portability, and transparent processing policies.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3>AES-256 Encryption</h3>
+      <p>All data is encrypted at rest using AES-256 and in transit using TLS 1.3. Your candidate information is protected at every stage.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon peach">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>Penetration Testing</h3>
+      <p>Regular third-party penetration testing and vulnerability assessments ensure our defenses stay ahead of emerging threats.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon indigo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Role-Based Access Control</h3>
+      <p>Granular RBAC ensures team members only access the data they need. Admins maintain full control over permissions and audit trails.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon dark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+      </div>
+      <h3>SSO / SAML Authentication</h3>
+      <p>Enterprise single sign-on support with SAML 2.0 integration. Connect Skillset to your existing identity provider seamlessly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DATA RESIDENCY -->
+<section class="sklst-section sklst-section-dark" id="sklst-residency">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Data Residency</div>
+    <h2 class="sklst-section-title" style="color: white;">Your data, your region</h2>
+    <p class="sklst-section-desc">Choose where your data lives. We offer regional hosting to meet local compliance requirements.</p>
+  </div>
+  <div class="sklst-residency-grid">
+    <div class="sklst-residency-card sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFB38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        UAE / GCC Region
+      </h3>
+      <p>Data center in the UAE for organizations that require data sovereignty within the Gulf region. Compliant with UAE data protection regulations and DIFC/ADGM frameworks.</p>
+    </div>
+    <div class="sklst-residency-card sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFB38A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        United States
+      </h3>
+      <p>US-based data center for North American clients. Supports compliance with state-level data privacy laws including CCPA, and federal employment regulations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="sklst-section" id="sklst-privacy">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Privacy First</div>
+    <h2 class="sklst-section-title">Your data is never for sale</h2>
+    <p class="sklst-section-desc">We believe candidate data belongs to candidates and employers — not to data brokers.</p>
+  </div>
+  <div class="sklst-privacy-grid">
+    <div class="sklst-privacy-card sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Blind Screening Mode
+      </h3>
+      <p>Remove personally identifiable information (name, photo, age, gender) from candidate profiles during screening. Evaluate talent purely on skills and qualifications.</p>
+    </div>
+    <div class="sklst-privacy-card sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        No Data Selling
+      </h3>
+      <p>We never sell, share, or monetize your candidate data. Your hiring pipeline data is exclusively yours — no third-party access, no advertising profiles, no exceptions.</p>
+    </div>
+    <div class="sklst-privacy-card sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        Right to Erasure
+      </h3>
+      <p>Candidates and employers can request complete data deletion at any time. We permanently remove all associated records within the legally required timeframe.</p>
+    </div>
+    <div class="sklst-privacy-card sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Data Processing Agreements
+      </h3>
+      <p>We provide standard DPAs for all enterprise clients, clearly documenting data processing scope, retention periods, and sub-processor relationships.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE BADGES -->
+<section class="sklst-section sklst-section-dark" id="sklst-compliance">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Compliance</div>
+    <h2 class="sklst-section-title" style="color: white;">Meeting global standards</h2>
+    <p class="sklst-section-desc">Skillset is designed to help your organization stay compliant with hiring regulations worldwide.</p>
+  </div>
+  <div class="sklst-badges-grid">
+    <div class="sklst-badge-card sklst-fade">
+      <div class="sklst-badge-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <h3>GDPR</h3>
+      <p>Full compliance with the EU General Data Protection Regulation for handling candidate personal data.</p>
+    </div>
+    <div class="sklst-badge-card sklst-fade">
+      <div class="sklst-badge-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>EEOC</h3>
+      <p>Our AI screening supports EEOC-compliant hiring practices with unbiased, skills-based candidate evaluation.</p>
+    </div>
+    <div class="sklst-badge-card sklst-fade">
+      <div class="sklst-badge-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h3>OFCCP</h3>
+      <p>Designed to support federal contractor compliance with OFCCP affirmative action and non-discrimination requirements.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUCTURE -->
+<section class="sklst-section">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Infrastructure</div>
+    <h2 class="sklst-section-title">Reliable, secure, always on</h2>
+    <p class="sklst-section-desc">Cloud-hosted on enterprise-grade infrastructure with built-in redundancy and monitoring.</p>
+  </div>
+  <div class="sklst-infra-grid">
+    <div class="sklst-infra-item sklst-fade">
+      <div class="sklst-infra-num">99.9%</div>
+      <p>Uptime SLA guaranteed across all production services</p>
+    </div>
+    <div class="sklst-infra-item sklst-fade">
+      <div class="sklst-infra-num">24/7</div>
+      <p>Infrastructure monitoring with automated alerting and incident response</p>
+    </div>
+    <div class="sklst-infra-item sklst-fade">
+      <div class="sklst-infra-num">TLS 1.3</div>
+      <p>All data encrypted in transit with the latest transport layer security</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sklst-cta">
+  <div class="sklst-fade">
+    <h2>Ready to talk security?</h2>
+    <p>Book a dedicated security review. We'll walk through our practices, answer your questions, and share our compliance documentation.</p>
+    <a href="https://calendly.com/olga-skillset/skillset-demo" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">Book a Security Review</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2026 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
+
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+</script>
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</body>
+</html>

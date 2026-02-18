@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — Transparent Plans, No Per-Seat Fees | Skillset</title>
+  <meta name="description" content="Simple, transparent pricing for AI-powered hiring. No per-seat fees, no hidden costs. Start free and scale as you grow.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --bg-card-dark: #1F2126;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.25;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    .sklst-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      background: rgba(216, 220, 229, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: box-shadow 0.3s;
+    }
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sklst-nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+    }
+    .sklst-nav-logo span {
+      font-size: 20px; font-weight: 700;
+    }
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a {
+      text-decoration: none; color: var(--text-muted-dark);
+      font-size: 15px; font-weight: 500; transition: color 0.2s;
+    }
+    .sklst-nav-links a:hover { color: var(--accent); }
+    .sklst-nav-links .sklst-btn-primary { color: var(--text-white); }
+    .sklst-nav-links .sklst-btn-primary:hover { color: var(--text-white); }
+
+    /* BUTTONS */
+    .sklst-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; cursor: pointer; border: none;
+      font-family: 'Satoshi', 'Inter', sans-serif;
+      transition: all 0.2s ease;
+    }
+    .sklst-btn-primary {
+      background: var(--accent);
+      color: var(--text-white);
+      border-radius: var(--radius-pill);
+      padding: 14px 36px;
+      font-size: 17px; font-weight: 700;
+    }
+    .sklst-btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3);
+    }
+    .sklst-btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 12px 32px;
+      font-size: 16px; font-weight: 700;
+    }
+    .sklst-btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .sklst-btn-sm {
+      padding: 10px 24px;
+      font-size: 14px; font-weight: 700;
+      border-radius: var(--radius-pill);
+    }
+    .sklst-btn-outline-white {
+      background: transparent;
+      color: var(--text-white);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: var(--radius-pill);
+      padding: 14px 36px;
+      font-size: 17px; font-weight: 700;
+    }
+    .sklst-btn-outline-white:hover {
+      border-color: var(--text-white);
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* HERO */
+    .sklst-hero {
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 140px 40px 80px;
+    }
+    .sklst-hero-content { max-width: 700px; }
+    .sklst-hero-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--text-white);
+      font-size: 13px; font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 24px;
+    }
+    .sklst-hero h1 {
+      font-size: clamp(36px, 5vw, 50px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .sklst-hero p {
+      font-size: 20px;
+      color: var(--text-muted-dark);
+      line-height: 1.4;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* SECTIONS */
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-dark {
+      background: var(--bg-dark);
+      color: var(--text-white);
+    }
+    .sklst-section-header {
+      text-align: center;
+      max-width: 600px; margin: 0 auto 64px;
+    }
+    .sklst-section-label {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      color: var(--peach); margin-bottom: 16px;
+    }
+    .sklst-section-title {
+      font-size: clamp(26px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.17;
+      margin-bottom: 12px;
+    }
+    .sklst-section-desc {
+      font-size: 18px; color: var(--text-muted); line-height: 1.4;
+    }
+    .sklst-section-dark .sklst-section-desc {
+      color: var(--text-muted-light);
+    }
+
+    /* PRICING GRID */
+    .sklst-pricing-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      align-items: stretch;
+    }
+    .sklst-pricing-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 40px 32px;
+      display: flex; flex-direction: column;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+    .sklst-pricing-card:hover {
+      transform: translateY(-3px);
+    }
+    .sklst-pricing-card.sklst-featured {
+      background: var(--bg-dark);
+      color: var(--text-white);
+      box-shadow: 0 8px 40px rgba(0, 85, 255, 0.2);
+    }
+    .sklst-pricing-badge {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--text-white);
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+    .sklst-pricing-tier {
+      font-size: 14px; font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .sklst-pricing-card.sklst-featured .sklst-pricing-tier {
+      color: var(--peach);
+    }
+    .sklst-pricing-price {
+      display: flex; align-items: baseline; gap: 4px;
+      margin-bottom: 8px;
+    }
+    .sklst-pricing-price .sklst-amount {
+      font-size: 48px; font-weight: 900;
+      line-height: 1;
+    }
+    .sklst-pricing-price .sklst-period {
+      font-size: 16px; font-weight: 500;
+      color: var(--text-muted);
+    }
+    .sklst-pricing-card.sklst-featured .sklst-pricing-price .sklst-period {
+      color: var(--text-muted-light);
+    }
+    .sklst-pricing-desc {
+      font-size: 15px; color: var(--text-muted-dark);
+      line-height: 1.5;
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sklst-pricing-card.sklst-featured .sklst-pricing-desc {
+      color: var(--text-muted-light);
+      border-bottom-color: rgba(255,255,255,0.1);
+    }
+    .sklst-pricing-features {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 14px;
+      margin-bottom: 36px;
+      flex-grow: 1;
+    }
+    .sklst-pricing-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; line-height: 1.5;
+      color: var(--text-muted-dark);
+    }
+    .sklst-pricing-card.sklst-featured .sklst-pricing-features li {
+      color: rgba(255,255,255,0.75);
+    }
+    .sklst-pricing-features li .sklst-check {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .sklst-pricing-card .sklst-btn {
+      width: 100%;
+    }
+
+    /* ALL PLANS INCLUDE */
+    .sklst-includes-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .sklst-includes-item {
+      text-align: center;
+      padding: 32px 20px;
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-card);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .sklst-includes-icon {
+      width: 48px; height: 48px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: rgba(0, 85, 255, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: #6699FF;
+    }
+    .sklst-includes-item h4 {
+      font-size: 16px; font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-white);
+    }
+    .sklst-includes-item p {
+      font-size: 13px; color: var(--text-muted-light); line-height: 1.4;
+    }
+
+    /* FAQ */
+    .sklst-faq {
+      max-width: 700px; margin: 0 auto;
+    }
+    .sklst-faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .sklst-faq-q {
+      width: 100%;
+      background: none; border: none;
+      padding: 24px 0;
+      font-family: 'Satoshi', 'Inter', sans-serif;
+      font-size: 17px; font-weight: 700;
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .sklst-faq-q:hover { color: var(--accent); }
+    .sklst-faq-q svg {
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .sklst-faq-q.active svg {
+      transform: rotate(45deg);
+    }
+    .sklst-faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .sklst-faq-a.open {
+      max-height: 300px;
+    }
+    .sklst-faq-a p {
+      font-size: 15px; color: var(--text-muted-dark); line-height: 1.6;
+      padding-bottom: 24px;
+    }
+
+    /* CTA */
+    .sklst-cta {
+      text-align: center; padding: 100px 40px;
+    }
+    .sklst-cta h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .sklst-cta p {
+      font-size: 18px; color: var(--text-muted-dark);
+      margin-bottom: 40px; line-height: 1.5;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    .sklst-cta-buttons {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    .sklst-footer {
+      padding: 40px; border-top: 1px solid var(--border);
+    }
+    .sklst-footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+    }
+    .sklst-footer-links a:hover { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-hero { padding: 100px 20px 60px; }
+      .sklst-pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .sklst-includes-grid { grid-template-columns: repeat(2, 1fr); }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .sklst-cta { padding: 60px 20px; }
+      .sklst-cta-buttons { flex-direction: column; align-items: center; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sklst-pricing-grid { grid-template-columns: 1fr; max-width: 450px; }
+    }
+    @media (min-width: 1025px) and (max-width: 1150px) {
+      .sklst-pricing-grid { gap: 16px; }
+      .sklst-pricing-card { padding: 36px 24px; }
+    }
+
+    /* ANIMATIONS */
+    .sklst-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg height="24" viewBox="0 0 138 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M124.664 2.37988V10.75H128.263V14.5901H124.664V25H120.043V2.37988H124.664Z" fill="currentColor"/>
+        <path d="M110.704 25.39C106.174 25.39 102.934 22.09 102.934 17.47C102.934 12.79 106.084 9.51999 110.614 9.51999C115.324 9.51999 118.264 12.61 118.264 17.5V18.67L107.374 18.73C107.644 20.71 108.754 21.64 110.794 21.64C112.534 21.64 113.764 21.01 114.094 19.93H118.324C117.784 23.26 114.814 25.39 110.704 25.39ZM110.644 13.27C108.814 13.27 107.794 14.08 107.434 15.88H113.674C113.674 14.29 112.504 13.27 110.644 13.27Z" fill="currentColor"/>
+        <path d="M88.9998 20.26H93.3799C93.4399 21.31 94.2199 21.94 95.6299 21.94C97.0699 21.94 97.7299 21.43 97.7299 20.65C97.7299 20.2 97.4899 19.72 96.3799 19.48L93.6199 18.88C90.8598 18.28 89.5098 17.08 89.5098 14.44C89.5098 11.32 92.1798 9.51999 95.7798 9.51999C99.2598 9.51999 101.69 11.56 101.69 14.59H97.3098C97.3098 13.57 96.6798 12.88 95.5698 12.88C94.5198 12.88 93.8598 13.42 93.8598 14.23C93.8598 14.92 94.4298 15.31 95.4798 15.55L98.2698 16.15C100.73 16.69 102.08 17.83 102.08 20.23C102.08 23.44 99.3499 25.39 95.4499 25.39C91.4899 25.39 88.9998 23.29 88.9998 20.26Z" fill="currentColor"/>
+        <path d="M87.3639 25H82.7439V2.38H87.3639V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V2.38H79.87V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V6.18999H79.87V25Z" fill="currentColor"/>
+        <path d="M68.072 25V10H72.692V25H68.072Z" fill="currentColor"/>
+        <path d="M67.712 5.02C67.712 6.49 68.882 7.66 70.352 7.66C71.792 7.66 72.962 6.49 72.962 5.02C72.962 3.55 71.792 2.41 70.352 2.41C68.882 2.41 67.712 3.55 67.712 5.02Z" fill="currentColor"/>
+        <path d="M57.0241 25H52.4041V2.38H57.0241V15.4L61.8841 10H67.6741L62.0341 15.94L67.4941 25H62.1541L58.7941 19.39L57.0241 21.25V25Z" fill="currentColor"/>
+        <path d="M37.66 20.26H42.04C42.1 21.31 42.88 21.94 44.29 21.94C45.73 21.94 46.39 21.43 46.39 20.65C46.39 20.2 46.15 19.72 45.04 19.48L42.28 18.88C39.52 18.28 38.17 17.08 38.17 14.44C38.17 11.32 40.84 9.51999 44.44 9.51999C47.92 9.51999 50.35 11.56 50.35 14.59H45.97C45.97 13.57 45.34 12.88 44.23 12.88C43.18 12.88 42.52 13.42 42.52 14.23C42.52 14.92 43.09 15.31 44.14 15.55L46.93 16.15C49.39 16.69 50.74 17.83 50.74 20.23C50.74 23.44 48.01 25.39 44.11 25.39C40.15 25.39 37.66 23.29 37.66 20.26Z" fill="currentColor"/>
+        <path d="M14.5 11.5V11.8496C14.5 13.0068 14.5016 13.7398 14.5469 14.2939C14.59 14.8218 14.661 14.9872 14.6904 15.0449L14.7578 15.165C14.9259 15.4391 15.167 15.6628 15.4551 15.8096L15.5225 15.8379C15.6179 15.8723 15.8098 15.9208 16.2061 15.9531C16.7602 15.9984 17.4934 16 18.6504 16H21.25V11.5H14.5ZM28.001 20.1504C28.001 18.9932 27.9994 18.2602 27.9541 17.7061C27.911 17.1787 27.84 17.013 27.8106 16.9551L27.7432 16.835C27.5751 16.5609 27.3339 16.3373 27.0459 16.1904L26.9785 16.1621C26.8832 16.1277 26.6912 16.0793 26.2949 16.0469C25.7409 16.0016 25.0076 16 23.8506 16H21.251V20.5H28.001V20.1504ZM23.8506 11.5C24.9333 11.5 25.8814 11.4978 26.6611 11.5615C27.3664 11.6192 28.0851 11.7397 28.7881 12.041L29.0889 12.1816C30.1909 12.7434 31.1002 13.6185 31.7031 14.6943L31.8193 14.9121C32.2258 15.7099 32.3736 16.5337 32.4395 17.3398C32.5032 18.1197 32.501 19.0676 32.501 20.1504V25H21.25V20.5H18.6504C17.5677 20.5 16.6196 20.5021 15.8398 20.4385C15.1345 20.3808 14.4159 20.2603 13.7129 19.959L13.4121 19.8184C12.31 19.2567 11.4008 18.3815 10.7979 17.3057L10.6816 17.0879C10.2751 16.29 10.1274 15.4663 10.0615 14.6602C9.99783 13.8803 10 12.9325 10 11.8496V7H21.251V11.5H23.8506Z" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="#sklst-pricing">Plans</a>
+      <a href="#sklst-faq">FAQ</a>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="sklst-hero">
+  <div class="sklst-hero-content sklst-fade">
+    <div class="sklst-hero-tag">Pricing</div>
+    <h1>Simple pricing.<br>No per-seat fees.</h1>
+    <p>One flat price for your whole team. No hidden costs, no surprises. Start with a free trial — upgrade when you're ready.</p>
+  </div>
+</section>
+
+<!-- PRICING CARDS -->
+<section class="sklst-section" id="sklst-pricing" style="padding-top: 0;">
+  <div class="sklst-pricing-grid">
+
+    <!-- STARTER -->
+    <div class="sklst-pricing-card sklst-fade">
+      <div class="sklst-pricing-tier">Starter</div>
+      <div class="sklst-pricing-price">
+        <span class="sklst-amount">$90</span>
+        <span class="sklst-period">/mo</span>
+      </div>
+      <div class="sklst-pricing-desc">Perfect for small teams just getting started with AI hiring.</div>
+      <ul class="sklst-pricing-features">
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          AI Resume Screening (up to 100 CVs/mo)
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          AI Job Description Generator
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Basic ATS (pipeline management, Kanban board)
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          1 active job posting
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Email support
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          5-minute setup
+        </li>
+      </ul>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-secondary">Start Free Trial</a>
+    </div>
+
+    <!-- PROFESSIONAL (FEATURED) -->
+    <div class="sklst-pricing-card sklst-featured sklst-fade">
+      <div class="sklst-pricing-badge">Most Popular</div>
+      <div class="sklst-pricing-tier">Professional</div>
+      <div class="sklst-pricing-price">
+        <span class="sklst-amount">$249</span>
+        <span class="sklst-period">/mo</span>
+      </div>
+      <div class="sklst-pricing-desc">For growing teams that need full AI recruiting power.</div>
+      <ul class="sklst-pricing-features">
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Everything in Starter
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          AI Sourcing across 45+ platforms
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          AI Resume Screening (up to 500 CVs/mo)
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Technical Assessments (live coding challenges)
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Blind/Diversity Screening mode
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Up to 10 active job postings
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Outreach automation
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Analytics dashboard
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Priority support
+        </li>
+      </ul>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
+    </div>
+
+    <!-- BUSINESS -->
+    <div class="sklst-pricing-card sklst-fade">
+      <div class="sklst-pricing-tier">Business</div>
+      <div class="sklst-pricing-price">
+        <span class="sklst-amount">$499</span>
+        <span class="sklst-period">/mo</span>
+      </div>
+      <div class="sklst-pricing-desc">For agencies and enterprises with high-volume hiring needs.</div>
+      <ul class="sklst-pricing-features">
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Everything in Professional
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Unlimited CV screening
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Unlimited job postings
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Multi-client management (for agencies)
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Advanced analytics & reporting
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          API access & integrations
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Custom assessment templates
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Arabic + English CV parsing
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Dedicated account manager
+        </li>
+        <li>
+          <svg class="sklst-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Onboarding assistance
+        </li>
+      </ul>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-secondary">Start Free Trial</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ALL PLANS INCLUDE -->
+<section class="sklst-section sklst-section-dark">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">All Plans Include</div>
+    <h2 class="sklst-section-title" style="color: white;">Start risk-free. Scale with confidence.</h2>
+    <p class="sklst-section-desc">Every plan comes with the essentials to get you started — no strings attached.</p>
+  </div>
+  <div class="sklst-includes-grid">
+    <div class="sklst-includes-item sklst-fade">
+      <div class="sklst-includes-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h4>7-Day Free Trial</h4>
+      <p>Full access to every feature. No restrictions during trial.</p>
+    </div>
+    <div class="sklst-includes-item sklst-fade">
+      <div class="sklst-includes-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      </div>
+      <h4>No Credit Card</h4>
+      <p>Start your trial without any payment information required.</p>
+    </div>
+    <div class="sklst-includes-item sklst-fade">
+      <div class="sklst-includes-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h4>Cancel Anytime</h4>
+      <p>No contracts, no lock-ins. Cancel with one click.</p>
+    </div>
+    <div class="sklst-includes-item sklst-fade">
+      <div class="sklst-includes-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h4>Unlimited Users</h4>
+      <p>Invite your entire hiring team. No per-seat charges, ever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sklst-section" id="sklst-faq">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">FAQ</div>
+    <h2 class="sklst-section-title">Frequently asked questions</h2>
+    <p class="sklst-section-desc">Everything you need to know about pricing and plans.</p>
+  </div>
+  <div class="sklst-faq">
+    <div class="sklst-faq-item sklst-fade">
+      <button class="sklst-faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open');">
+        Is there really no per-seat pricing?
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="sklst-faq-a">
+        <p>Correct. You pay one flat monthly fee regardless of how many team members use Skillset. Invite your entire hiring team — recruiters, hiring managers, executives — at no extra cost.</p>
+      </div>
+    </div>
+    <div class="sklst-faq-item sklst-fade">
+      <button class="sklst-faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open');">
+        What happens after my free trial ends?
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="sklst-faq-a">
+        <p>Your trial automatically expires with no charges. You can choose to subscribe to any plan, or your account simply becomes inactive. We never charge without your explicit consent.</p>
+      </div>
+    </div>
+    <div class="sklst-faq-item sklst-fade">
+      <button class="sklst-faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open');">
+        Can I switch plans later?
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="sklst-faq-a">
+        <p>Yes. You can upgrade or downgrade your plan at any time. When upgrading, you get immediate access to new features. Downgrades take effect at the next billing cycle.</p>
+      </div>
+    </div>
+    <div class="sklst-faq-item sklst-fade">
+      <button class="sklst-faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open');">
+        What counts as a "CV screening"?
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="sklst-faq-a">
+        <p>Each unique CV processed by the AI counts as one screening. Re-screening the same CV against a different job does not count again. The Business plan has no screening limits.</p>
+      </div>
+    </div>
+    <div class="sklst-faq-item sklst-fade">
+      <button class="sklst-faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open');">
+        Do you offer annual billing?
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="sklst-faq-a">
+        <p>Yes. Annual billing saves you 20% compared to monthly pricing. Contact us or select the annual option during checkout.</p>
+      </div>
+    </div>
+    <div class="sklst-faq-item sklst-fade">
+      <button class="sklst-faq-q" onclick="this.classList.toggle('active');this.nextElementSibling.classList.toggle('open');">
+        Is my data secure?
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <div class="sklst-faq-a">
+        <p>Absolutely. All candidate data is encrypted in transit and at rest. We comply with GDPR and data privacy regulations. Your data is never shared with third parties or used to train AI models.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sklst-cta">
+  <div class="sklst-fade">
+    <h2>Ready to transform your hiring?</h2>
+    <p>Start your free trial today — no credit card required. Or book a demo and see Skillset in action.</p>
+    <div class="sklst-cta-buttons">
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
+      <a href="https://calendly.com/olga-skillset/skillset-demo" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-secondary">Book a Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2026 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
+
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+</script>
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</body>
+</html>

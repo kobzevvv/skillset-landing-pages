@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trusted by Growing Companies — Customer Stories | Skillset</title>
+  <meta name="description" content="See how teams hire 85% faster with Skillset AI. Corporate HR, recruitment agencies, and founders trust Skillset to transform their hiring process.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --bg-card-dark: #1F2126;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.25;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    .sklst-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      background: rgba(216, 220, 229, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: box-shadow 0.3s;
+    }
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sklst-nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+    }
+    .sklst-nav-logo span { font-size: 20px; font-weight: 700; }
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a {
+      text-decoration: none; color: var(--text-muted-dark);
+      font-size: 15px; font-weight: 500; transition: color 0.2s;
+    }
+    .sklst-nav-links a:hover { color: var(--accent); }
+    .sklst-nav-links .sklst-btn-primary { color: var(--text-white); }
+    .sklst-nav-links .sklst-btn-primary:hover { color: var(--text-white); }
+
+    /* BUTTONS */
+    .sklst-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; cursor: pointer; border: none;
+      font-family: 'Satoshi', 'Inter', sans-serif;
+      transition: all 0.2s ease;
+    }
+    .sklst-btn-primary {
+      background: var(--accent);
+      color: var(--text-white);
+      border-radius: var(--radius-pill);
+      padding: 14px 36px;
+      font-size: 17px; font-weight: 700;
+    }
+    .sklst-btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3);
+    }
+    .sklst-btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 12px 32px;
+      font-size: 16px; font-weight: 700;
+    }
+    .sklst-btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .sklst-btn-sm {
+      padding: 10px 24px;
+      font-size: 14px; font-weight: 700;
+      border-radius: var(--radius-pill);
+    }
+
+    /* HERO */
+    .sklst-hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+    }
+    .sklst-hero-content { max-width: 800px; }
+    .sklst-hero-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--text-white);
+      font-size: 13px; font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 24px;
+    }
+    .sklst-hero h1 {
+      font-size: clamp(36px, 5vw, 50px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .sklst-hero p {
+      font-size: 20px;
+      color: var(--text-muted-dark);
+      line-height: 1.4;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .sklst-hero-buttons {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+
+    /* HERO STATS */
+    .sklst-hero-stats {
+      display: flex; gap: 48px; justify-content: center;
+      margin-top: 64px; padding-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .sklst-hero-stat { text-align: center; }
+    .sklst-hero-stat .sklst-number {
+      font-size: 36px; font-weight: 900; color: var(--accent);
+    }
+    .sklst-hero-stat .sklst-label {
+      font-size: 14px; color: var(--text-muted); margin-top: 4px; font-weight: 500;
+    }
+
+    /* SECTIONS */
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-dark {
+      background: var(--bg-dark);
+      color: var(--text-white);
+    }
+    .sklst-section-header {
+      text-align: center;
+      max-width: 600px; margin: 0 auto 64px;
+    }
+    .sklst-section-label {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      color: var(--peach); margin-bottom: 16px;
+    }
+    .sklst-section-title {
+      font-size: clamp(26px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.17;
+      margin-bottom: 12px;
+    }
+    .sklst-section-desc {
+      font-size: 18px; color: var(--text-muted); line-height: 1.4;
+    }
+    .sklst-section-dark .sklst-section-desc {
+      color: var(--text-muted-light);
+    }
+
+    /* WHO USES SKILLSET CARDS */
+    .sklst-who-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-who-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 40px 32px;
+      transition: transform 0.2s ease;
+    }
+    .sklst-who-card:hover {
+      transform: translateY(-3px);
+    }
+    .sklst-who-icon {
+      width: 56px; height: 56px;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .sklst-who-icon.blue { background: rgba(0, 85, 255, 0.1); color: var(--accent); }
+    .sklst-who-icon.teal { background: rgba(35, 136, 142, 0.1); color: #23888E; }
+    .sklst-who-icon.peach { background: rgba(255, 179, 138, 0.15); color: #E8824A; }
+    .sklst-who-card h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 12px;
+    }
+    .sklst-who-card .sklst-who-stat {
+      font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 12px;
+    }
+    .sklst-who-card p {
+      font-size: 15px; color: var(--text-muted-dark); line-height: 1.5;
+    }
+
+    /* INDUSTRIES */
+    .sklst-industries-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .sklst-industry-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-card);
+      padding: 28px 24px;
+      text-align: center;
+      transition: border-color 0.2s ease;
+    }
+    .sklst-industry-card:hover {
+      border-color: rgba(0, 85, 255, 0.4);
+    }
+    .sklst-industry-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(0, 85, 255, 0.12);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      color: #6699FF;
+    }
+    .sklst-industry-card h3 {
+      font-size: 16px; font-weight: 700; color: var(--text-white);
+    }
+
+    /* TESTIMONIALS */
+    .sklst-testimonials-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .sklst-testimonial-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .sklst-testimonial-quote {
+      font-size: 18px; font-weight: 500; line-height: 1.5;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+    .sklst-testimonial-quote::before {
+      content: '\201C';
+      font-size: 48px; font-weight: 900; color: var(--accent);
+      line-height: 0; display: block; margin-bottom: 12px;
+    }
+    .sklst-testimonial-author {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .sklst-testimonial-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 85, 255, 0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 16px; font-weight: 700;
+    }
+    .sklst-testimonial-name {
+      font-size: 15px; font-weight: 700;
+    }
+    .sklst-testimonial-role {
+      font-size: 13px; color: var(--text-muted); font-weight: 500;
+    }
+
+    /* CTA */
+    .sklst-cta {
+      text-align: center; padding: 100px 40px;
+    }
+    .sklst-cta h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .sklst-cta p {
+      font-size: 18px; color: var(--text-muted-dark);
+      margin-bottom: 40px; line-height: 1.5;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    .sklst-cta-buttons {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    .sklst-footer {
+      padding: 40px; border-top: 1px solid var(--border);
+    }
+    .sklst-footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a {
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+    }
+    .sklst-footer-links a:hover { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-hero { padding: 100px 20px 60px; }
+      .sklst-who-grid { grid-template-columns: 1fr; }
+      .sklst-industries-grid { grid-template-columns: repeat(2, 1fr); }
+      .sklst-testimonials-grid { grid-template-columns: 1fr; }
+      .sklst-hero-stats { flex-direction: column; gap: 20px; }
+      .sklst-hero-buttons { flex-direction: column; align-items: center; }
+      .sklst-cta-buttons { flex-direction: column; align-items: center; }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .sklst-cta { padding: 60px 20px; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sklst-who-grid { grid-template-columns: repeat(2, 1fr); }
+      .sklst-testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ANIMATIONS */
+    .sklst-fade {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg height="24" viewBox="0 0 138 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M124.664 2.37988V10.75H128.263V14.5901H124.664V25H120.043V2.37988H124.664Z" fill="currentColor"/>
+        <path d="M110.704 25.39C106.174 25.39 102.934 22.09 102.934 17.47C102.934 12.79 106.084 9.51999 110.614 9.51999C115.324 9.51999 118.264 12.61 118.264 17.5V18.67L107.374 18.73C107.644 20.71 108.754 21.64 110.794 21.64C112.534 21.64 113.764 21.01 114.094 19.93H118.324C117.784 23.26 114.814 25.39 110.704 25.39ZM110.644 13.27C108.814 13.27 107.794 14.08 107.434 15.88H113.674C113.674 14.29 112.504 13.27 110.644 13.27Z" fill="currentColor"/>
+        <path d="M88.9998 20.26H93.3799C93.4399 21.31 94.2199 21.94 95.6299 21.94C97.0699 21.94 97.7299 21.43 97.7299 20.65C97.7299 20.2 97.4899 19.72 96.3799 19.48L93.6199 18.88C90.8598 18.28 89.5098 17.08 89.5098 14.44C89.5098 11.32 92.1798 9.51999 95.7798 9.51999C99.2598 9.51999 101.69 11.56 101.69 14.59H97.3098C97.3098 13.57 96.6798 12.88 95.5698 12.88C94.5198 12.88 93.8598 13.42 93.8598 14.23C93.8598 14.92 94.4298 15.31 95.4798 15.55L98.2698 16.15C100.73 16.69 102.08 17.83 102.08 20.23C102.08 23.44 99.3499 25.39 95.4499 25.39C91.4899 25.39 88.9998 23.29 88.9998 20.26Z" fill="currentColor"/>
+        <path d="M87.3639 25H82.7439V2.38H87.3639V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V2.38H79.87V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V6.18999H79.87V25Z" fill="currentColor"/>
+        <path d="M68.072 25V10H72.692V25H68.072Z" fill="currentColor"/>
+        <path d="M67.712 5.02C67.712 6.49 68.882 7.66 70.352 7.66C71.792 7.66 72.962 6.49 72.962 5.02C72.962 3.55 71.792 2.41 70.352 2.41C68.882 2.41 67.712 3.55 67.712 5.02Z" fill="currentColor"/>
+        <path d="M57.0241 25H52.4041V2.38H57.0241V15.4L61.8841 10H67.6741L62.0341 15.94L67.4941 25H62.1541L58.7941 19.39L57.0241 21.25V25Z" fill="currentColor"/>
+        <path d="M37.66 20.26H42.04C42.1 21.31 42.88 21.94 44.29 21.94C45.73 21.94 46.39 21.43 46.39 20.65C46.39 20.2 46.15 19.72 45.04 19.48L42.28 18.88C39.52 18.28 38.17 17.08 38.17 14.44C38.17 11.32 40.84 9.51999 44.44 9.51999C47.92 9.51999 50.35 11.56 50.35 14.59H45.97C45.97 13.57 45.34 12.88 44.23 12.88C43.18 12.88 42.52 13.42 42.52 14.23C42.52 14.92 43.09 15.31 44.14 15.55L46.93 16.15C49.39 16.69 50.74 17.83 50.74 20.23C50.74 23.44 48.01 25.39 44.11 25.39C40.15 25.39 37.66 23.29 37.66 20.26Z" fill="currentColor"/>
+        <path d="M14.5 11.5V11.8496C14.5 13.0068 14.5016 13.7398 14.5469 14.2939C14.59 14.8218 14.661 14.9872 14.6904 15.0449L14.7578 15.165C14.9259 15.4391 15.167 15.6628 15.4551 15.8096L15.5225 15.8379C15.6179 15.8723 15.8098 15.9208 16.2061 15.9531C16.7602 15.9984 17.4934 16 18.6504 16H21.25V11.5H14.5ZM28.001 20.1504C28.001 18.9932 27.9994 18.2602 27.9541 17.7061C27.911 17.1787 27.84 17.013 27.8106 16.9551L27.7432 16.835C27.5751 16.5609 27.3339 16.3373 27.0459 16.1904L26.9785 16.1621C26.8832 16.1277 26.6912 16.0793 26.2949 16.0469C25.7409 16.0016 25.0076 16 23.8506 16H21.251V20.5H28.001V20.1504ZM23.8506 11.5C24.9333 11.5 25.8814 11.4978 26.6611 11.5615C27.3664 11.6192 28.0851 11.7397 28.7881 12.041L29.0889 12.1816C30.1909 12.7434 31.1002 13.6185 31.7031 14.6943L31.8193 14.9121C32.2258 15.7099 32.3736 16.5337 32.4395 17.3398C32.5032 18.1197 32.501 19.0676 32.501 20.1504V25H21.25V20.5H18.6504C17.5677 20.5 16.6196 20.5021 15.8398 20.4385C15.1345 20.3808 14.4159 20.2603 13.7129 19.959L13.4121 19.8184C12.31 19.2567 11.4008 18.3815 10.7979 17.3057L10.6816 17.0879C10.2751 16.29 10.1274 15.4663 10.0615 14.6602C9.99783 13.8803 10 12.9325 10 11.8496V7H21.251V11.5H23.8506Z" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="#sklst-who">Who Uses Skillset</a>
+      <a href="#sklst-testimonials">Testimonials</a>
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="sklst-hero">
+  <div class="sklst-hero-content">
+    <div class="sklst-hero-tag">Customers</div>
+    <h1>Trusted by<br>Growing Companies</h1>
+    <p>From startups to enterprises, teams use Skillset to hire better candidates in a fraction of the time.</p>
+    <div class="sklst-hero-buttons">
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
+      <a href="#sklst-who" class="sklst-btn sklst-btn-secondary">See who uses Skillset</a>
+    </div>
+    <div class="sklst-hero-stats">
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">85%</div>
+        <div class="sklst-label">Faster time-to-hire</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">90%</div>
+        <div class="sklst-label">Reduction in manual work</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">67%</div>
+        <div class="sklst-label">More qualified candidates</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">44 days</div>
+        <div class="sklst-label">Saved per role</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO USES SKILLSET -->
+<section class="sklst-section" id="sklst-who">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Who Uses Skillset</div>
+    <h2 class="sklst-section-title">Built for every hiring team</h2>
+    <p class="sklst-section-desc">Whether you're screening 10 or 10,000 candidates, Skillset scales with your needs.</p>
+  </div>
+  <div class="sklst-who-grid">
+    <div class="sklst-who-card sklst-fade">
+      <div class="sklst-who-icon blue">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Corporate HR Teams</h3>
+      <div class="sklst-who-stat">500+ CVs screened per hour</div>
+      <p>Replace 23 hours of manual CV screening with AI that evaluates technical skills, experience fit, and culture alignment in seconds. Focus your team on interviews that matter.</p>
+    </div>
+    <div class="sklst-who-card sklst-fade">
+      <div class="sklst-who-icon teal">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <h3>Recruitment Agencies</h3>
+      <div class="sklst-who-stat">3x more placements per recruiter</div>
+      <p>AI-powered matching lets your recruiters handle more clients without sacrificing quality. Deliver pre-screened, ranked shortlists faster than any competitor.</p>
+    </div>
+    <div class="sklst-who-card sklst-fade">
+      <div class="sklst-who-icon peach">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Founders & Hiring Managers</h3>
+      <div class="sklst-who-stat">Enterprise-grade hiring, zero overhead</div>
+      <p>No dedicated HR team? No problem. Skillset gives founders and managers a structured, AI-driven hiring process that finds top talent without the enterprise price tag.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="sklst-section sklst-section-dark" id="sklst-industries">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Industries</div>
+    <h2 class="sklst-section-title" style="color: white;">Hiring across every sector</h2>
+    <p class="sklst-section-desc">Skillset adapts to any industry with role-specific assessments and evaluation criteria.</p>
+  </div>
+  <div class="sklst-industries-grid">
+    <div class="sklst-industry-card sklst-fade">
+      <div class="sklst-industry-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Technology</h3>
+    </div>
+    <div class="sklst-industry-card sklst-fade">
+      <div class="sklst-industry-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <h3>Healthcare</h3>
+    </div>
+    <div class="sklst-industry-card sklst-fade">
+      <div class="sklst-industry-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <h3>Finance</h3>
+    </div>
+    <div class="sklst-industry-card sklst-fade">
+      <div class="sklst-industry-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </div>
+      <h3>Retail</h3>
+    </div>
+    <div class="sklst-industry-card sklst-fade">
+      <div class="sklst-industry-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      </div>
+      <h3>Professional Services</h3>
+    </div>
+    <div class="sklst-industry-card sklst-fade">
+      <div class="sklst-industry-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <h3>Education</h3>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sklst-section" id="sklst-testimonials">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">Testimonials</div>
+    <h2 class="sklst-section-title">What our customers say</h2>
+    <p class="sklst-section-desc">Real results from teams that switched to AI-powered hiring.</p>
+  </div>
+  <div class="sklst-testimonials-grid">
+    <div class="sklst-testimonial-card sklst-fade">
+      <div class="sklst-testimonial-quote">Skillset cut our time-to-hire from 44 days to under 7 days. The AI screening is incredibly accurate and saved our team hundreds of hours last quarter alone.</div>
+      <div class="sklst-testimonial-author">
+        <div class="sklst-testimonial-avatar">SA</div>
+        <div>
+          <div class="sklst-testimonial-name">Sarah A.</div>
+          <div class="sklst-testimonial-role">Head of Talent, Series B SaaS</div>
+        </div>
+      </div>
+    </div>
+    <div class="sklst-testimonial-card sklst-fade">
+      <div class="sklst-testimonial-quote">We finally have a tool that understands context, not just keywords. Skillset surfaces candidates that traditional ATS filters would have missed entirely.</div>
+      <div class="sklst-testimonial-author">
+        <div class="sklst-testimonial-avatar">MK</div>
+        <div>
+          <div class="sklst-testimonial-name">Mohammed K.</div>
+          <div class="sklst-testimonial-role">Recruiting Manager, Tech Consultancy</div>
+        </div>
+      </div>
+    </div>
+    <div class="sklst-testimonial-card sklst-fade">
+      <div class="sklst-testimonial-quote">The AI sourcing found candidates we never would have discovered manually. Our quality of hire improved dramatically within the first month.</div>
+      <div class="sklst-testimonial-author">
+        <div class="sklst-testimonial-avatar">JL</div>
+        <div>
+          <div class="sklst-testimonial-name">Jessica L.</div>
+          <div class="sklst-testimonial-role">VP of People, Growth-Stage Startup</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sklst-cta">
+  <div class="sklst-fade">
+    <h2>Join our growing community</h2>
+    <p>Start hiring smarter today. No credit card required, no long-term commitment. See results in your first week.</p>
+    <div class="sklst-cta-buttons">
+      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
+      <a href="https://calendly.com/olga-skillset/skillset-demo" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-secondary">Book a Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2026 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
+
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+</script>
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</body>
+</html>
