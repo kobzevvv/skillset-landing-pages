@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated LinkedIn Job Posting — We Know Which Settings Work | Skillset</title>
+  <meta name="description" content="We've posted thousands of jobs on LinkedIn. We know which settings, screening questions, and budget tricks bring qualified applicants — not just clicks. Fully automated.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #0055FF;
+      --accent-hover: #0044CC;
+      --peach: #FFB38A;
+      --success: #226600;
+      --danger: #B20F00;
+      --bg: #D8DCE5;
+      --bg-dark: #151A24;
+      --bg-card: #FFFFFF;
+      --bg-card-dark: #1F2126;
+      --text: #000000;
+      --text-white: #FFFFFF;
+      --text-muted: #858AA6;
+      --text-muted-light: #ADB2CC;
+      --text-muted-dark: #70758C;
+      --border: #BDC1D6;
+      --radius: 10px;
+      --radius-card: 20px;
+      --radius-pill: 1000px;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.25;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    [id] { scroll-margin-top: 80px; }
+
+    /* Nav */
+    .sklst-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 40px; background: rgba(216, 220, 229, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: box-shadow 0.3s; }
+    .sklst-nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .sklst-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .sklst-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .sklst-nav-logo span { font-size: 20px; font-weight: 700; }
+    .sklst-nav-links { display: flex; align-items: center; gap: 32px; }
+    .sklst-nav-links a { text-decoration: none; color: var(--text-muted-dark); font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .sklst-nav-links a:hover { color: var(--accent); }
+    .sklst-nav-links .sklst-btn-primary { color: var(--text-white); }
+    .sklst-nav-links .sklst-btn-primary:hover { color: var(--text-white); }
+
+    /* Buttons */
+    .sklst-btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; cursor: pointer; border: none; font-family: 'Satoshi', 'Inter', sans-serif; transition: all 0.2s ease; }
+    .sklst-btn-primary { background: var(--accent); color: var(--text-white); border-radius: var(--radius-pill); padding: 14px 36px; font-size: 17px; font-weight: 700; }
+    .sklst-btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3); }
+    .sklst-btn-secondary { background: var(--bg-card); color: var(--text); border: 2px solid var(--border); border-radius: var(--radius-pill); padding: 12px 32px; font-size: 16px; font-weight: 700; }
+    .sklst-btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .sklst-btn-sm { padding: 10px 24px; font-size: 14px; font-weight: 700; border-radius: var(--radius-pill); }
+
+    /* Hero */
+    .sklst-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 80px; }
+    .sklst-hero-content { max-width: 800px; }
+    .sklst-hero-tag { display: inline-block; background: var(--accent); color: var(--text-white); font-size: 13px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; margin-bottom: 24px; }
+    .sklst-hero h1 { font-size: clamp(36px, 5vw, 50px); font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+    .sklst-hero p { font-size: 20px; color: var(--text-muted-dark); line-height: 1.5; max-width: 620px; margin: 0 auto 40px; }
+    .sklst-hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .sklst-hero-stats { display: flex; gap: 48px; justify-content: center; margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--border); }
+    .sklst-hero-stat { text-align: center; }
+    .sklst-hero-stat .sklst-number { font-size: 36px; font-weight: 900; color: var(--accent); }
+    .sklst-hero-stat .sklst-label { font-size: 14px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+
+    /* Sections */
+    .sklst-section { padding: 80px 40px; }
+    .sklst-section-dark { background: var(--bg-dark); color: var(--text-white); }
+    .sklst-section-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+    .sklst-section-label { font-size: 14px; font-weight: 700; text-transform: uppercase; color: var(--peach); margin-bottom: 16px; }
+    .sklst-section-title { font-size: clamp(26px, 3.5vw, 30px); font-weight: 700; line-height: 1.17; margin-bottom: 12px; }
+    .sklst-section-desc { font-size: 18px; color: var(--text-muted); line-height: 1.4; }
+    .sklst-section-dark .sklst-section-desc { color: var(--text-muted-light); }
+
+    /* Features Grid */
+    .sklst-features-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .sklst-feature-card { background: var(--bg-card); border-radius: var(--radius-card); padding: 36px 32px; transition: transform 0.2s ease; }
+    .sklst-feature-card:hover { transform: translateY(-3px); }
+    .sklst-feature-icon { width: 48px; height: 48px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .sklst-feature-icon.blue { background: rgba(0, 85, 255, 0.1); color: var(--accent); }
+    .sklst-feature-icon.peach { background: rgba(255, 179, 138, 0.15); color: #E8824A; }
+    .sklst-feature-icon.green { background: rgba(34, 102, 0, 0.1); color: var(--success); }
+    .sklst-feature-icon.teal { background: rgba(35, 136, 142, 0.1); color: #23888E; }
+    .sklst-feature-icon.indigo { background: rgba(65, 68, 135, 0.1); color: #414487; }
+    .sklst-feature-icon.dark { background: rgba(21, 26, 36, 0.1); color: var(--bg-dark); }
+    .sklst-feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .sklst-feature-card p { font-size: 15px; color: var(--text-muted-dark); line-height: 1.5; }
+
+    /* Platforms Grid */
+    .sklst-platforms { max-width: 900px; margin: 0 auto; }
+    .sklst-platforms-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 40px; }
+    .sklst-platform-tag { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 12px 16px; text-align: center; font-size: 14px; font-weight: 500; color: var(--text-muted-light); }
+
+    /* Steps */
+    .sklst-steps { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; position: relative; }
+    .sklst-steps::before { content: ''; position: absolute; left: 28px; top: 40px; bottom: 40px; width: 2px; background: linear-gradient(180deg, var(--accent), var(--text-muted-light), transparent); }
+    .sklst-step { display: flex; gap: 32px; align-items: flex-start; padding: 28px 0; position: relative; }
+    .sklst-step-num { width: 56px; height: 56px; min-width: 56px; border-radius: 50%; background: var(--accent); color: var(--text-white); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; position: relative; z-index: 1; }
+    .sklst-step-content h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-white); }
+    .sklst-step-content p { font-size: 16px; color: var(--text-muted-light); line-height: 1.6; }
+
+    /* Comparison */
+    .sklst-comparison-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .sklst-comparison-card { padding: 36px; border-radius: var(--radius-card); }
+    .sklst-comparison-card.old { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    .sklst-comparison-card.new { background: rgba(0, 85, 255, 0.12); border: 1px solid rgba(0, 85, 255, 0.25); }
+    .sklst-comparison-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    .sklst-comparison-card ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .sklst-comparison-card li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5; }
+    .sklst-comparison-card.old li { color: rgba(255,255,255,0.5); }
+    .sklst-comparison-card.new li { color: rgba(255,255,255,0.85); }
+    .sklst-comparison-card li .ic { flex-shrink: 0; margin-top: 2px; }
+
+    /* CTA */
+    .sklst-cta { text-align: center; padding: 100px 40px; }
+    .sklst-cta h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; margin-bottom: 16px; }
+    .sklst-cta p { font-size: 18px; color: var(--text-muted-dark); margin-bottom: 40px; line-height: 1.5; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    /* Footer */
+    .sklst-footer { padding: 40px; border-top: 1px solid var(--border); }
+    .sklst-footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .sklst-footer-copy { font-size: 13px; color: var(--text-muted); }
+    .sklst-footer-links { display: flex; gap: 24px; }
+    .sklst-footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+    .sklst-footer-links a:hover { color: var(--accent); }
+
+    /* Fade animation */
+    .sklst-fade { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sklst-fade { transition: none; opacity: 1; transform: none; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sklst-nav { padding: 16px 20px; }
+      .sklst-nav-links { display: none; }
+      .sklst-nav-links .sklst-btn-primary { display: flex; }
+      .sklst-nav { display: flex; justify-content: space-between; align-items: center; }
+      .sklst-section { padding: 60px 20px; }
+      .sklst-hero { padding: 100px 20px 60px; }
+      .sklst-features-grid { grid-template-columns: 1fr; }
+      .sklst-comparison-grid { grid-template-columns: 1fr; }
+      .sklst-hero-stats { flex-direction: column; gap: 20px; }
+      .sklst-hero-buttons { flex-direction: column; align-items: center; }
+      .sklst-step { gap: 20px; }
+      .sklst-step-num { width: 40px; height: 40px; min-width: 40px; font-size: 16px; }
+      .sklst-steps::before { left: 20px; }
+      .sklst-footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .sklst-cta { padding: 60px 20px; }
+      .sklst-platforms-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sklst-features-grid { grid-template-columns: repeat(2, 1fr); }
+      .sklst-platforms-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+  <noscript><style>.sklst-fade { opacity: 1 !important; transform: none !important; }</style></noscript>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="sklst-nav" id="sklst-nav">
+  <div class="sklst-nav-inner">
+    <a href="https://skillset.ae" class="sklst-nav-logo">
+      <svg height="24" viewBox="0 0 138 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M124.664 2.37988V10.75H128.263V14.5901H124.664V25H120.043V2.37988H124.664Z" fill="currentColor"/>
+        <path d="M110.704 25.39C106.174 25.39 102.934 22.09 102.934 17.47C102.934 12.79 106.084 9.51999 110.614 9.51999C115.324 9.51999 118.264 12.61 118.264 17.5V18.67L107.374 18.73C107.644 20.71 108.754 21.64 110.794 21.64C112.534 21.64 113.764 21.01 114.094 19.93H118.324C117.784 23.26 114.814 25.39 110.704 25.39ZM110.644 13.27C108.814 13.27 107.794 14.08 107.434 15.88H113.674C113.674 14.29 112.504 13.27 110.644 13.27Z" fill="currentColor"/>
+        <path d="M88.9998 20.26H93.3799C93.4399 21.31 94.2199 21.94 95.6299 21.94C97.0699 21.94 97.7299 21.43 97.7299 20.65C97.7299 20.2 97.4899 19.72 96.3799 19.48L93.6199 18.88C90.8598 18.28 89.5098 17.08 89.5098 14.44C89.5098 11.32 92.1798 9.51999 95.7798 9.51999C99.2598 9.51999 101.69 11.56 101.69 14.59H97.3098C97.3098 13.57 96.6798 12.88 95.5698 12.88C94.5198 12.88 93.8598 13.42 93.8598 14.23C93.8598 14.92 94.4298 15.31 95.4798 15.55L98.2698 16.15C100.73 16.69 102.08 17.83 102.08 20.23C102.08 23.44 99.3499 25.39 95.4499 25.39C91.4899 25.39 88.9998 23.29 88.9998 20.26Z" fill="currentColor"/>
+        <path d="M87.3639 25H82.7439V2.38H87.3639V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V2.38H79.87V25Z" fill="currentColor"/>
+        <path d="M79.87 25H75.25V6.18999H79.87V25Z" fill="currentColor"/>
+        <path d="M68.072 25V10H72.692V25H68.072Z" fill="currentColor"/>
+        <path d="M67.712 5.02C67.712 6.49 68.882 7.66 70.352 7.66C71.792 7.66 72.962 6.49 72.962 5.02C72.962 3.55 71.792 2.41 70.352 2.41C68.882 2.41 67.712 3.55 67.712 5.02Z" fill="currentColor"/>
+        <path d="M57.0241 25H52.4041V2.38H57.0241V15.4L61.8841 10H67.6741L62.0341 15.94L67.4941 25H62.1541L58.7941 19.39L57.0241 21.25V25Z" fill="currentColor"/>
+        <path d="M37.66 20.26H42.04C42.1 21.31 42.88 21.94 44.29 21.94C45.73 21.94 46.39 21.43 46.39 20.65C46.39 20.2 46.15 19.72 45.04 19.48L42.28 18.88C39.52 18.28 38.17 17.08 38.17 14.44C38.17 11.32 40.84 9.51999 44.44 9.51999C47.92 9.51999 50.35 11.56 50.35 14.59H45.97C45.97 13.57 45.34 12.88 44.23 12.88C43.18 12.88 42.52 13.42 42.52 14.23C42.52 14.92 43.09 15.31 44.14 15.55L46.93 16.15C49.39 16.69 50.74 17.83 50.74 20.23C50.74 23.44 48.01 25.39 44.11 25.39C40.15 25.39 37.66 23.29 37.66 20.26Z" fill="currentColor"/>
+        <path d="M14.5 11.5V11.8496C14.5 13.0068 14.5016 13.7398 14.5469 14.2939C14.59 14.8218 14.661 14.9872 14.6904 15.0449L14.7578 15.165C14.9259 15.4391 15.167 15.6628 15.4551 15.8096L15.5225 15.8379C15.6179 15.8723 15.8098 15.9208 16.2061 15.9531C16.7602 15.9984 17.4934 16 18.6504 16H21.25V11.5H14.5ZM28.001 20.1504C28.001 18.9932 27.9994 18.2602 27.9541 17.7061C27.911 17.1787 27.84 17.013 27.8106 16.9551L27.7432 16.835C27.5751 16.5609 27.3339 16.3373 27.0459 16.1904L26.9785 16.1621C26.8832 16.1277 26.6912 16.0793 26.2949 16.0469C25.7409 16.0016 25.0076 16 23.8506 16H21.251V20.5H28.001V20.1504ZM23.8506 11.5C24.9333 11.5 25.8814 11.4978 26.6611 11.5615C27.3664 11.6192 28.0851 11.7397 28.7881 12.041L29.0889 12.1816C30.1909 12.7434 31.1002 13.6185 31.7031 14.6943L31.8193 14.9121C32.2258 15.7099 32.3736 16.5337 32.4395 17.3398C32.5032 18.1197 32.501 19.0676 32.501 20.1504V25H21.25V20.5H18.6504C17.5677 20.5 16.6196 20.5021 15.8398 20.4385C15.1345 20.3808 14.4159 20.2603 13.7129 19.959L13.4121 19.8184C12.31 19.2567 11.4008 18.3815 10.7979 17.3057L10.6816 17.0879C10.2751 16.29 10.1274 15.4663 10.0615 14.6602C9.99783 13.8803 10 12.9325 10 11.8496V7H21.251V11.5H23.8506Z" fill="currentColor"/>
+      </svg>
+    </a>
+    <div class="sklst-nav-links">
+      <a href="#sklst-features">What We Do</a>
+      <a href="#sklst-how">How It Works</a>
+      <a href="https://calendly.com/olga-skillset/skillset-demo" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary sklst-btn-sm">Let's Talk</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="sklst-hero">
+  <div class="sklst-hero-content">
+    <div class="sklst-hero-tag" style="background: var(--accent);">LinkedIn Job Posting</div>
+    <h1>We've posted thousands of jobs on LinkedIn.<br>We know which settings actually work.</h1>
+    <p>You know the drill. Publish a job, pick a budget, wait three days, get 300 applications from people who clearly didn't read the description. We've been there too. That's why we built automated posting that uses the exact settings, screening questions, and text optimization that bring in candidates who actually fit.</p>
+    <div class="sklst-hero-buttons">
+      <a href="https://calendly.com/olga-skillset/skillset-demo" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">See How It Works</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-secondary">Try It Free</a>
+    </div>
+    <div class="sklst-hero-stats">
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">3x</div>
+        <div class="sklst-label">More qualified applicants</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">80%</div>
+        <div class="sklst-label">Less time on manual posting</div>
+      </div>
+      <div class="sklst-hero-stat">
+        <div class="sklst-number">$0</div>
+        <div class="sklst-label">To get started</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="sklst-section" id="sklst-features">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label" style="color: var(--accent);">What We Automate</div>
+    <h2 class="sklst-section-title">Everything between "we need someone" and "here are your candidates"</h2>
+    <p class="sklst-section-desc">We didn't just build a job board connector. We built the thing we wished we had after years of manually tweaking LinkedIn settings and wondering why we kept getting the wrong applicants.</p>
+  </div>
+  <div class="sklst-features-grid">
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>Job Posts That People Actually Read</h3>
+      <p>We generate job descriptions under 300 words — the sweet spot where apply rates jump 8.4%. No buzzwords, no walls of text. Just clear descriptions that attract the right people and don't scare off the rest.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon teal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      </div>
+      <h3>Screening Questions That Do the Screening</h3>
+      <p>LinkedIn lets you add screening questions. Most people skip them. We don't — because one well-crafted question can filter out 80% of spray-and-pray applicants before you even see them.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon peach">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+      </div>
+      <h3>The Right Checkboxes, Every Time</h3>
+      <p>Easy Apply on or off? Salary range displayed? Skills matching enabled? We've tested every combination. You get the exact settings that maximize qualified applicants for your role and budget.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon indigo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <h3>Auto-Republish Before Anyone Notices</h3>
+      <p>LinkedIn jobs expire after 30 days and drop in rankings even sooner. We automatically refresh and repost your jobs so they stay visible — without you lifting a finger or losing a single day of visibility.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon green">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <h3>Budget That Works, Not Just Spends</h3>
+      <p>LinkedIn's default is "spend as fast as possible." Ours is "spend as smart as possible." We optimize your promoted job budget for cost per qualified applicant, not just cost per click. Big difference.</p>
+    </div>
+    <div class="sklst-feature-card sklst-fade">
+      <div class="sklst-feature-icon dark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <h3>One Click, 45+ Job Boards</h3>
+      <p>LinkedIn, Indeed, Glassdoor, and 40+ more. Write once, post everywhere. Same optimization, same screening, same smart settings — just more reach without more work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Platforms -->
+<section class="sklst-section sklst-section-dark">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">Where Your Jobs Go</div>
+    <h2 class="sklst-section-title" style="color: white;">One click. All these platforms. Optimized for each one.</h2>
+    <p class="sklst-section-desc">We don't just blast the same post everywhere. Each platform gets the right format, the right keywords, and the right settings. Because what works on LinkedIn doesn't always work on Indeed.</p>
+  </div>
+  <div class="sklst-platforms">
+    <div class="sklst-platforms-grid sklst-fade">
+      <div class="sklst-platform-tag">LinkedIn</div>
+      <div class="sklst-platform-tag">Indeed</div>
+      <div class="sklst-platform-tag">Glassdoor</div>
+      <div class="sklst-platform-tag">ZipRecruiter</div>
+      <div class="sklst-platform-tag">Monster</div>
+      <div class="sklst-platform-tag">CareerBuilder</div>
+      <div class="sklst-platform-tag">SimplyHired</div>
+      <div class="sklst-platform-tag">AngelList</div>
+      <div class="sklst-platform-tag">Dice</div>
+      <div class="sklst-platform-tag">Stack Overflow</div>
+      <div class="sklst-platform-tag">Bayt</div>
+      <div class="sklst-platform-tag">GulfTalent</div>
+      <div class="sklst-platform-tag">Naukri Gulf</div>
+      <div class="sklst-platform-tag">We Work Remotely</div>
+      <div class="sklst-platform-tag">Dribbble</div>
+      <div class="sklst-platform-tag">+30 more</div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="sklst-section sklst-section-dark" id="sklst-how" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">How It Works</div>
+    <h2 class="sklst-section-title" style="color: white;">Three steps. Zero LinkedIn forms.</h2>
+    <p class="sklst-section-desc">We spent years figuring out what works on LinkedIn. Now you get all that expertise without opening a single settings page.</p>
+  </div>
+  <div class="sklst-steps">
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">1</div>
+      <div class="sklst-step-content">
+        <h3>Tell Us Who You Need</h3>
+        <p>Describe the role in plain English — or paste an existing JD. We'll rewrite it for maximum apply rates, pick the right keywords, and keep it under 300 words. The length where people actually read and apply.</p>
+      </div>
+    </div>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">2</div>
+      <div class="sklst-step-content">
+        <h3>We Handle LinkedIn (and Everything Else)</h3>
+        <p>We post to LinkedIn with the optimal settings, screening questions, and budget. Plus Indeed, Glassdoor, and 40+ other boards. All timed for Tuesday mornings, when apply rates are 30% higher. Yes, we tested that.</p>
+      </div>
+    </div>
+    <div class="sklst-step sklst-fade">
+      <div class="sklst-step-num">3</div>
+      <div class="sklst-step-content">
+        <h3>You Meet the Good Ones</h3>
+        <p>Screening questions filter out the noise. Our AI ranks who's left. You get a shortlist of people who actually read the job description and actually have the skills. Imagine that.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section class="sklst-section sklst-section-dark" id="sklst-compare" style="padding-top: 0;">
+  <div class="sklst-section-header sklst-fade">
+    <div class="sklst-section-label">The Honest Comparison</div>
+    <h2 class="sklst-section-title" style="color: white;">You're probably doing this the hard way</h2>
+    <p class="sklst-section-desc">We know because we did too. For years. Then we automated every painful step and stopped wondering which checkboxes actually do something.</p>
+  </div>
+  <div class="sklst-comparison-grid">
+    <div class="sklst-comparison-card old sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Manual LinkedIn Posting
+      </h3>
+      <ul>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> 30 minutes per job just to fill in forms and pick settings</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> 300 applicants, 90% didn't read past the title</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Budget burns through on clicks from unqualified people</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Job expires in 30 days, manually repost and start over</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B20F00" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> No idea which settings actually made a difference</li>
+      </ul>
+    </div>
+    <div class="sklst-comparison-card new sklst-fade">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        With Skillset
+      </h3>
+      <ul>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Post to 45+ boards in one click, settings pre-optimized</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Screening questions filter out the noise automatically</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Budget optimized for qualified applicants, not vanity clicks</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Auto-republish keeps your jobs visible without you noticing</li>
+        <li><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0055FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Every setting tested and proven — you get what actually works</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sklst-cta" id="sklst-cta">
+  <div class="sklst-fade">
+    <h2>Let's look at your open roles together</h2>
+    <p>No pitch deck, no pressure. We'll show you how your current LinkedIn jobs would perform with optimized settings. 15 minutes — that's it.</p>
+    <a href="https://calendly.com/olga-skillset/skillset-demo" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-primary">Book a 15-Min Chat</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<div class="sklst-footer">
+  <div class="sklst-footer-inner">
+    <div class="sklst-footer-copy">&copy; 2026 Skillset. All rights reserved.</div>
+    <div class="sklst-footer-links">
+      <a href="https://skillset.ae">Main Site</a>
+      <a href="mailto:hello@skillset.ae">Contact</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+var n = document.getElementById('sklst-nav');
+if (n) window.addEventListener('scroll', function() { n.classList.toggle('scrolled', window.scrollY > 20); });
+var o = new IntersectionObserver(function(e) {
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+setTimeout(function() { document.querySelectorAll('.sklst-fade:not(.visible)').forEach(function(el) { el.classList.add('visible'); }); }, 3000);
+</script>
+
+</body>
+</html>
