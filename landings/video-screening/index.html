@@ -360,6 +360,8 @@
     @media (max-width: 768px) {
       .sklst-nav { padding: 16px 20px; }
       .sklst-nav-links { display: none; }
+      .sklst-nav-links .sklst-btn-primary { display: flex; }
+      .sklst-nav { display: flex; justify-content: space-between; align-items: center; }
       .sklst-section { padding: 60px 20px; }
       .sklst-hero { padding: 100px 20px 60px; }
       .sklst-features-grid { grid-template-columns: 1fr; }
@@ -384,7 +386,16 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .sklst-fade { transition: none; opacity: 1; transform: none; }
+    }
+
+    /* Scroll offset for fixed nav */
+    [id] { scroll-margin-top: 80px; }
   </style>
+  <noscript><style>.sklst-fade { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 <body>
 
@@ -410,7 +421,7 @@
       <a href="#sklst-how">How It Works</a>
       <a href="#sklst-features">Features</a>
       <a href="#sklst-compare">Why Skillset</a>
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
     </div>
   </div>
 </nav>
@@ -422,7 +433,7 @@
     <h1>AI Video Screening<br>That Saves Hours</h1>
     <p>Replace endless phone screens with AI-powered one-way video interviews. Candidates record at their convenience, AI analyzes responses and gives you ranked recommendations instantly.</p>
     <div class="sklst-hero-buttons">
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Try Video Screening Free</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary">Try Video Screening Free</a>
       <a href="#sklst-how" class="sklst-btn sklst-btn-secondary">See how it works</a>
     </div>
     <div class="sklst-hero-stats">
@@ -639,7 +650,7 @@
   <div class="sklst-fade">
     <h2>Try video screening free</h2>
     <p>Start screening candidates with AI today. No credit card required, set up in under 5 minutes.</p>
-    <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
+    <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
   </div>
 </section>
 
@@ -661,6 +672,7 @@ var o = new IntersectionObserver(function(e) {
   e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
 }, { threshold: 0.15 });
 document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+setTimeout(function() { document.querySelectorAll('.sklst-fade:not(.visible)').forEach(function(el) { el.classList.add('visible'); }); }, 3000);
 </script>
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </body>

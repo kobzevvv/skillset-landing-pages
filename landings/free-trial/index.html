@@ -370,6 +370,8 @@
     @media (max-width: 768px) {
       .sklst-nav { padding: 16px 20px; }
       .sklst-nav-links { display: none; }
+      .sklst-nav-links .sklst-btn-primary { display: flex; }
+      .sklst-nav { display: flex; justify-content: space-between; align-items: center; }
       .sklst-section { padding: 60px 20px; }
       .sklst-hero { padding: 100px 20px 60px; }
       .sklst-benefits-grid { grid-template-columns: repeat(2, 1fr); }
@@ -394,7 +396,16 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .sklst-fade { transition: none; opacity: 1; transform: none; }
+    }
+
+    /* Scroll offset for fixed nav */
+    [id] { scroll-margin-top: 80px; }
   </style>
+  <noscript><style>.sklst-fade { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 <body>
 
@@ -418,7 +429,7 @@
     </a>
     <div class="sklst-nav-links">
       <a href="https://skillset.ae">Back to main site</a>
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
     </div>
   </div>
 </nav>
@@ -430,7 +441,7 @@
     <h1>Start Your Free Trial.<br>Hire Smarter Today.</h1>
     <p>Experience the full power of AI-powered recruiting. Screen CVs in seconds, source candidates across 45+ platforms, and make data-driven hiring decisions.</p>
     <div class="sklst-hero-buttons">
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-primary-lg">Start Free Trial</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary sklst-btn-primary-lg">Start Free Trial</a>
     </div>
     <div class="sklst-hero-note">No credit card required. Set up in 5 minutes. Cancel anytime.</div>
   </div>
@@ -620,7 +631,7 @@
   <div class="sklst-fade">
     <h2>Start hiring with AI today</h2>
     <p>Join teams that have already transformed their recruiting process. Your free trial starts now.</p>
-    <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-primary-lg">Start Your Free Trial</a>
+    <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary sklst-btn-primary-lg">Start Your Free Trial</a>
     <div class="sklst-cta-note">No credit card required. Full access for 7 days.</div>
   </div>
 </section>
@@ -643,6 +654,7 @@ var o = new IntersectionObserver(function(e) {
   e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
 }, { threshold: 0.15 });
 document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+setTimeout(function() { document.querySelectorAll('.sklst-fade:not(.visible)').forEach(function(el) { el.classList.add('visible'); }); }, 3000);
 </script>
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </body>

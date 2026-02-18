@@ -376,6 +376,8 @@
     @media (max-width: 768px) {
       .sklst-nav { padding: 16px 20px; }
       .sklst-nav-links { display: none; }
+      .sklst-nav-links .sklst-btn-primary { display: flex; }
+      .sklst-nav { display: flex; justify-content: space-between; align-items: center; }
       .sklst-section { padding: 60px 20px; }
       .sklst-hero { padding: 100px 20px 60px; }
       .sklst-pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
@@ -398,7 +400,16 @@
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .sklst-fade.visible { opacity: 1; transform: translateY(0); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .sklst-fade { transition: none; opacity: 1; transform: none; }
+    }
+
+    /* Scroll offset for fixed nav */
+    [id] { scroll-margin-top: 80px; }
   </style>
+  <noscript><style>.sklst-fade { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 <body>
 
@@ -423,7 +434,7 @@
     <div class="sklst-nav-links">
       <a href="#sklst-pricing">Plans</a>
       <a href="#sklst-faq">FAQ</a>
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary sklst-btn-sm">Start Free Trial</a>
     </div>
   </div>
 </nav>
@@ -475,7 +486,7 @@
           5-minute setup
         </li>
       </ul>
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-secondary">Start Free Trial</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-secondary">Start Free Trial</a>
     </div>
 
     <!-- PROFESSIONAL (FEATURED) -->
@@ -525,7 +536,7 @@
           Priority support
         </li>
       </ul>
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
     </div>
 
     <!-- BUSINESS -->
@@ -578,7 +589,7 @@
           Onboarding assistance
         </li>
       </ul>
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-secondary">Start Free Trial</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-secondary">Start Free Trial</a>
     </div>
 
   </div>
@@ -694,7 +705,7 @@
     <h2>Ready to transform your hiring?</h2>
     <p>Start your free trial today — no credit card required. Or book a demo and see Skillset in action.</p>
     <div class="sklst-cta-buttons">
-      <a href="https://app.skillset.ae/signup" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
+      <a href="https://app.skillset.ae/signup" target="_blank" rel="noopener" class="sklst-btn sklst-btn-primary">Start Free Trial</a>
       <a href="https://calendly.com/olga-skillset/skillset-demo" onclick="Calendly.initPopupWidget({url:'https://calendly.com/olga-skillset/skillset-demo'});return false;" class="sklst-btn sklst-btn-secondary">Book a Demo</a>
     </div>
   </div>
@@ -718,6 +729,7 @@ var o = new IntersectionObserver(function(e) {
   e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); o.unobserve(x.target); } });
 }, { threshold: 0.15 });
 document.querySelectorAll('.sklst-fade').forEach(function(el) { o.observe(el); });
+setTimeout(function() { document.querySelectorAll('.sklst-fade:not(.visible)').forEach(function(el) { el.classList.add('visible'); }); }, 3000);
 </script>
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </body>
