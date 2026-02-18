@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none">
+  <!-- Upper-left L-shape with rounded outer corner -->
+  <path d="M2 14V4a2 2 0 0 1 2-2h10v5H8v7H2z" fill="currentColor"/>
+  <!-- Lower-right L-shape with rounded outer corner -->
+  <path d="M22 10v10a2 2 0 0 1-2 2H10v-5h6v-7h6z" fill="currentColor"/>
+</svg>
