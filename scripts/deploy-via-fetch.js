@@ -1,64 +1,24 @@
 // deploy-via-fetch.js — Webflow deployment via GitHub Raw fetch
 //
-// Использование: Claude читает этот файл и выполняет каждую функцию
-// через browser_evaluate в Webflow Designer (Page Settings → Custom Code)
+// Использование: Claude выполняет функции через browser_evaluate
+// в Webflow Designer (Page Settings → Custom Code)
 //
 // Требования:
 // - Webflow Designer открыт на нужной странице
-// - Page Settings → Custom Code видна (оба CodeMirror доступны)
+// - Page Settings → Custom Code видна (3 CodeMirror-редактора)
 // - Файл уже запушен в GitHub (публичный репо)
 //
-// Параметры (подставь перед запуском):
+// CodeMirror маппинг (3 поля):
+//   c[0] = Schema markup       → ОЧИСТИТЬ (пустая строка)
+//   c[1] = Inside <head> tag   → <meta robots noindex> + <link fontshare> + <style>...</style>
+//   c[2] = Before </body> tag  → HTML body + <script>
+//
+// Параметры:
 var REPO = 'kobzevvv/skillset-landing-pages';
 var BRANCH = 'master';
-// var PAGE_PATH = 'landings/ai-recruiter/index.html';  // подставить нужный
 
 // ============================================================
-// STEP 1: Инъекция Head (CSS + шрифт) — один browser_evaluate
-// ============================================================
-// Скопируй и выполни в browser_evaluate, подставив PAGE_PATH:
-
-async function injectHead(pagePath) {
-  var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + pagePath;
-  var resp = await fetch(url);
-  if (!resp.ok) throw new Error('Fetch failed: HTTP ' + resp.status);
-  var html = await resp.text();
-
-  // Извлекаем head: от <link...fontshare до </style>
-  var headMatch = html.match(/(<link[^>]*fontshare[\s\S]*?<\/style>)/);
-  if (!headMatch) throw new Error('Head CSS not found in HTML');
-
-  var cm = document.querySelectorAll('.CodeMirror')[0];
-  if (!cm) throw new Error('Head CodeMirror not found');
-  cm.CodeMirror.setValue(headMatch[1]);
-
-  return 'HEAD OK: ' + headMatch[1].length + ' bytes';
-}
-
-// ============================================================
-// STEP 2: Инъекция Body (HTML + JS) — один browser_evaluate
-// ============================================================
-
-async function injectBody(pagePath) {
-  var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + pagePath;
-  var resp = await fetch(url);
-  if (!resp.ok) throw new Error('Fetch failed: HTTP ' + resp.status);
-  var html = await resp.text();
-
-  // Извлекаем body: всё между <body> и </body>
-  var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/);
-  if (!bodyMatch) throw new Error('Body content not found in HTML');
-
-  var body = bodyMatch[1].trim();
-  var cm = document.querySelectorAll('.CodeMirror')[1];
-  if (!cm) throw new Error('Body CodeMirror not found');
-  cm.CodeMirror.setValue(body);
-
-  return 'BODY OK: ' + body.length + ' bytes';
-}
-
-// ============================================================
-// STEP 3 (опционально): Всё за один вызов
+// Основная функция: инъекция за один вызов
 // ============================================================
 
 async function injectAll(pagePath) {
@@ -67,26 +27,71 @@ async function injectAll(pagePath) {
   if (!resp.ok) throw new Error('Fetch failed: HTTP ' + resp.status);
   var html = await resp.text();
 
-  var headMatch = html.match(/(<link[^>]*fontshare[\s\S]*?<\/style>)/);
+  // Head: от <meta name="robots"...> до </style> (включает noindex, шрифт, CSS)
+  var headMatch = html.match(/<meta name="robots"[^>]*>[\s\S]*?<\/style>/);
+  // Body: всё между <body> и </body>
   var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/);
 
-  if (!headMatch) throw new Error('Head CSS not found');
+  if (!headMatch) throw new Error('Head block not found (expected <meta robots>...<\/style>)');
   if (!bodyMatch) throw new Error('Body content not found');
 
   var cms = document.querySelectorAll('.CodeMirror');
-  if (cms.length < 2) throw new Error('Need 2 CodeMirrors, found ' + cms.length);
+  if (cms.length < 3) throw new Error('Need 3 CodeMirrors, found ' + cms.length);
 
-  cms[0].CodeMirror.setValue(headMatch[1]);
-  cms[1].CodeMirror.setValue(bodyMatch[1].trim());
+  cms[0].CodeMirror.setValue('');              // Schema markup — очистить
+  cms[1].CodeMirror.setValue(headMatch[0]);    // Inside <head>
+  cms[2].CodeMirror.setValue(bodyMatch[1].trim()); // Before </body>
 
-  return 'ALL OK — Head: ' + headMatch[1].length + ' bytes, Body: ' + bodyMatch[1].trim().length + ' bytes';
+  return 'OK: schema=cleared head=' + headMatch[0].length + ' body=' + bodyMatch[1].trim().length;
 }
 
 // ============================================================
-// Для Claude: скопируй одну из этих строк в browser_evaluate:
+// Отдельные функции (если нужно обновить только head или body)
+// ============================================================
+
+async function injectHead(pagePath) {
+  var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + pagePath;
+  var resp = await fetch(url);
+  if (!resp.ok) throw new Error('Fetch failed: HTTP ' + resp.status);
+  var html = await resp.text();
+
+  var headMatch = html.match(/<meta name="robots"[^>]*>[\s\S]*?<\/style>/);
+  if (!headMatch) throw new Error('Head block not found');
+
+  var cms = document.querySelectorAll('.CodeMirror');
+  if (cms.length < 3) throw new Error('Need 3 CodeMirrors, found ' + cms.length);
+
+  cms[0].CodeMirror.setValue('');           // Schema — очистить
+  cms[1].CodeMirror.setValue(headMatch[0]); // Head
+
+  return 'HEAD OK: ' + headMatch[0].length + ' bytes';
+}
+
+async function injectBody(pagePath) {
+  var url = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/' + pagePath;
+  var resp = await fetch(url);
+  if (!resp.ok) throw new Error('Fetch failed: HTTP ' + resp.status);
+  var html = await resp.text();
+
+  var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/);
+  if (!bodyMatch) throw new Error('Body content not found');
+
+  var cms = document.querySelectorAll('.CodeMirror');
+  if (cms.length < 3) throw new Error('Need 3 CodeMirrors, found ' + cms.length);
+
+  cms[2].CodeMirror.setValue(bodyMatch[1].trim()); // Body
+
+  return 'BODY OK: ' + bodyMatch[1].trim().length + ' bytes';
+}
+
+// ============================================================
+// Для Claude: one-liner для browser_evaluate
 // ============================================================
 //
-// Всё за один вызов (рекомендуется):
-// (async()=>{var r=await fetch('https://raw.githubusercontent.com/kobzevvv/skillset-landing-pages/master/landings/PAGE_NAME/index.html');var h=await r.text();var hm=h.match(/(<link[^>]*fontshare[\s\S]*?<\/style>)/);var bm=h.match(/<body[^>]*>([\s\S]*)<\/body>/);var c=document.querySelectorAll('.CodeMirror');c[0].CodeMirror.setValue(hm[1]);c[1].CodeMirror.setValue(bm[1].trim());return'OK: head='+hm[1].length+' body='+bm[1].trim().length})()
+// Замени PAGE_NAME на slug лендинга:
+// ai-recruiter, ai-recruiting, resume-screening, ai-sourcing,
+// compare, dubai, automation, small-business, agencies, demo,
+// diversity, ats, job-description
 //
-// Замени PAGE_NAME на slug лендинга (ai-recruiter, resume-screening, etc.)
+// One-liner (рекомендуется):
+// (async()=>{var r=await fetch('https://raw.githubusercontent.com/kobzevvv/skillset-landing-pages/master/landings/PAGE_NAME/index.html');var h=await r.text();var hm=h.match(/<meta name="robots"[^>]*>[\s\S]*?<\/style>/);var bm=h.match(/<body[^>]*>([\s\S]*)<\/body>/);if(!hm||!bm)return'ERROR: regex failed';var c=document.querySelectorAll('.CodeMirror');c[0].CodeMirror.setValue('');c[1].CodeMirror.setValue(hm[0]);c[2].CodeMirror.setValue(bm[1].trim());return'OK: schema=cleared head='+hm[0].length+' body='+bm[1].trim().length})()
