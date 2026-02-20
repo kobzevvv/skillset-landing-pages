@@ -1,86 +1,86 @@
 # Deployment Guide — Skillset Landing Pages
 
-Как публиковать лендинги из этого репозитория на Webflow.
+How to publish landing pages from this repository to Webflow.
 
 ---
 
-## Обзор архитектуры
+## Architecture Overview
 
-Каждый лендинг — **автономный HTML-файл** (CSS + JS внутри). Лендинг публикуется на Webflow как **отдельная страница** с кастомным кодом (page-specific Head + Body).
+Each landing page is a **standalone HTML file** (CSS + JS inline). It is published on Webflow as a **separate page** with custom code (page-specific Head + Body).
 
-- **Webflow site**: "Skillset Landing Page" в Olga's Workspace
-- **Домены**: `sklst.ai`, `www.sklst.ai`, `skillset.ae`, `www.skillset.ae` (публикуем на все)
-- **GitHub**: `kobzevvv/skillset-landing-pages` (публичный)
-- **Webflow Designer** → Pages → выбрать страницу → Settings (⚙️) → Custom Code
-- **Head** (`Inside <head> tag`): блок `<style>` + подключение шрифта
-- **Body** (`Before </body> tag`): весь HTML от `<body>` до `</body>` + `<script>`
+- **Webflow site**: "Skillset Landing Page" in Olga's Workspace
+- **Domains**: `sklst.ai`, `www.sklst.ai`, `skillset.ae`, `www.skillset.ae` (publish to all)
+- **GitHub**: `kobzevvv/skillset-landing-pages` (public)
+- **Webflow Designer** → Pages → select page → Settings (⚙️) → Custom Code
+- **Head** (`Inside <head> tag`): `<style>` block + font link
+- **Body** (`Before </body> tag`): all HTML from `<body>` to `</body>` + `<script>`
 
-### CodeMirror маппинг (критически важно!)
+### CodeMirror Mapping (critical!)
 
-В Webflow Page Settings → Custom Code **три** CodeMirror-редактора:
+In Webflow Page Settings → Custom Code there are **three** CodeMirror editors:
 
-| Индекс | Поле | Что туда идёт |
-|--------|------|---------------|
-| `c[0]` | Schema markup | **ПУСТОЙ** — ничего не вставлять! |
-| `c[1]` | Inside `<head>` tag | `<meta robots noindex>` + CSS + шрифт (`<link>` + `<style>`) |
+| Index | Field | What goes there |
+|-------|-------|-----------------|
+| `c[0]` | Schema markup | **EMPTY** — do not insert anything! |
+| `c[1]` | Inside `<head>` tag | `<meta robots noindex>` + CSS + font (`<link>` + `<style>`) |
 | `c[2]` | Before `</body>` tag | HTML body + `<script>` |
 
-> **Ошибка**: ранее предполагалось 2 редактора. Если код попал в неправильные поля — перезалить через скрипт ниже.
+> **Note**: previously we assumed 2 editors. If code ended up in the wrong fields — re-deploy using the script below.
 
-### Статус проекта: эксперимент / исследование
+### Project Status: Experiment / Research
 
-Все рекламные лендинги — это **эксперимент**. Мы тестируем, какие value propositions, сегменты и детали работают. Поэтому:
+All ad landing pages are an **experiment**. We're testing which value propositions, segments, and details work. Therefore:
 
-- Лендинги НЕ являются частью основного сайта
-- Они доступны ТОЛЬКО по прямым ссылкам из рекламных кампаний
-- На них нельзя случайно попасть через навигацию или поиск
+- Landing pages are NOT part of the main site
+- They are accessible ONLY via direct links from ad campaigns
+- They cannot be reached through navigation or search
 
-### SEO-изоляция (КРИТИЧЕСКИ ВАЖНО!)
+### SEO Isolation (CRITICAL!)
 
-Все рекламные лендинги **ОБЯЗАНЫ** быть скрыты от поисковых систем:
+All ad landing pages **MUST** be hidden from search engines:
 
-1. **`noindex, nofollow`** — каждый лендинг содержит `<meta name="robots" content="noindex, nofollow">` в `<head>`. **Не удалять!**
-2. **Sitemap** — НЕ добавлять лендинги в sitemap.xml. Ни в Webflow sitemap, ни в robots.txt
-3. **Главная страница** — НЕ ставить ссылки на лендинги с главной страницы или из навигации сайта
-4. **Внутренние ссылки** — лендинги НЕ ссылаются друг на друга (только на skillset.ae, app.skillset.ae, Calendly)
-5. **Единственный вход** — через прямой URL из рекламного объявления (Google Ads, Cold Email)
+1. **`noindex, nofollow`** — every landing page contains `<meta name="robots" content="noindex, nofollow">` in `<head>`. **Do not remove!**
+2. **Sitemap** — do NOT add landing pages to sitemap.xml. Neither Webflow sitemap nor robots.txt
+3. **Homepage** — do NOT link to landing pages from the homepage or site navigation
+4. **Internal links** — landing pages do NOT link to each other (only to skillset.ae, app.skillset.ae, Calendly)
+5. **Single entry point** — via direct URL from ad (Google Ads, Cold Email)
 
-> **Почему**: мы экспериментируем с позиционированием. Пока не знаем, какие VP работают. Индексация экспериментальных страниц вредит SEO основного сайта.
+> **Why**: we're experimenting with positioning. We don't yet know which VPs work. Indexing experimental pages hurts the main site's SEO.
 
-### Правила публикации
+### Publishing Rules
 
-- **Публикуем на все домены** (`sklst.ai`, `www.sklst.ai`, `skillset.ae`, `www.skillset.ae`)
-- **Site-wide Custom Code** используется только для GTM/аналитики — **НЕ** для контента лендингов
-- **Page-specific Custom Code** — для контента каждого лендинга
-- **Webflow Page Settings → SEO**: отключить "Index this page" если такая опция есть
+- **Publish to all domains** (`sklst.ai`, `www.sklst.ai`, `skillset.ae`, `www.skillset.ae`)
+- **Site-wide Custom Code** is used only for GTM/analytics — **NOT** for landing page content
+- **Page-specific Custom Code** — for each landing page's content
+- **Webflow Page Settings → SEO**: disable "Index this page" if available
 
 ---
 
-## Два метода деплоя
+## Two Deployment Methods
 
-| | Метод 1: GitHub Fetch | Метод 2: Base64 Chunking |
+| | Method 1: GitHub Fetch | Method 2: Base64 Chunking |
 |---|---|---|
-| **Скрипт** | `scripts/deploy-via-fetch.js` | `scripts/prepare-chunks.sh` |
-| **Скорость** | ~3 секунды, 1-2 вызова | ~30 секунд, 8+ вызовов |
-| **Стоимость** | Минимальная | Высокая (base64 через LLM) |
-| **Требования** | Публичный GitHub-репо | Только локальные файлы |
-| **Когда использовать** | Всегда (основной метод) | Если GitHub недоступен |
+| **Script** | `scripts/deploy-via-fetch.js` | `scripts/prepare-chunks.sh` |
+| **Speed** | ~3 seconds, 1-2 calls | ~30 seconds, 8+ calls |
+| **Cost** | Minimal | High (base64 via LLM) |
+| **Requirements** | Public GitHub repo | Local files only |
+| **When to use** | Always (primary method) | If GitHub is unavailable |
 
 ---
 
-## Метод 1: GitHub Fetch (основной)
+## Method 1: GitHub Fetch (primary)
 
-Самый быстрый и дешёвый способ. Браузер сам загружает HTML из GitHub Raw, парсит его и вставляет в CodeMirror.
+The fastest and cheapest method. The browser fetches HTML from GitHub Raw, parses it, and inserts into CodeMirror.
 
-### Подготовка
+### Prerequisites
 
-1. Код должен быть запушен в GitHub
-2. Репозиторий должен быть публичным
-3. Webflow Designer открыт на нужной странице → Page Settings → Custom Code
+1. Code must be pushed to GitHub
+2. Repository must be public
+3. Webflow Designer open on the target page → Page Settings → Custom Code
 
-### Деплой за 1 вызов
+### Deploy in 1 Call
 
-Claude выполняет **один** `browser_evaluate`:
+Claude executes **one** `browser_evaluate`:
 
 ```js
 (async () => {
@@ -90,47 +90,47 @@ Claude выполняет **один** `browser_evaluate`:
   var bm = h.match(/<body[^>]*>([\s\S]*)<\/body>/);
   if (!hm || !bm) return 'ERROR: regex failed';
   var c = document.querySelectorAll('.CodeMirror');
-  c[0].CodeMirror.setValue('');        // Schema markup — очистить
-  c[1].CodeMirror.setValue(hm[0]);     // Inside <head> — noindex + CSS + шрифт
+  c[0].CodeMirror.setValue('');        // Schema markup — clear
+  c[1].CodeMirror.setValue(hm[0]);     // Inside <head> — noindex + CSS + font
   c[2].CodeMirror.setValue(bm[1].trim()); // Before </body> — HTML + JS
   return 'OK: schema=cleared head=' + hm[0].length + ' body=' + bm[1].trim().length;
 })()
 ```
 
-Замени `PAGE_NAME` на slug лендинга (`ai-recruiter`, `resume-screening`, `compare`, и т.д.)
+Replace `PAGE_NAME` with the landing page slug (`ai-recruiter`, `resume-screening`, `compare`, etc.)
 
-### Полный процесс
+### Full Process
 
-1. Запушить код в GitHub
-2. Открыть Webflow Designer → создать новую страницу → задать slug
+1. Push code to GitHub
+2. Open Webflow Designer → create new page → set slug
 3. Page Settings (⚙️) → Custom Code
-4. Выполнить `browser_evaluate` с JS выше (подставив PAGE_NAME)
-5. Нажать Save → Publish (все домены)
-6. **Проверить**, что homepage (/) не затронут!
+4. Run `browser_evaluate` with the JS above (substituting PAGE_NAME)
+5. Click Save → Publish (all domains)
+6. **Verify** that the homepage (/) was not affected!
 
-### Подробный скрипт
+### Detailed Script
 
-Полная версия с обработкой ошибок: `scripts/deploy-via-fetch.js`
+Full version with error handling: `scripts/deploy-via-fetch.js`
 
 ---
 
-## Метод 2: Base64 Chunking (запасной)
+## Method 2: Base64 Chunking (fallback)
 
-Используй если GitHub недоступен из Webflow (блокировка, приватный репо, сетевые проблемы).
+Use if GitHub is unavailable from Webflow (blocked, private repo, network issues).
 
-### Подготовка
+### Preparation
 
 ```bash
 ./scripts/prepare-chunks.sh landings/ai-recruiter/index.html
 ```
 
-Скрипт:
-1. Извлекает Head (CSS + шрифт) и Body (HTML + JS)
-2. Минифицирует код (если установлен `html-minifier-terser`)
-3. Разбивает на base64-чанки по 4 KB
-4. Генерирует готовые JS-файлы для `browser_evaluate`
+The script:
+1. Extracts Head (CSS + font) and Body (HTML + JS)
+2. Minifies code (if `html-minifier-terser` is installed)
+3. Splits into base64 chunks of 4 KB each
+4. Generates ready-to-use JS files for `browser_evaluate`
 
-### Деплой
+### Deploy
 
 ```
 1. browser_evaluate: /tmp/wf_inject_head_1.js
@@ -141,126 +141,126 @@ Claude выполняет **один** `browser_evaluate`:
 6. browser_evaluate: /tmp/wf_inject_body_2.js
 7. browser_evaluate: /tmp/wf_inject_body_3.js
 8. browser_evaluate: /tmp/wf_inject_body_final.js
-9. Click Save → Publish (все домены)
+9. Click Save → Publish (all domains)
 ```
 
-Claude читает каждый файл и вставляет его содержимое в `browser_evaluate`.
+Claude reads each file and inserts its contents into `browser_evaluate`.
 
 ---
 
-## Аналитика и трекинг
+## Analytics & Tracking
 
 ### Site-wide GTM
 
-GTM-сниппет `GTM-TWM9H2Z6` установлен через **Webflow Site Settings → Custom Code** (site-wide):
+GTM snippet `GTM-TWM9H2Z6` is installed via **Webflow Site Settings → Custom Code** (site-wide):
 
 - **Head code**: GTM script + CSS (hide-scrollbar)
 - **Footer code**: GTM noscript fallback
 
-> **Важно**: site-wide код — только для аналитики (GTM, пиксели). Контент лендингов идёт ТОЛЬКО через page-specific Custom Code.
+> **Important**: site-wide code is for analytics only (GTM, pixels). Landing page content goes ONLY through page-specific Custom Code.
 
-### Что трекается через GTM
+### What is Tracked via GTM
 
-| Сервис | Статус | Описание |
-|--------|--------|----------|
-| Яндекс.Метрика (106836145) | Работает | Вебвизор, goals, pageview — через официальный шаблон GTM |
-| GA4 | Настраивается | Теги GA4 в контейнере GTM-TWM9H2Z6 |
+| Service | Status | Description |
+|---------|--------|-------------|
+| Yandex.Metrika (106836145) | Active | Webvisor, goals, pageview — via official GTM Gallery template |
+| GA4 | Being configured | GA4 tags in GTM container GTM-TWM9H2Z6 |
 
-### Гайд по аналитике
+### Analytics Guide
 
-Полная настройка аналитики (GA4, Яндекс.Метрика, конверсии, цели) описана в отдельном гайде:
+Full analytics setup (GA4, Yandex.Metrika, conversions, goals) is documented in a separate guide:
 
-> **TODO**: `ANALYTICS_GUIDE.md` — создать после завершения настройки GTM-контейнера.
-> Должен содержать: GA4 Measurement ID, структуру событий, настройку конверсий для Google Ads, Яндекс.Метрика goals, интеграцию с рекламными кампаниями.
+> **TODO**: `ANALYTICS_GUIDE.md` — create after GTM container setup is complete.
+> Should contain: GA4 Measurement ID, event structure, Google Ads conversion setup, Yandex.Metrika goals, ad campaign integrations.
 
 ---
 
-## Зачем нужен Base64?
+## Why Base64?
 
-### Проблема
+### Problem
 
-Playwright MCP (`browser_evaluate`) передаёт JavaScript как строку. HTML с кавычками, переносами строк и спецсимволами ломает JS-синтаксис.
+Playwright MCP (`browser_evaluate`) passes JavaScript as a string. HTML with quotes, newlines, and special characters breaks JS syntax.
 
-### Решение
+### Solution
 
-**Base64** кодирует данные в безопасные символы `A-Za-z0-9+/=`. В браузере `atob()` декодирует обратно.
+**Base64** encodes data into safe characters `A-Za-z0-9+/=`. In the browser, `atob()` decodes it back.
 
 ```
 HTML:   <div class="hello">It's "great"</div>
 Base64: PGRpdiBjbGFzcz0iaGVsbG8iPkl0J3MgImdyZWF0IjwvZGl2Pg==
 ```
 
-### Почему chunking?
+### Why Chunking?
 
-Base64 увеличивает данные на ~33%. `browser_evaluate` лимит ~5-6 KB. Поэтому:
-1. Разбиваем **сырой текст** на куски по 4 KB
-2. Кодируем каждый кусок отдельно (~5.3 KB base64)
-3. Передаём каждый чанк отдельным вызовом
-4. Собираем обратно в финальном вызове
+Base64 increases data size by ~33%. `browser_evaluate` has a ~5-6 KB limit. Therefore:
+1. Split **raw text** into 4 KB chunks
+2. Encode each chunk separately (~5.3 KB base64)
+3. Send each chunk via a separate call
+4. Reassemble in the final call
 
-**Важно**: нельзя разрезать уже закодированную base64 строку — padding `=` в середине ломает `atob()`.
+**Important**: you cannot split an already-encoded base64 string — padding `=` in the middle breaks `atob()`.
 
-### Почему метод 1 лучше?
+### Why Method 1 is Better
 
-GitHub fetch обходит все эти проблемы — данные загружает сам браузер через HTTP, без base64, без чанков, без LLM-токенов.
-
----
-
-## Что работает
-
-- **Page-specific Custom Code** — надёжный способ размещения лендинга
-- **Site-wide Custom Code** — для GTM/аналитики (не для контента!)
-- **GitHub Raw fetch** — быстрый деплой за 1 вызов (основной метод)
-- **Base64 chunking** через `prepare-chunks.sh` — надёжный запасной метод
-- **CSS namespace `sklst-`** — полностью изолирует стили от Webflow
-- **IntersectionObserver** в `<script>` — fade-in анимации работают корректно
-
-## Что НЕ работает
-
-| Метод | Почему |
-|-------|--------|
-| `require('fs')` в browser_evaluate | Sandbox не поддерживает Node.js |
-| `import('fs')` dynamic | Заблокировано в sandbox |
-| Одна base64 строка >6 KB | Превышает лимит browser_evaluate |
-| Конкатенация base64 строк | Padding `=` ломает `atob()` |
-| Site-wide код для лендингов | Затрагивает homepage. **ЗАПРЕЩЕНО!** |
-| Custom HTML теги в GTM для Яндекса | Google флагит как malware. Использовать официальный шаблон из Gallery |
+GitHub fetch bypasses all these problems — the browser loads data via HTTP, without base64, without chunks, without LLM tokens.
 
 ---
 
-## Чеклист перед публикацией
+## What Works
 
-- [ ] Лендинг работает на GitHub Pages (проверить preview URL)
-- [ ] Все классы с префиксом `sklst-`
-- [ ] Ссылки ведут на `app.skillset.ae/signup`
-- [ ] Slug соответствует рекламной кампании
-- [ ] `git push` выполнен (для метода 1)
-- [ ] CodeMirror маппинг: c[0]=пустой, c[1]=head, c[2]=body
-- [ ] `<meta name="robots" content="noindex, nofollow">` присутствует в `<head>`
-- [ ] Страница НЕ добавлена в sitemap
-- [ ] Нет ссылок на эту страницу с главной или навигации
-- [ ] Публикация на все домены (sklst.ai, www.sklst.ai, skillset.ae, www.skillset.ae)
-- [ ] **Homepage (/) НЕ затронут** — проверить после публикации!
-- [ ] GTM загружается на странице (проверить network requests)
-- [ ] Обновить статус в [Google Sheet — Landing Pages](https://docs.google.com/spreadsheets/d/1bpbZhL1wh0huFHeEP9XjcPjZy4KGfrWAABveAVmrL5s/edit#gid=0&range=Landing%20Pages)
+- **Page-specific Custom Code** — reliable way to host a landing page
+- **Site-wide Custom Code** — for GTM/analytics (not for content!)
+- **GitHub Raw fetch** — fast 1-call deploy (primary method)
+- **Base64 chunking** via `prepare-chunks.sh` — reliable fallback method
+- **CSS namespace `sklst-`** — fully isolates styles from Webflow
+- **IntersectionObserver** in `<script>` — fade-in animations work correctly
+
+## What Does NOT Work
+
+| Method | Why |
+|--------|-----|
+| `require('fs')` in browser_evaluate | Sandbox does not support Node.js |
+| `import('fs')` dynamic | Blocked in sandbox |
+| Single base64 string >6 KB | Exceeds browser_evaluate limit |
+| Concatenating base64 strings | Padding `=` breaks `atob()` |
+| Site-wide code for landing pages | Affects homepage. **FORBIDDEN!** |
+| Custom HTML tags in GTM for Yandex | Google flags as malware. Use the official Gallery template |
+
+---
+
+## Pre-publish Checklist
+
+- [ ] Landing page works on GitHub Pages (check preview URL)
+- [ ] All classes prefixed with `sklst-`
+- [ ] Links point to `app.skillset.ae/signup`
+- [ ] Slug matches the ad campaign
+- [ ] `git push` completed (for method 1)
+- [ ] CodeMirror mapping: c[0]=empty, c[1]=head, c[2]=body
+- [ ] `<meta name="robots" content="noindex, nofollow">` present in `<head>`
+- [ ] Page is NOT added to sitemap
+- [ ] No links to this page from homepage or navigation
+- [ ] Published to all domains (sklst.ai, www.sklst.ai, skillset.ae, www.skillset.ae)
+- [ ] **Homepage (/) NOT affected** — verify after publishing!
+- [ ] GTM loads on the page (check network requests)
+- [ ] Update status in [Google Sheet — Landing Pages](https://docs.google.com/spreadsheets/d/1bpbZhL1wh0huFHeEP9XjcPjZy4KGfrWAABveAVmrL5s/edit#gid=0&range=Landing%20Pages)
 
 ---
 
 ## GitHub Pages Preview
 
-Все лендинги доступны для превью (для дизайнера и маркетолога):
+All landing pages are available for preview (for designer and marketer):
 
 ```
 https://kobzevvv.github.io/skillset-landing-pages/landings/{slug}/index.html
 ```
 
-Workflow: правки → push → проверка на Pages → деплой на Webflow (метод 1 или 2).
+Workflow: edits → push → check on Pages → deploy to Webflow (method 1 or 2).
 
 ---
 
-## Список лендингов
+## Landing Pages List
 
-| Slug | Кампания | Preview (GitHub Pages) | Production |
+| Slug | Campaign | Preview (GitHub Pages) | Production |
 |------|----------|------------------------|------------|
 | `ai-recruiter` | AI Recruiter (general) | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiter/index.html) | [sklst.ai](https://sklst.ai/ai-recruiter) / [skillset.ae](https://skillset.ae/ai-recruiter) |
 | `ai-recruiting` | US AI Recruiting Core | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/ai-recruiting/index.html) | [sklst.ai](https://sklst.ai/ai-recruiting) / [skillset.ae](https://skillset.ae/ai-recruiting) |
@@ -276,5 +276,5 @@ Workflow: правки → push → проверка на Pages → деплой
 | `job-description` | AI JD Generator | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/job-description/index.html) | [sklst.ai](https://sklst.ai/job-description) / [skillset.ae](https://skillset.ae/job-description) |
 | `diversity` | Bias-Free Hiring (DEI) | [preview](https://kobzevvv.github.io/skillset-landing-pages/landings/diversity/index.html) | [sklst.ai](https://sklst.ai/diversity) / [skillset.ae](https://skillset.ae/diversity) |
 
-> **Полный список с маркетинговыми данными**: [Google Sheet — Landing Pages](https://docs.google.com/spreadsheets/d/1bpbZhL1wh0huFHeEP9XjcPjZy4KGfrWAABveAVmrL5s/edit#gid=0)
+> **Full list with marketing data**: [Google Sheet — Landing Pages](https://docs.google.com/spreadsheets/d/1bpbZhL1wh0huFHeEP9XjcPjZy4KGfrWAABveAVmrL5s/edit#gid=0)
 > **Master List**: [Google Sheet — Master List](https://docs.google.com/spreadsheets/d/1fqmGeGKRG93RNxnXINrhHix8dtOf0z64EIR4I7m03z0/edit)

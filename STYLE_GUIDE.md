@@ -10,7 +10,7 @@
 - **Tagline**: "Your AI hiring copilot"
 - **Meta Description**: "We understand that people make all the difference. Skillset helps companies achieve their business objectives by hiring the best talent to drive success."
 - **App URL**: `https://app.skillset.ae/signup`
-- **Contact**: `hello@skillset.ae`
+- **Contact**: `sales@skillset.ae`
 
 ---
 
@@ -262,7 +262,7 @@ When creating landing pages for ad campaigns:
 
 ### CTA Links
 - Primary signup: `https://app.skillset.ae/signup`
-- Contact: `mailto:hello@skillset.ae`
+- Contact: `mailto:sales@skillset.ae`
 - Main site: `https://skillset.ae`
 
 ### Required Sections (minimum for any landing page)
