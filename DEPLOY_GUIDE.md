@@ -42,7 +42,7 @@ All ad landing pages **MUST** be hidden from search engines:
 1. **`noindex, nofollow`** — every landing page contains `<meta name="robots" content="noindex, nofollow">` in `<head>`. **Do not remove!**
 2. **Sitemap** — do NOT add landing pages to sitemap.xml. Neither Webflow sitemap nor robots.txt
 3. **Homepage** — do NOT link to landing pages from the homepage or site navigation
-4. **Internal links** — landing pages do NOT link to each other (only to skillset.ae, app.skillset.ae, Calendly)
+4. **Internal links** — landing pages do NOT link to each other (only to skillset.ae, platform.skillset.ae, Calendly)
 5. **Single entry point** — via direct URL from ad (Google Ads, Cold Email)
 
 > **Why**: we're experimenting with positioning. We don't yet know which VPs work. Indexing experimental pages hurts the main site's SEO.
@@ -232,7 +232,7 @@ GitHub fetch bypasses all these problems — the browser loads data via HTTP, wi
 
 - [ ] Landing page works on GitHub Pages (check preview URL)
 - [ ] All classes prefixed with `sklst-`
-- [ ] Links point to `app.skillset.ae/signup`
+- [ ] Links point to `platform.skillset.ae/`
 - [ ] Slug matches the ad campaign
 - [ ] `git push` completed (for method 1)
 - [ ] CodeMirror mapping: c[0]=empty, c[1]=head, c[2]=body

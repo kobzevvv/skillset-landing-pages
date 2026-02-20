@@ -9,7 +9,7 @@
 - **Product**: Skillset — AI-powered hiring copilot
 - **Tagline**: "Your AI hiring copilot"
 - **Meta Description**: "We understand that people make all the difference. Skillset helps companies achieve their business objectives by hiring the best talent to drive success."
-- **App URL**: `https://app.skillset.ae/signup`
+- **App URL**: `https://platform.skillset.ae/`
 - **Contact**: `sales@skillset.ae`
 
 ---
@@ -261,7 +261,7 @@ When creating landing pages for ad campaigns:
 - Don't make buttons with sharp corners (minimum `10px` radius)
 
 ### CTA Links
-- Primary signup: `https://app.skillset.ae/signup`
+- Primary signup: `https://platform.skillset.ae/`
 - Contact: `mailto:sales@skillset.ae`
 - Main site: `https://skillset.ae`
 
